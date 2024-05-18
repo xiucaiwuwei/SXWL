@@ -1,0 +1,97 @@
+JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.10" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": "登录界面"
+			"name": "register"
+			"resizable": false
+			"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+			"preferredSize": new java.awt.Dimension( 400, 300 )
+			"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "bq_title"
+				"text": "双雄物流管理系统"
+				"font": new java.awt.Font( "楷体", 1, 24 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 90
+				"y": 45
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "bq_account"
+				"text": "账户："
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"preferredSize": new java.awt.Dimension( 40, 30 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 100
+				"y": 105
+				"height": 20
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "bq_password"
+				"text": "密码："
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"preferredSize": new java.awt.Dimension( 40, 30 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 100
+				"y": 150
+				"height": 20
+			} )
+			add( new FormComponent( "javax.swing.JFormattedTextField" ) {
+				name: "wbk_account"
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"preferredSize": new java.awt.Dimension( 150, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 135
+				"y": 100
+			} )
+			add( new FormComponent( "javax.swing.JPasswordField" ) {
+				name: "wbk_password"
+				"preferredSize": new java.awt.Dimension( 150, 30 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 135
+				"y": 145
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "limitation"
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"preferredSize": new java.awt.Dimension( 80, 25 )
+				"actionCommand": "权限"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "limitation", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 305
+				"y": 0
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "al_publish"
+				"text": "登录"
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"preferredSize": new java.awt.Dimension( 75, 30 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_publish", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 205
+				"y": 195
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "al_register"
+				"text": "注册"
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"preferredSize": new java.awt.Dimension( 75, 30 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 105
+				"y": 195
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 35, 15 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

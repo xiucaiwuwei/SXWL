@@ -1,0 +1,35 @@
+JFDML JFormDesigner: "8.2.3.0.386" Java: "17.0.10" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"title": "双雄物流"
+			"name": "administrators"
+			"preferredSize": new java.awt.Dimension( 1000, 600 )
+			"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+			"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "actionbar"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "setup"
+					"text": "设置"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "bg_passwork"
+						"text": "修改密码"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bg_passwork", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "bg_exit"
+						"text": "退出系统"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "bg_exit", true ) )
+					} )
+				} )
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 1000, 600 )
+		} )
+	}
+}
