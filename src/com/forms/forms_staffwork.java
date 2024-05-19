@@ -26,16 +26,19 @@ public class forms_staffwork extends JFrame {
         menuItem1 = new JMenuItem();
         menuItem2 = new JMenuItem();
         menuItem3 = new JMenuItem();
-        button2 = new JButton();
-        comboBox1 = new JComboBox();
-        textField1 = new JTextField();
-        label1 = new JLabel();
-        button5 = new JButton();
+        al_exit = new JButton();
+        scrollPane1 = new JScrollPane();
+        table1 = new JTable();
+        typesof = new JComboBox();
+        wbk_search = new JTextField();
+        bq_sort = new JLabel();
+        al_search = new JButton();
         button6 = new JButton();
         button7 = new JButton();
-        panel1 = new JPanel();
-        radioButton1 = new JRadioButton();
-        radioButton2 = new JRadioButton();
+        rq_sort = new JPanel();
+        dx_rise = new JRadioButton();
+        dx_fall = new JRadioButton();
+        button1 = new JButton();
 
         //======== this ========
         setResizable(false);
@@ -66,10 +69,10 @@ public class forms_staffwork extends JFrame {
         }
         setJMenuBar(menuBar1);
 
-        //---- button2 ----
-        button2.setText("\u9000\u51fa");
-        contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(868, 515), button2.getPreferredSize()));
+        //---- al_exit ----
+        al_exit.setText("\u9000\u51fa");
+        contentPane.add(al_exit);
+        al_exit.setBounds(new Rectangle(new Point(868, 515), al_exit.getPreferredSize()));
 
         //======== scrollPane1 ========
         {
@@ -78,62 +81,67 @@ public class forms_staffwork extends JFrame {
         }
         contentPane.add(scrollPane1);
         scrollPane1.setBounds(45, 10, 900, 475);
-        contentPane.add(comboBox1);
-        comboBox1.setBounds(new Rectangle(new Point(75, 515), comboBox1.getPreferredSize()));
-        contentPane.add(textField1);
-        textField1.setBounds(395, 515, 200, textField1.getPreferredSize().height);
+        contentPane.add(typesof);
+        typesof.setBounds(new Rectangle(new Point(85, 515), typesof.getPreferredSize()));
+        contentPane.add(wbk_search);
+        wbk_search.setBounds(280, 515, 200, wbk_search.getPreferredSize().height);
 
-        //---- label1 ----
-        label1.setText("text");
-        contentPane.add(label1);
-        label1.setBounds(new Rectangle(new Point(50, 519), label1.getPreferredSize()));
+        //---- bq_sort ----
+        bq_sort.setText("\u6392\u5e8f");
+        contentPane.add(bq_sort);
+        bq_sort.setBounds(new Rectangle(new Point(50, 519), bq_sort.getPreferredSize()));
 
-        //---- button5 ----
-        button5.setText("text");
-        contentPane.add(button5);
-        button5.setBounds(new Rectangle(new Point(610, 515), button5.getPreferredSize()));
+        //---- al_search ----
+        al_search.setText("\u67e5\u8be2");
+        contentPane.add(al_search);
+        al_search.setBounds(new Rectangle(new Point(490, 515), al_search.getPreferredSize()));
 
         //---- button6 ----
-        button6.setText("text");
+        button6.setText("\u4fee\u6539");
         contentPane.add(button6);
         button6.setBounds(new Rectangle(new Point(696, 515), button6.getPreferredSize()));
 
         //---- button7 ----
-        button7.setText("text");
+        button7.setText("\u4fdd\u5b58");
         contentPane.add(button7);
         button7.setBounds(new Rectangle(new Point(782, 515), button7.getPreferredSize()));
 
-        //======== panel1 ========
+        //======== rq_sort ========
         {
-            panel1.setLayout(null);
+            rq_sort.setLayout(null);
 
-            //---- radioButton1 ----
-            radioButton1.setText("text");
-            panel1.add(radioButton1);
-            radioButton1.setBounds(new Rectangle(new Point(55, 0), radioButton1.getPreferredSize()));
+            //---- dx_rise ----
+            dx_rise.setText("\u5347\u5e8f");
+            rq_sort.add(dx_rise);
+            dx_rise.setBounds(new Rectangle(new Point(5, 0), dx_rise.getPreferredSize()));
 
-            //---- radioButton2 ----
-            radioButton2.setText("text");
-            panel1.add(radioButton2);
-            radioButton2.setBounds(new Rectangle(new Point(0, 0), radioButton2.getPreferredSize()));
+            //---- dx_fall ----
+            dx_fall.setText("\u964d\u5e8f");
+            rq_sort.add(dx_fall);
+            dx_fall.setBounds(new Rectangle(new Point(60, 0), dx_fall.getPreferredSize()));
 
             {
                 // compute preferred size
                 Dimension preferredSize = new Dimension();
-                for(int i = 0; i < panel1.getComponentCount(); i++) {
-                    Rectangle bounds = panel1.getComponent(i).getBounds();
+                for(int i = 0; i < rq_sort.getComponentCount(); i++) {
+                    Rectangle bounds = rq_sort.getComponent(i).getBounds();
                     preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
                     preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
                 }
-                Insets insets = panel1.getInsets();
+                Insets insets = rq_sort.getInsets();
                 preferredSize.width += insets.right;
                 preferredSize.height += insets.bottom;
-                panel1.setMinimumSize(preferredSize);
-                panel1.setPreferredSize(preferredSize);
+                rq_sort.setMinimumSize(preferredSize);
+                rq_sort.setPreferredSize(preferredSize);
             }
         }
-        contentPane.add(panel1);
-        panel1.setBounds(160, 517, 115, panel1.getPreferredSize().height);
+        contentPane.add(rq_sort);
+        rq_sort.setBounds(160, 517, 115, rq_sort.getPreferredSize().height);
+
+        //---- button1 ----
+        button1.setText("\u5220\u9664");
+        contentPane.add(button1);
+        button1.setBounds(new Rectangle(new Point(610, 515), button1.getPreferredSize()));
 
         {
             // compute preferred size
@@ -162,17 +170,18 @@ public class forms_staffwork extends JFrame {
     private JMenuItem menuItem1;
     private JMenuItem menuItem2;
     private JMenuItem menuItem3;
-    private JButton button2;
+    private JButton al_exit;
     private JScrollPane scrollPane1;
     private JTable table1;
-    private JComboBox comboBox1;
-    private JTextField textField1;
-    private JLabel label1;
-    private JButton button5;
+    private JComboBox typesof;
+    private JTextField wbk_search;
+    private JLabel bq_sort;
+    private JButton al_search;
     private JButton button6;
     private JButton button7;
-    private JPanel panel1;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
+    private JPanel rq_sort;
+    private JRadioButton dx_rise;
+    private JRadioButton dx_fall;
+    private JButton button1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

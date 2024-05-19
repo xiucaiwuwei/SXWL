@@ -6,7 +6,7 @@ public class Main {
         linksql.setURL("jdbc:mysql://localhost:3306/sxdate");
         linksql.setUsername("root");
         linksql.setPassword("123456");
-        inspection.closetemp();
+        //inspection.closetemp();
     }
     public static void main(String[] args) {
 //        forms_register register = new forms_register();
@@ -17,9 +17,12 @@ public class Main {
 
 //        forms_staff staff = new forms_staff();
 //        staff.setVisible(true);
+//
+//        forms_staffwork staffwork = new forms_staffwork();
+//        staffwork.setVisible(true);
 
-        forms_staffwork staffwork = new forms_staffwork();
-        staffwork.setVisible(true);
+        forms_custom custom = new forms_custom();
+        custom.setVisible(true);
     }
 
 }

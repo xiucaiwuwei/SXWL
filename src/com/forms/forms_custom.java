@@ -5,7 +5,14 @@
 package com.forms;
 
 import java.awt.*;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
 import javax.swing.*;
+import com.database.*;
 
 /**
  * @author Administrator
@@ -13,6 +20,45 @@ import javax.swing.*;
 public class forms_custom extends JFrame {
     public forms_custom() {
         initComponents();
+    }
+
+    private void al_modify(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        wbk_name2.setEnabled(true);
+        wbk_phone.setEnabled(true);
+        wbk_address.setEnabled(true);
+        wbk_notes.setEnabled(true);
+        dx_collectpayment.setEnabled(true);
+        dx_payasyougo.setEnabled(true);
+    }
+
+    private void al_exit(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        System.exit(0);
+    }
+
+    private void al_next(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        if(n>=datas.size()-1){
+            JOptionPane.showMessageDialog(null, "没有下一件订单！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+        }else {
+            n++;
+           assignment();
+        }
+    }
+
+    private void al_previous(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        if(n<=0){
+            JOptionPane.showMessageDialog(null, "已经到首件！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+        }else {
+            n--;
+            assignment();
+        }
     }
 
     private void initComponents() {
@@ -29,6 +75,7 @@ public class forms_custom extends JFrame {
         al_delete = new JButton();
         al_exit = new JButton();
         al_modify = new JButton();
+        al_save = new JButton();
         al_modifymy = new JButton();
         rq_mainbody = new JPanel();
         rq_photo = new JPanel();
@@ -45,7 +92,6 @@ public class forms_custom extends JFrame {
         bq_deliverytime = new JLabel();
         wbk_deliverytime = new JTextField();
         bq_address = new JLabel();
-        wbk_address = new JTextField();
         bq_notes = new JLabel();
         rq_notes = new JScrollPane();
         wbk_notes = new JTextArea();
@@ -53,6 +99,9 @@ public class forms_custom extends JFrame {
         rq_paymentmethod = new JPanel();
         dx_payasyougo = new JRadioButton();
         dx_collectpayment = new JRadioButton();
+        bq_name2 = new JLabel();
+        wbk_name2 = new JTextField();
+        wbk_address = new JTextField();
 
         //======== this ========
         setTitle("\u53cc\u96c4\u7269\u6d41");
@@ -106,6 +155,7 @@ public class forms_custom extends JFrame {
         al_previous.setMaximumSize(null);
         al_previous.setMinimumSize(null);
         al_previous.setPreferredSize(new Dimension(75, 25));
+        al_previous.addActionListener(e -> al_previous(e));
         contentPane.add(al_previous);
         al_previous.setBounds(new Rectangle(new Point(495, 410), al_previous.getPreferredSize()));
 
@@ -114,6 +164,7 @@ public class forms_custom extends JFrame {
         al_next.setMaximumSize(null);
         al_next.setMinimumSize(null);
         al_next.setPreferredSize(new Dimension(75, 25));
+        al_next.addActionListener(e -> al_next(e));
         contentPane.add(al_next);
         al_next.setBounds(new Rectangle(new Point(580, 410), al_next.getPreferredSize()));
 
@@ -130,6 +181,7 @@ public class forms_custom extends JFrame {
         al_exit.setMaximumSize(null);
         al_exit.setMinimumSize(null);
         al_exit.setPreferredSize(new Dimension(75, 25));
+        al_exit.addActionListener(e -> al_exit(e));
         contentPane.add(al_exit);
         al_exit.setBounds(new Rectangle(new Point(665, 410), al_exit.getPreferredSize()));
 
@@ -138,8 +190,17 @@ public class forms_custom extends JFrame {
         al_modify.setMaximumSize(null);
         al_modify.setMinimumSize(null);
         al_modify.setPreferredSize(new Dimension(75, 25));
+        al_modify.addActionListener(e -> al_modify(e));
         contentPane.add(al_modify);
-        al_modify.setBounds(new Rectangle(new Point(410, 410), al_modify.getPreferredSize()));
+        al_modify.setBounds(new Rectangle(new Point(325, 410), al_modify.getPreferredSize()));
+
+        //---- al_save ----
+        al_save.setText("\u4fdd\u5b58");
+        al_save.setMaximumSize(null);
+        al_save.setMinimumSize(null);
+        al_save.setPreferredSize(new Dimension(75, 25));
+        contentPane.add(al_save);
+        al_save.setBounds(410, 410, 75, 25);
 
         //---- al_modifymy ----
         al_modifymy.setText("\u4fee\u6539\u4e2a\u4eba\u4fe1\u606f");
@@ -187,6 +248,7 @@ public class forms_custom extends JFrame {
 
             //---- wbk_id ----
             wbk_id.setPreferredSize(new Dimension(80, 30));
+            wbk_id.setEnabled(false);
             rq_mainbody.add(wbk_id);
             wbk_id.setBounds(86, 25, 400, wbk_id.getPreferredSize().height);
 
@@ -195,6 +257,9 @@ public class forms_custom extends JFrame {
             bq_name.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_name);
             bq_name.setBounds(new Rectangle(new Point(50, 74), bq_name.getPreferredSize()));
+
+            //---- wbk_name ----
+            wbk_name.setEnabled(false);
             rq_mainbody.add(wbk_name);
             wbk_name.setBounds(85, 70, 150, wbk_name.getPreferredSize().height);
 
@@ -205,6 +270,7 @@ public class forms_custom extends JFrame {
 
             //---- wbk_number ----
             wbk_number.setMinimumSize(new Dimension(150, 25));
+            wbk_number.setEnabled(false);
             rq_mainbody.add(wbk_number);
             wbk_number.setBounds(340, 70, 146, wbk_number.getPreferredSize().height);
 
@@ -212,15 +278,21 @@ public class forms_custom extends JFrame {
             bq_phone.setText("\u8054\u7cfb\u7535\u8bdd");
             bq_phone.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_phone);
-            bq_phone.setBounds(new Rectangle(new Point(25, 112), bq_phone.getPreferredSize()));
+            bq_phone.setBounds(new Rectangle(new Point(280, 115), bq_phone.getPreferredSize()));
+
+            //---- wbk_phone ----
+            wbk_phone.setEnabled(false);
             rq_mainbody.add(wbk_phone);
-            wbk_phone.setBounds(85, 108, 150, wbk_phone.getPreferredSize().height);
+            wbk_phone.setBounds(340, 110, 145, wbk_phone.getPreferredSize().height);
 
             //---- bq_paymenttime ----
             bq_paymenttime.setText("\u4ed8\u6b3e\u65f6\u95f4");
             bq_paymenttime.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_paymenttime);
             bq_paymenttime.setBounds(new Rectangle(new Point(25, 150), bq_paymenttime.getPreferredSize()));
+
+            //---- wbk_paymenttime ----
+            wbk_paymenttime.setEnabled(false);
             rq_mainbody.add(wbk_paymenttime);
             wbk_paymenttime.setBounds(86, 146, 150, wbk_paymenttime.getPreferredSize().height);
 
@@ -228,6 +300,9 @@ public class forms_custom extends JFrame {
             bq_deliverytime.setText("\u53d1\u8d27\u65f6\u95f4");
             rq_mainbody.add(bq_deliverytime);
             bq_deliverytime.setBounds(new Rectangle(new Point(280, 150), bq_deliverytime.getPreferredSize()));
+
+            //---- wbk_deliverytime ----
+            wbk_deliverytime.setEnabled(false);
             rq_mainbody.add(wbk_deliverytime);
             wbk_deliverytime.setBounds(340, 146, 146, wbk_deliverytime.getPreferredSize().height);
 
@@ -236,8 +311,6 @@ public class forms_custom extends JFrame {
             bq_address.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_address);
             bq_address.setBounds(18, 190, 55, bq_address.getPreferredSize().height);
-            rq_mainbody.add(wbk_address);
-            wbk_address.setBounds(86, 186, 400, wbk_address.getPreferredSize().height);
 
             //---- bq_notes ----
             bq_notes.setText("\u5907\u6ce8");
@@ -247,6 +320,9 @@ public class forms_custom extends JFrame {
 
             //======== rq_notes ========
             {
+
+                //---- wbk_notes ----
+                wbk_notes.setEnabled(false);
                 rq_notes.setViewportView(wbk_notes);
             }
             rq_mainbody.add(rq_notes);
@@ -263,11 +339,13 @@ public class forms_custom extends JFrame {
 
                 //---- dx_payasyougo ----
                 dx_payasyougo.setText("\u73b0\u4ed8");
+                dx_payasyougo.setEnabled(false);
                 rq_paymentmethod.add(dx_payasyougo);
                 dx_payasyougo.setBounds(5, 0, 50, 20);
 
                 //---- dx_collectpayment ----
                 dx_collectpayment.setText("\u5230\u4ed8");
+                dx_collectpayment.setEnabled(false);
                 rq_paymentmethod.add(dx_collectpayment);
                 dx_collectpayment.setBounds(70, 0, 50, 20);
 
@@ -288,6 +366,23 @@ public class forms_custom extends JFrame {
             }
             rq_mainbody.add(rq_paymentmethod);
             rq_paymentmethod.setBounds(530, 280, 120, rq_paymentmethod.getPreferredSize().height);
+
+            //---- bq_name2 ----
+            bq_name2.setText("\u6536\u8d27\u4eba\u59d3\u540d");
+            bq_name2.setHorizontalAlignment(SwingConstants.RIGHT);
+            rq_mainbody.add(bq_name2);
+            bq_name2.setBounds(0, 115, 74, 17);
+
+            //---- wbk_name2 ----
+            wbk_name2.setEnabled(false);
+            rq_mainbody.add(wbk_name2);
+            wbk_name2.setBounds(85, 110, 150, 25);
+
+            //---- wbk_address ----
+            wbk_address.setPreferredSize(new Dimension(80, 30));
+            wbk_address.setEnabled(false);
+            rq_mainbody.add(wbk_address);
+            wbk_address.setBounds(85, 185, 400, 30);
 
             {
                 // compute preferred size
@@ -324,9 +419,56 @@ public class forms_custom extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-
+        String sql1 ="select account from temporary";
+        String sql2 ="select * from goods where custom=?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement;
+        ResultSet resultSet;
+        try {
+            statement = connection.prepareStatement(sql1);
+            resultSet = statement.executeQuery();
+            resultSet.next();
+            account = resultSet.getString(1);
+            statement =connection.prepareStatement(sql2);
+            statement.setString(1,account);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                if(resultSet.getString(1).isEmpty()){
+                    JOptionPane.showMessageDialog(null, "没有订单，请退出！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+                }else {
+                    Vector<Object> data=new Vector<Object>();
+                    for (int j=0;j<columns;j++){
+                        data.add( resultSet.getString(j + 1));
+                    }
+                    datas.add(data);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        linksql.closesql(connection,statement,resultSet);
+        assignment();
+        group.add(dx_collectpayment);
+        group.add(dx_payasyougo);
     }
-
+    private void assignment(){
+        wbk_id.setText(String.valueOf(datas.get(n).get(0)));
+        wbk_name.setText(String.valueOf(datas.get(n).get(1)));
+        wbk_number.setText(String.valueOf(datas.get(n).get(2)));
+        wbk_address.setText(String.valueOf(datas.get(n).get(4)));
+        wbk_paymenttime.setText(String.valueOf(datas.get(n).get(5)));
+        wbk_deliverytime.setText(String.valueOf(datas.get(n).get(6)));
+        wbk_notes.setText(String.valueOf(datas.get(n).get(7)));
+        wbk_name2.setText(String.valueOf(datas.get(n).get(10)));
+        wbk_phone.setText(String.valueOf(datas.get(n).get(11)));
+        if(Boolean.parseBoolean(String.valueOf(datas.get(n).get(9)))){
+            dx_payasyougo.setSelected(true);
+            dx_collectpayment.setSelected(false);
+        }else {
+            dx_payasyougo.setSelected(false);
+            dx_collectpayment.setSelected(true);
+        }
+    }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JMenuBar menuBar1;
     private JPanel hSpacer1;
@@ -339,6 +481,7 @@ public class forms_custom extends JFrame {
     private JButton al_delete;
     private JButton al_exit;
     private JButton al_modify;
+    private JButton al_save;
     private JButton al_modifymy;
     private JPanel rq_mainbody;
     private JPanel rq_photo;
@@ -355,7 +498,6 @@ public class forms_custom extends JFrame {
     private JLabel bq_deliverytime;
     private JTextField wbk_deliverytime;
     private JLabel bq_address;
-    private JTextField wbk_address;
     private JLabel bq_notes;
     private JScrollPane rq_notes;
     private JTextArea wbk_notes;
@@ -363,5 +505,14 @@ public class forms_custom extends JFrame {
     private JPanel rq_paymentmethod;
     private JRadioButton dx_payasyougo;
     private JRadioButton dx_collectpayment;
+    private JLabel bq_name2;
+    private JTextField wbk_name2;
+    private JTextField wbk_address;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    private String account;
+    private ButtonGroup group =new ButtonGroup();
+    private static Vector<Vector<Object>> datas=new Vector<Vector<Object>>();
+    private int columns=12;
+    private int n =0;
+
 }

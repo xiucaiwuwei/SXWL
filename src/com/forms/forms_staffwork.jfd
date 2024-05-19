@@ -8,7 +8,7 @@ new FormModel {
 			"resizable": false
 			"preferredSize": new java.awt.Dimension( 1000, 640 )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "al_exit"
 				"text": "退出"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 868
@@ -27,66 +27,73 @@ new FormModel {
 				"height": 475
 			} )
 			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "comboBox1"
+				name: "typesof"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 75
+				"x": 85
 				"y": 515
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField1"
+				name: "wbk_search"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 395
+				"x": 280
 				"y": 515
 				"width": 200
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label1"
-				"text": "text"
+				name: "bq_sort"
+				"text": "排序"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 50
 				"y": 519
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button5"
-				"text": "text"
+				name: "al_search"
+				"text": "查询"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 610
+				"x": 490
 				"y": 515
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button6"
-				"text": "text"
+				"text": "修改"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 696
 				"y": 515
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "button7"
-				"text": "text"
+				"text": "保存"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 782
 				"y": 515
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
-				name: "panel1"
+				name: "rq_sort"
 				add( new FormComponent( "javax.swing.JRadioButton" ) {
-					name: "radioButton1"
-					"text": "text"
+					name: "dx_rise"
+					"text": "升序"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 55
+					"x": 5
 					"y": 0
 				} )
 				add( new FormComponent( "javax.swing.JRadioButton" ) {
-					name: "radioButton2"
-					"text": "text"
+					name: "dx_fall"
+					"text": "降序"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 0
+					"x": 60
 					"y": 0
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 160
 				"y": 517
 				"width": 115
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "button1"
+				"text": "删除"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 610
+				"y": 515
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
