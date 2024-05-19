@@ -6,14 +6,12 @@ package com.forms;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.swing.*;
 import com.database.*;
 /**
  * @author Administrator
  */
+@SuppressWarnings("rawtypes")
 public class forms_register extends JFrame {
     public forms_register() {
         initComponents();
@@ -32,21 +30,30 @@ public class forms_register extends JFrame {
         } else if (account.isEmpty()) {
             JOptionPane.showMessageDialog(null, "用户名不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
         }else {
-            if (select == 2) {
-                String sql1 = "select account,password from administrators";
-                if (inspection.validate(sql1, account, password)) {
-                    String sql2 = "insert into temporary(account, password) VALUE (?,?)";
-                    Connection connection = linksql.getconnection();
-                    PreparedStatement statement = null;
-                    try {
-                        statement = connection.prepareStatement(sql2);
-                        statement.setString(1,account);
-                        statement.setString(2,password);
-                        statement.executeUpdate();
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    linksql.closesql(connection,statement,null);
+            if(select==0){
+                String sql = "select account,password from custom";
+                if(inspection.validate(sql,account,password)){
+                    inspection.valitemp(account,password);
+                    this.setVisible(false);
+                    forms_custom custom = new forms_custom();
+                    custom.setVisible(true);
+                }else {
+                    JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+                }
+            }else if(select==1){
+                String sql = "select account,password from staff";
+                if(inspection.validate(sql,account,password)){
+                    inspection.valitemp(account,password);
+                    this.setVisible(false);
+                    forms_staff staff = new forms_staff();
+                    staff.setVisible(true);
+                }else {
+                    JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+                }
+            }else {
+                String sql = "select account,password from administrators";
+                if (inspection.validate(sql, account, password)) {
+                    inspection.valitemp(account,password);
                     this.setVisible(false);
                     forms_administrators administrators = new forms_administrators();
                     administrators.setVisible(true);
@@ -61,11 +68,7 @@ public class forms_register extends JFrame {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         int select = limitation.getSelectedIndex();
-        if (select == 0) {
-            al_register.setEnabled(true);
-        }else {
-            al_register.setEnabled(false);
-        }
+        al_register.setEnabled(select == 0);
     }
 
     private void initComponents() {
@@ -75,6 +78,7 @@ public class forms_register extends JFrame {
         bq_password = new JLabel();
         wbk_account = new JFormattedTextField();
         wbk_password = new JPasswordField();
+        //noinspection rawtypes
         limitation = new JComboBox();
         al_publish = new JButton();
         al_register = new JButton();
@@ -181,13 +185,5 @@ public class forms_register extends JFrame {
     private JComboBox limitation;
     private JButton al_publish;
     private JButton al_register;
-
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private static String account;
-    private static String password;
-    public static String getAccount() {
-        return account;
-    }public static String getPassword() {
-        return password;
-    }
 }

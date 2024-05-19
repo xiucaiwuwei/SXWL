@@ -15,11 +15,11 @@ public class Main {
 //        forms_administrators administrators = new forms_administrators();
 //        administrators.setVisible(true);
 
-//        forms_modify modify = new forms_modify();
-//        modify.setVisible(true);
+//        forms_staff staff = new forms_staff();
+//        staff.setVisible(true);
 
-        forms_staff staff = new forms_staff();
-        staff.setVisible(true);
+        forms_staffwork staffwork = new forms_staffwork();
+        staffwork.setVisible(true);
     }
 
 }

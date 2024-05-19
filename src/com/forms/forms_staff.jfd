@@ -9,137 +9,136 @@ new FormModel {
 			"resizable": false
 			"title": "个人界面"
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label1"
+				name: "bq_id"
 				"text": "工号"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 50
-				"y": 99
+				"y": 85
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField1"
+				name: "wbk_id"
+				"enabled": false
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 80
-				"y": 95
+				"y": 80
 				"width": 100
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label2"
+				name: "bq_name"
 				"text": "姓名"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 50
-				"y": 134
+				"y": 120
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField2"
+				name: "wbk_name"
+				"enabled": false
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 80
-				"y": 194
-				"width": 100
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField3"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 80
-				"y": 128
+				"y": 115
 				"width": 100
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label4"
-				"text": "年龄"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 50
-				"y": 199
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label5"
+				name: "bq_gender"
 				"text": "性别"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 50
-				"y": 164
+				"y": 150
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField4"
+				name: "wbk_gender"
+				"enabled": false
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 80
-				"y": 227
+				"y": 145
 				"width": 100
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label6"
+				name: "bq_age"
+				"text": "年龄"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 50
+				"y": 185
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "wbk_age"
+				"enabled": false
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 80
+				"y": 180
+				"width": 100
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "bq_phone"
 				"text": "电话"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 50
-				"y": 229
+				"y": 215
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField5"
+				name: "wbk_phone"
+				"enabled": false
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 80
-				"y": 161
+				"y": 210
 				"width": 100
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label7"
+				name: "bq_position"
 				"text": "职位"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 50
-				"y": 264
+				"y": 250
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField6"
+				name: "wbk_position"
+				"enabled": false
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 80
-				"y": 260
+				"y": 245
 				"width": 100
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label8"
+				name: "bq_data"
 				"text": "入职日期"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 25
-				"y": 299
+				"y": 285
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField7"
+				name: "wbk_data"
+				"enabled": false
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 80
-				"y": 293
+				"y": 280
 				"width": 100
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "al_query"
 				"text": "查询工资"
 				"preferredSize": new java.awt.Dimension( 120, 25 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 205
-				"y": 260
+				"y": 245
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "al_print"
 				"text": "打印工资条"
 				"preferredSize": new java.awt.Dimension( 120, 25 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 205
-				"y": 295
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button3"
-				"text": "返回"
-				"preferredSize": new java.awt.Dimension( 60, 25 )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 300
-				"y": 5
+				"y": 280
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "label9"
+				name: "bq_title"
 				"text": "员工信息"
 				"font": new java.awt.Font( "黑体", 1, 28 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 130
-				"y": 35
+				"y": 20
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
-				name: "panel1"
+				name: "rq_photo"
 				"preferredSize": new java.awt.Dimension( 120, 150 )
 				"background": new java.awt.Color( 153, 153, 153, 255 )
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
@@ -156,10 +155,36 @@ new FormModel {
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 205
-				"y": 95
+				"y": 80
 			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
+					name: "hSpacer1"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "al_modify"
+					"text": "更改电话"
+					"preferredSize": new java.awt.Dimension( 100, 25 )
+					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_modify", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "al_save"
+					"text": "保存"
+					"preferredSize": &Dimension0 new java.awt.Dimension( 60, 25 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_save", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "al_return"
+					"text": "返回"
+					"preferredSize": #Dimension0
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_return", true ) )
+				} )
+			}
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 150, 70 )
+			"location": new java.awt.Point( 205, 65 )
 			"size": new java.awt.Dimension( 380, 400 )
 		} )
 	}

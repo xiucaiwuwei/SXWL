@@ -25,10 +25,24 @@ public class inspection {
             throw new RuntimeException(e);
         }
     }
+    public static void valitemp(String account, String password){
+        String sql = "insert into temporary(account, password) VALUE (?,?)";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,account);
+            statement.setString(2,password);
+            statement.executeUpdate();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        linksql.closesql(connection,statement,null);
+    }
     public static void closetemp(){
         String sql = "truncate temporary";
         Connection connection = linksql.getconnection();
-        PreparedStatement statement = null;
+        PreparedStatement statement;
         try {
             statement = connection.prepareStatement(sql);
             statement.executeUpdate();
