@@ -62,7 +62,7 @@ public class forms_modify extends JFrame {
                     String sql1 = "update administrators set password = ? where account = ?";
                     String sql2 = "update temporary set password = ? where account = ?";
                     Connection connection = linksql.getconnection();
-                    PreparedStatement statement = null;
+                    PreparedStatement statement;
                     try {
                         statement = connection.prepareStatement(sql1);
                         statement.setString(1, password);
