@@ -14,6 +14,8 @@ import java.util.Vector;
 import javax.swing.*;
 import com.database.*;
 
+import static java.lang.Integer.*;
+
 /**
  * @author Administrator
  */
@@ -21,7 +23,24 @@ public class forms_custom extends JFrame {
     public forms_custom() {
         initComponents();
     }
-
+    private void assignment(){
+        wbk_id.setText(String.valueOf(datas.get(n).get(0)));
+        wbk_name.setText(String.valueOf(datas.get(n).get(1)));
+        wbk_number.setText(String.valueOf(datas.get(n).get(2)));
+        wbk_address.setText(String.valueOf(datas.get(n).get(4)));
+        wbk_paymenttime.setText(String.valueOf(datas.get(n).get(5)));
+        wbk_deliverytime.setText(String.valueOf(datas.get(n).get(6)));
+        wbk_notes.setText(String.valueOf(datas.get(n).get(7)));
+        wbk_name2.setText(String.valueOf(datas.get(n).get(10)));
+        wbk_phone.setText(String.valueOf(datas.get(n).get(11)));
+        if(Boolean.parseBoolean(String.valueOf(datas.get(n).get(9)))){
+            dx_payasyougo.setSelected(true);
+            dx_collectpayment.setSelected(false);
+        }else {
+            dx_payasyougo.setSelected(false);
+            dx_collectpayment.setSelected(true);
+        }
+    }
     private void al_modify(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
@@ -58,6 +77,49 @@ public class forms_custom extends JFrame {
         }else {
             n--;
             assignment();
+        }
+    }
+
+    private void al_save(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        wbk_name2.setEnabled(false);
+        wbk_phone.setEnabled(false);
+        wbk_address.setEnabled(false);
+        wbk_notes.setEnabled(false);
+        dx_collectpayment.setEnabled(false);
+        dx_payasyougo.setEnabled(false);
+        Vector<Object> data = new Vector<>(datas.get(n));
+        data.set(10,wbk_name2.getText());
+        data.set(11, wbk_phone.getText());
+        data.set(4,wbk_address.getText());
+        data.set(7,wbk_notes.getText());
+        if(dx_payasyougo.isSelected()){
+            data.set(9,0);
+        }else {
+            data.set(9,1);
+        }
+        datas.set(n,data);
+        String sql = "update goods set putawayname =?,phone=?,address=?,notes=?,way=? where id=?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement =null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,wbk_name2.getText());
+            statement.setString(2,wbk_phone.getText());
+            statement.setString(3,wbk_address.getText());
+            statement.setString(4,wbk_notes.getText());
+            if(dx_payasyougo.getInheritsPopupMenu()){
+                statement.setInt(5,0);
+            }else {
+                statement.setInt(5,1);
+            }
+            statement.setString(6,wbk_id.getText());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally {
+            linksql.closesql(connection,statement,null);
         }
     }
 
@@ -199,6 +261,7 @@ public class forms_custom extends JFrame {
         al_save.setMaximumSize(null);
         al_save.setMinimumSize(null);
         al_save.setPreferredSize(new Dimension(75, 25));
+        al_save.addActionListener(e -> al_save(e));
         contentPane.add(al_save);
         al_save.setBounds(410, 410, 75, 25);
 
@@ -422,8 +485,8 @@ public class forms_custom extends JFrame {
         String sql1 ="select account from temporary";
         String sql2 ="select * from goods where custom=?";
         Connection connection = linksql.getconnection();
-        PreparedStatement statement;
-        ResultSet resultSet;
+        PreparedStatement statement=null;
+        ResultSet resultSet=null;
         try {
             statement = connection.prepareStatement(sql1);
             resultSet = statement.executeQuery();
@@ -445,30 +508,14 @@ public class forms_custom extends JFrame {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            linksql.closesql(connection,statement,resultSet);
         }
-        linksql.closesql(connection,statement,resultSet);
         assignment();
         group.add(dx_collectpayment);
         group.add(dx_payasyougo);
     }
-    private void assignment(){
-        wbk_id.setText(String.valueOf(datas.get(n).get(0)));
-        wbk_name.setText(String.valueOf(datas.get(n).get(1)));
-        wbk_number.setText(String.valueOf(datas.get(n).get(2)));
-        wbk_address.setText(String.valueOf(datas.get(n).get(4)));
-        wbk_paymenttime.setText(String.valueOf(datas.get(n).get(5)));
-        wbk_deliverytime.setText(String.valueOf(datas.get(n).get(6)));
-        wbk_notes.setText(String.valueOf(datas.get(n).get(7)));
-        wbk_name2.setText(String.valueOf(datas.get(n).get(10)));
-        wbk_phone.setText(String.valueOf(datas.get(n).get(11)));
-        if(Boolean.parseBoolean(String.valueOf(datas.get(n).get(9)))){
-            dx_payasyougo.setSelected(true);
-            dx_collectpayment.setSelected(false);
-        }else {
-            dx_payasyougo.setSelected(false);
-            dx_collectpayment.setSelected(true);
-        }
-    }
+
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JMenuBar menuBar1;
     private JPanel hSpacer1;
