@@ -31,8 +31,7 @@ public class forms_register extends JFrame {
             JOptionPane.showMessageDialog(null, "用户名不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
         }else {
             if(select==0){
-                String sql = "select account,password from custom";
-                if(inspection.validate(sql,account,password)){
+                if(inspection.validate("custom",account,password)){
                     inspection.valitemp(account,password);
                     this.setVisible(false);
                     forms_custom custom = new forms_custom();
@@ -41,8 +40,7 @@ public class forms_register extends JFrame {
                     JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
                 }
             }else if(select==1){
-                String sql = "select account,password from staff";
-                if(inspection.validate(sql,account,password)){
+                if(inspection.validate("staff",account,password)){
                     inspection.valitemp(account,password);
                     this.setVisible(false);
                     forms_staff staff = new forms_staff();
@@ -51,8 +49,7 @@ public class forms_register extends JFrame {
                     JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
                 }
             }else {
-                String sql = "select account,password from administrators";
-                if (inspection.validate(sql, account, password)) {
+                if (inspection.validate("administrators", account, password)) {
                     inspection.valitemp(account,password);
                     this.setVisible(false);
                     forms_administrators administrators = new forms_administrators();
