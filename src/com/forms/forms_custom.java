@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
+
 import com.database.*;
 
 import static java.lang.Integer.*;
@@ -39,18 +40,16 @@ public class forms_custom extends JFrame {
             boolean isPayAsYouGo = (Boolean) paymentTypeObj;
             dx_payasyougo.setSelected(isPayAsYouGo);
             dx_collectpayment.setSelected(!isPayAsYouGo);
-        }
-        else if (paymentTypeObj instanceof String) {
+        } else if (paymentTypeObj instanceof String) {
             String paymentTypeString = (String) paymentTypeObj;
             boolean isPayAsYouGo = Boolean.parseBoolean(paymentTypeString);
-            group.setSelected(dx_payasyougo.getModel(),false);
-            group.setSelected(dx_collectpayment.getModel(),true);
+            group.setSelected(dx_payasyougo.getModel(), false);
+            group.setSelected(dx_collectpayment.getModel(), true);
             dx_payasyougo.setSelected(isPayAsYouGo);
             dx_collectpayment.setSelected(!isPayAsYouGo);
-        }
-        else {
-            group.setSelected(dx_payasyougo.getModel(),true);
-            group.setSelected(dx_collectpayment.getModel(),false);
+        } else {
+            group.setSelected(dx_payasyougo.getModel(), true);
+            group.setSelected(dx_collectpayment.getModel(), false);
             dx_payasyougo.setSelected(true);
             dx_collectpayment.setSelected(false);
         }
@@ -76,20 +75,20 @@ public class forms_custom extends JFrame {
     private void al_next(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        if(n>=datas.size()-1){
+        if (n >= datas.size() - 1) {
             JOptionPane.showMessageDialog(null, "没有下一件订单！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-        }else {
+        } else {
             n++;
-           assignment();
+            assignment();
         }
     }
     //上一件按钮事件
     private void al_previous(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        if(n<=0){
+        if (n <= 0) {
             JOptionPane.showMessageDialog(null, "已经到首件！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-        }else {
+        } else {
             n--;
             assignment();
         }
@@ -152,6 +151,68 @@ public class forms_custom extends JFrame {
             throw new RuntimeException(ex);
         }finally {
             linksql.closesql(connection,statement,null);
+        }
+    }
+
+    //保存按钮事件
+    private void al_save(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        wbk_name2.setEnabled(false);
+        wbk_phone.setEnabled(false);
+        wbk_address.setEnabled(false);
+        wbk_notes.setEnabled(false);
+        dx_collectpayment.setEnabled(false);
+        dx_payasyougo.setEnabled(false);
+        Vector<Object> data = new Vector<>(datas.get(n));
+        data.set(3, wbk_name2.getText());
+        data.set(4, wbk_phone.getText());
+        data.set(5, wbk_address.getText());
+        data.set(8, wbk_notes.getText());
+        if (dx_payasyougo.isSelected()) {
+            data.set(9, false);
+        } else {
+            data.set(9, true);
+        }
+        datas.set(n, data);
+        String sql = "update goods set putawayname =?,phone=?,address=?,notes=?,way=? where id=?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, wbk_name2.getText());
+            statement.setString(2, wbk_phone.getText());
+            statement.setString(3, wbk_address.getText());
+            statement.setString(4, wbk_notes.getText());
+            if (dx_payasyougo.isSelected()) {
+                statement.setInt(5, 0);
+            } else {
+                statement.setInt(5, 1);
+            }
+            statement.setString(6, wbk_id.getText());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            linksql.closesql(connection, statement, null);
+        }
+    }
+
+    //删除此订单按钮事件
+    private void al_delete(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        String sql = "delete from goods where id = ?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, wbk_id.getText());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            linksql.closesql(connection, statement, null);
         }
     }
 
@@ -563,10 +624,9 @@ public class forms_custom extends JFrame {
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     //获得账户名
     private String account;
-    private final ButtonGroup group =new ButtonGroup();
-    private Vector<Vector<Object>> datas=new Vector<Vector<Object>>();
+    private final ButtonGroup group = new ButtonGroup();
+    private Vector<Vector<Object>> datas = new Vector<Vector<Object>>();
     //列的数量
     private int arrange = 11;
-    private int n =0;
-
+    private int n = 0;
 }
