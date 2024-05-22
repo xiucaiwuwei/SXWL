@@ -31,8 +31,7 @@ public class forms_staff extends JFrame {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         wbk_phone.setEnabled(false);
-        String phone = wbk_phone.getText();
-        if(phone.isEmpty()){
+        if(wbk_phone.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "联系电话不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
         }else {
             String sql ="update staff set phone=? where id=?";
@@ -40,8 +39,8 @@ public class forms_staff extends JFrame {
             PreparedStatement statement;
             try {
                 statement = connection.prepareStatement(sql);
-                statement.setString(1,phone);
-                statement.setString(2,wbk_id.getText());
+                statement.setString(1, wbk_phone.getText());
+                statement.setString(2, wbk_id.getText());
                 statement.executeUpdate();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
@@ -253,33 +252,27 @@ public class forms_staff extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        String sql1 = "select account from temporary";
-        String sql2 = "select * from staff where account=?";
+        wbk_id.setText(inspection.readaccount());
+        String sql = "select * from staff where account=?";
         Connection connection = linksql.getconnection();
-        PreparedStatement statement;
-        ResultSet resultSet;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(sql1);
-            resultSet = statement.executeQuery();
-            resultSet.next();
-            wbk_id.setText(resultSet.getString(1));
-
-            statement= connection.prepareStatement(sql2);
+            statement= connection.prepareStatement(sql);
             statement.setString(1,wbk_id.getText());
             resultSet=statement.executeQuery();
             resultSet.next();
             wbk_name.setText(resultSet.getString(2));
             wbk_gender.setText(resultSet.getString(3));
-            wbk_age.setText(resultSet.getString(4));
-            wbk_phone.setText(resultSet.getString(9));
-            wbk_position.setText(resultSet.getString(6));
+            wbk_age.setText(resultSet.getString(4)); 
             wbk_data.setText(resultSet.getString(5));
-            phoned=resultSet.getString(9);
+            wbk_position.setText(resultSet.getString(6));
+            wbk_phone.setText(resultSet.getString(7));
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            linksql.closesql(connection,statement,resultSet);
         }
-        linksql.closesql(connection,statement,resultSet);
-
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -308,5 +301,4 @@ public class forms_staff extends JFrame {
     private JPanel rq_photo;
     private JLabel label10;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private String phoned;
 }

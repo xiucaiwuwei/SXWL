@@ -11,18 +11,20 @@ public class Main {
     public static void main(String[] args) {
 //        forms_register register = new forms_register();
 //        register.setVisible(true);
-
+//
 //        forms_administrators administrators = new forms_administrators();
 //        administrators.setVisible(true);
 
 //        forms_staff staff = new forms_staff();
 //        staff.setVisible(true);
-//
-//        forms_staffwork staffwork = new forms_staffwork();
-//        staffwork.setVisible(true);
 
-        forms_custom custom = new forms_custom();
-        custom.setVisible(true);
+        forms_staffwork staffwork = new forms_staffwork();
+        staffwork.setVisible(true);
+
+//        forms_custom custom = new forms_custom();
+//        custom.setVisible(true);
+//        forms_personalcustomer personalcustomer = new forms_personalcustomer();
+//        personalcustomer.setVisible(true);
     }
 
 }

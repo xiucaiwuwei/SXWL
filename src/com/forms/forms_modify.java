@@ -1,35 +1,23 @@
 /*
- * Created by JFormDesigner on Sat May 18 10:18:17 CST 2024
+ * Created by JFormDesigner on Thu May 23 22:44:22 CST 2024
  */
 
 package com.forms;
 
+import com.database.inspection;
 import com.database.linksql;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.Vector;
+import javax.swing.*;
 
 /**
  * @author Administrator
  */
 public class forms_modify extends JFrame {
-    // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private static String account;
-    private static String passworded;
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    private JLabel bq_title;
-    private JLabel bq_account;
-    private JLabel bq_password;
-    private JFormattedTextField wbk_account;
-    private JPasswordField wbk_password;
-    private JLabel bq_passwords;
-    private JPasswordField wbk_passwords;
-    private JButton al_cancellation;
-    private JButton al_determine;
     public forms_modify() {
         initComponents();
     }
@@ -43,7 +31,13 @@ public class forms_modify extends JFrame {
     private void al_determine(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        //获得登录权限
+        String table = inspection.readpassword().get(1);
+        //旧密码
+        String passworded = String.valueOf(inspection.readpassword().get(0));
+        //新密码
         String password = String.valueOf(wbk_password.getPassword());
+        //确认密码
         String passwords = String.valueOf(wbk_passwords.getPassword());
         boolean nonull = true;
         if (password.isEmpty()) {
@@ -59,29 +53,20 @@ public class forms_modify extends JFrame {
                 JOptionPane.showMessageDialog(null, "新密码与旧密码相同！", "警告", JOptionPane.PLAIN_MESSAGE, null);
             } else {
                 if (passwords.equals(password)) {
-                    String sql1 = "update administrators set password = ? where account = ?";
-                    String sql2 = "update temporary set password = ? where account = ?";
-                    Connection connection = linksql.getconnection();
-                    PreparedStatement statement;
-                    try {
-                        statement = connection.prepareStatement(sql1);
-                        statement.setString(1, password);
-                        statement.setString(2, account);
-                        statement.executeUpdate();
-                        statement = connection.prepareStatement(sql2);
-                        statement.setString(1, password);
-                        statement.setString(2, account);
-                        statement.executeUpdate();
-                    } catch (Exception ex) {
-                        throw new RuntimeException(ex);
+                    if (table.equals("2")){
+                        inspection.modifypassword("administrators", password);
+                    }else if (table.equals("1")){
+                        inspection.modifypassword("staff", password);
+                    }else {
+                        inspection.modifypassword("custom", password);
                     }
-                    linksql.closesql(connection, statement, null);
                     this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "密码和确认密码不同！", "警告", JOptionPane.PLAIN_MESSAGE, null);
                 }
             }
         }
+
     }
 
     private void initComponents() {
@@ -187,20 +172,18 @@ public class forms_modify extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        String sql = "select account, password from temporary";
-        Connection connection = linksql.getconnection();
-        PreparedStatement statement;
-        ResultSet resultSet;
-        try {
-            statement = connection.prepareStatement(sql);
-            resultSet = statement.executeQuery();
-            resultSet.next();
-            account = resultSet.getString(1);
-            passworded = resultSet.getString(2);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-        linksql.closesql(connection, statement, resultSet);
-        wbk_account.setText(account);
+        wbk_account.setText(inspection.readaccount());
     }
+
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
+    private JLabel bq_title;
+    private JLabel bq_account;
+    private JLabel bq_password;
+    private JFormattedTextField wbk_account;
+    private JPasswordField wbk_password;
+    private JLabel bq_passwords;
+    private JPasswordField wbk_passwords;
+    private JButton al_cancellation;
+    private JButton al_determine;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

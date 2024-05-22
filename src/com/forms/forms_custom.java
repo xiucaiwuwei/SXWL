@@ -12,10 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
-
 import com.database.*;
-
-import static java.lang.Integer.*;
 
 /**
  * @author Administrator
@@ -55,24 +52,6 @@ public class forms_custom extends JFrame {
         }
     }
     //修改按钮事件
-    private void assignment(){
-        wbk_id.setText(String.valueOf(datas.get(n).get(0)));
-        wbk_name.setText(String.valueOf(datas.get(n).get(1)));
-        wbk_number.setText(String.valueOf(datas.get(n).get(2)));
-        wbk_address.setText(String.valueOf(datas.get(n).get(4)));
-        wbk_paymenttime.setText(String.valueOf(datas.get(n).get(5)));
-        wbk_deliverytime.setText(String.valueOf(datas.get(n).get(6)));
-        wbk_notes.setText(String.valueOf(datas.get(n).get(7)));
-        wbk_name2.setText(String.valueOf(datas.get(n).get(10)));
-        wbk_phone.setText(String.valueOf(datas.get(n).get(11)));
-        if(Boolean.parseBoolean(String.valueOf(datas.get(n).get(9)))){
-            dx_payasyougo.setSelected(true);
-            dx_collectpayment.setSelected(false);
-        }else {
-            dx_payasyougo.setSelected(false);
-            dx_collectpayment.setSelected(true);
-        }
-    }
     private void al_modify(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
@@ -114,8 +93,6 @@ public class forms_custom extends JFrame {
             assignment();
         }
     }
-
-
     //保存按钮事件
     private void al_save(ActionEvent e) {
         // TODO add your code here
@@ -132,9 +109,9 @@ public class forms_custom extends JFrame {
         data.set(5, wbk_address.getText());
         data.set(8, wbk_notes.getText());
         if (dx_payasyougo.isSelected()) {
-            data.set(9, false);
+            data.set(9, 0);
         } else {
-            data.set(9, true);
+            data.set(9, 1);
         }
         datas.set(n, data);
         String sql = "update goods set putawayname =?,phone=?,address=?,notes=?,way=? where id=?";
@@ -159,7 +136,6 @@ public class forms_custom extends JFrame {
             linksql.closesql(connection, statement, null);
         }
     }
-
     //删除此订单按钮事件
     private void al_delete(ActionEvent e) {
         // TODO add your code here
@@ -176,37 +152,14 @@ public class forms_custom extends JFrame {
         } finally {
             linksql.closesql(connection, statement, null);
         }
-        data.set(10,wbk_name2.getText());
-        data.set(11, wbk_phone.getText());
-        data.set(4,wbk_address.getText());
-        data.set(7,wbk_notes.getText());
-        if(dx_payasyougo.isSelected()){
-            data.set(9,0);
-        }else {
-            data.set(9,1);
-        }
-        datas.set(n,data);
-        String sql = "update goods set putawayname =?,phone=?,address=?,notes=?,way=? where id=?";
-        Connection connection = linksql.getconnection();
-        PreparedStatement statement =null;
-        try {
-            statement = connection.prepareStatement(sql);
-            statement.setString(1,wbk_name2.getText());
-            statement.setString(2,wbk_phone.getText());
-            statement.setString(3,wbk_address.getText());
-            statement.setString(4,wbk_notes.getText());
-            if(dx_payasyougo.getInheritsPopupMenu()){
-                statement.setInt(5,0);
-            }else {
-                statement.setInt(5,1);
-            }
-            statement.setString(6,wbk_id.getText());
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }finally {
-            linksql.closesql(connection,statement,null);
-        }
+    }
+    //修改个人信息按钮事件
+    private void al_modifymy(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        this.setVisible(false);
+        forms_personalcustomer personalcustomer = new forms_personalcustomer();
+        personalcustomer.setVisible(true);
     }
 
     private void initComponents() {
@@ -214,6 +167,7 @@ public class forms_custom extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         menuBar1 = new JMenuBar();
         hSpacer1 = new JPanel(null);
+        bq_id2 = new JLabel();
         wbk_search = new JTextField();
         hSpacer2 = new JPanel(null);
         al_search = new JButton();
@@ -269,6 +223,14 @@ public class forms_custom extends JFrame {
             hSpacer1.setMaximumSize(null);
             hSpacer1.setPreferredSize(new Dimension(1000, 25));
             menuBar1.add(hSpacer1);
+
+            //---- bq_id2 ----
+            bq_id2.setText("\u8ba2\u5355\u7f16\u53f7");
+            bq_id2.setMaximumSize(null);
+            bq_id2.setMinimumSize(null);
+            bq_id2.setPreferredSize(new Dimension(60, 17));
+            bq_id2.setHorizontalAlignment(SwingConstants.CENTER);
+            menuBar1.add(bq_id2);
 
             //---- wbk_search ----
             wbk_search.setPreferredSize(new Dimension(200, 25));
@@ -353,10 +315,11 @@ public class forms_custom extends JFrame {
         al_save.setBounds(410, 410, 75, 25);
 
         //---- al_modifymy ----
-        al_modifymy.setText("\u4fee\u6539\u4e2a\u4eba\u4fe1\u606f");
+        al_modifymy.setText("\u4e2a\u4eba\u4fe1\u606f");
         al_modifymy.setMaximumSize(null);
         al_modifymy.setMinimumSize(null);
         al_modifymy.setPreferredSize(new Dimension(110, 25));
+        al_modifymy.addActionListener(e -> al_modifymy(e));
         contentPane.add(al_modifymy);
         al_modifymy.setBounds(new Rectangle(new Point(40, 410), al_modifymy.getPreferredSize()));
 
@@ -578,6 +541,7 @@ public class forms_custom extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JMenuBar menuBar1;
     private JPanel hSpacer1;
+    private JLabel bq_id2;
     private JTextField wbk_search;
     private JPanel hSpacer2;
     private JButton al_search;
