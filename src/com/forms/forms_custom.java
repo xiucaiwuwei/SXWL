@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
-
 import com.database.*;
 
 /**
@@ -22,9 +21,38 @@ public class forms_custom extends JFrame {
     public forms_custom() {
         initComponents();
     }
-
     //读取信息
     private void assignment() {
+        wbk_id.setText(String.valueOf(datas.get(n).get(0)));
+        wbk_name.setText(String.valueOf(datas.get(n).get(1)));
+        wbk_number.setText(String.valueOf(datas.get(n).get(2)));
+        wbk_name2.setText(String.valueOf(datas.get(n).get(3)));
+        wbk_phone.setText(String.valueOf(datas.get(n).get(4)));
+        wbk_address.setText(String.valueOf(datas.get(n).get(5)));
+        wbk_paymenttime.setText(String.valueOf(datas.get(n).get(6)));
+        wbk_deliverytime.setText(String.valueOf(datas.get(n).get(7)));
+        wbk_notes.setText(String.valueOf(datas.get(n).get(8)));
+        Object paymentTypeObj = datas.get(n).get(9);
+        if (paymentTypeObj instanceof Boolean) {
+            boolean isPayAsYouGo = (Boolean) paymentTypeObj;
+            dx_payasyougo.setSelected(isPayAsYouGo);
+            dx_collectpayment.setSelected(!isPayAsYouGo);
+        } else if (paymentTypeObj instanceof String) {
+            String paymentTypeString = (String) paymentTypeObj;
+            boolean isPayAsYouGo = Boolean.parseBoolean(paymentTypeString);
+            group.setSelected(dx_payasyougo.getModel(), false);
+            group.setSelected(dx_collectpayment.getModel(), true);
+            dx_payasyougo.setSelected(isPayAsYouGo);
+            dx_collectpayment.setSelected(!isPayAsYouGo);
+        } else {
+            group.setSelected(dx_payasyougo.getModel(), true);
+            group.setSelected(dx_collectpayment.getModel(), false);
+            dx_payasyougo.setSelected(true);
+            dx_collectpayment.setSelected(false);
+        }
+    }
+    //修改按钮事件
+    private void assignment(){
         wbk_id.setText(String.valueOf(datas.get(n).get(0)));
         wbk_name.setText(String.valueOf(datas.get(n).get(1)));
         wbk_number.setText(String.valueOf(datas.get(n).get(2)));
@@ -96,7 +124,6 @@ public class forms_custom extends JFrame {
             assignment();
         }
     }
-
     //保存按钮事件
     private void al_save(ActionEvent e) {
         // TODO add your code here
@@ -116,6 +143,55 @@ public class forms_custom extends JFrame {
             data.set(9, 0);
         } else {
             data.set(9, 0);
+        }
+        datas.set(n, data);
+        String sql = "update goods set putawayname =?,phone=?,address=?,notes=?,way=? where id=?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, wbk_name2.getText());
+            statement.setString(2, wbk_phone.getText());
+            statement.setString(3, wbk_address.getText());
+            statement.setString(4, wbk_notes.getText());
+            if (dx_payasyougo.isSelected()) {
+                statement.setInt(5, 0);
+            } else {
+                statement.setInt(5, 1);
+            }
+            statement.setString(6, wbk_id.getText());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            linksql.closesql(connection, statement, null);
+        }
+    }
+
+    //删除此订单按钮事件
+    private void al_delete(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        String sql = "delete from goods where id = ?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, wbk_id.getText());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            linksql.closesql(connection, statement, null);
+        }
+        data.set(10,wbk_name2.getText());
+        data.set(11, wbk_phone.getText());
+        data.set(4,wbk_address.getText());
+        data.set(7,wbk_notes.getText());
+        if(dx_payasyougo.isSelected()){
+            data.set(9,0);
+        }else {
+            data.set(9,1);
         }
         datas.set(n, data);
         String sql = "update goods set putawayname =?,phone=?,address=?,notes=?,way=? where id=?";
@@ -581,5 +657,4 @@ public class forms_custom extends JFrame {
     //列的数量
     private int arrange = 11;
     private int n = 0;
-
 }
