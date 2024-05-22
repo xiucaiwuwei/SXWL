@@ -1,54 +1,108 @@
 package com.database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Vector;
 
 public class inspection {
-    public static boolean validate(String sql, String account1, String password1){
+    //获得账户名
+    public static String readaccount(){
+        String account;
+        String sql ="select account from temporary";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement=null;
+        ResultSet resultSet=null;
         try {
-            Connection connection = linksql.getconnection();
-            PreparedStatement statement=connection.prepareStatement(sql);
-            boolean mate = false;
-            ResultSet resultSet= statement.executeQuery();
-            while (resultSet.next()) {
-                String account2 = resultSet.getNString(1);
-                String password2 = resultSet.getNString(2);
-                if (account1.equals(account2) && password1.equals(password2)) {
-                    mate = true;
-                }
-            }
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            resultSet.next();
+            account = resultSet.getString(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
             linksql.closesql(connection,statement,resultSet);
-            return mate;
+        }
+        return account;
+    }
+    //读取账户信息
+    public static Vector<Vector<Object>> readdata(int arrange){
+        Vector<Vector<Object>> datas = new Vector<>();
+        String sql ="select * from goods where custom=?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement=null;
+        ResultSet resultSet=null;
+        try {
+            statement =connection.prepareStatement(sql);
+            statement.setString(1,readaccount());
+            resultSet = statement.executeQuery();
+            if (arrange <= 0) {
+                throw new IllegalArgumentException("arrange must be a positive integer");
+            }
+            resultSet = statement.executeQuery();
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            if (arrange > columnCount) {
+                arrange = columnCount;
+            }
+            while (resultSet.next()) {
+                Vector<Object> data=new Vector<>();
+                for (int j=0;j<arrange;j++){
+                    data.add( resultSet.getObject(j + 1));
+                }
+                datas.add(data);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            linksql.closesql(connection,statement,resultSet);
+        }
+        return datas;
+    }
+    //登录判断
+    public static boolean validate(String outside, String account, String password){
+        String sql = "select account,password from "+outside+" where account =? and password=?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement = null;
+        ResultSet resultSet=null;
+        try {
+            statement=connection.prepareStatement(sql);
+            statement.setString(1,account);
+            statement.setString(2,password);
+            resultSet=statement.executeQuery();
+            return  resultSet.next();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }finally {
+            linksql.closesql(connection,statement,resultSet);
         }
     }
+    //将账户信息存到临时表
     public static void valitemp(String account, String password){
         String sql = "insert into temporary(account, password) VALUE (?,?)";
         Connection connection = linksql.getconnection();
-        PreparedStatement statement;
+        PreparedStatement statement=null;
         try {
             statement = connection.prepareStatement(sql);
             statement.setString(1,account);
             statement.setString(2,password);
             statement.executeUpdate();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            linksql.closesql(connection,statement,null);
         }
-        linksql.closesql(connection,statement,null);
     }
+    //清空临时表
     public static void closetemp(){
         String sql = "truncate temporary";
         Connection connection = linksql.getconnection();
-        PreparedStatement statement;
+        PreparedStatement statement=null;
         try {
             statement = connection.prepareStatement(sql);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            linksql.closesql(connection,statement,null);
         }
-        linksql.closesql(connection,statement,null);
     }
 }

@@ -12,9 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
-import com.database.*;
 
-import static java.lang.Integer.*;
+import com.database.*;
 
 /**
  * @author Administrator
@@ -23,24 +22,39 @@ public class forms_custom extends JFrame {
     public forms_custom() {
         initComponents();
     }
-    private void assignment(){
+
+    //读取信息
+    private void assignment() {
         wbk_id.setText(String.valueOf(datas.get(n).get(0)));
         wbk_name.setText(String.valueOf(datas.get(n).get(1)));
         wbk_number.setText(String.valueOf(datas.get(n).get(2)));
-        wbk_address.setText(String.valueOf(datas.get(n).get(4)));
-        wbk_paymenttime.setText(String.valueOf(datas.get(n).get(5)));
-        wbk_deliverytime.setText(String.valueOf(datas.get(n).get(6)));
-        wbk_notes.setText(String.valueOf(datas.get(n).get(7)));
-        wbk_name2.setText(String.valueOf(datas.get(n).get(10)));
-        wbk_phone.setText(String.valueOf(datas.get(n).get(11)));
-        if(Boolean.parseBoolean(String.valueOf(datas.get(n).get(9)))){
+        wbk_name2.setText(String.valueOf(datas.get(n).get(3)));
+        wbk_phone.setText(String.valueOf(datas.get(n).get(4)));
+        wbk_address.setText(String.valueOf(datas.get(n).get(5)));
+        wbk_paymenttime.setText(String.valueOf(datas.get(n).get(6)));
+        wbk_deliverytime.setText(String.valueOf(datas.get(n).get(7)));
+        wbk_notes.setText(String.valueOf(datas.get(n).get(8)));
+        Object paymentTypeObj = datas.get(n).get(9);
+        if (paymentTypeObj instanceof Boolean) {
+            boolean isPayAsYouGo = (Boolean) paymentTypeObj;
+            dx_payasyougo.setSelected(isPayAsYouGo);
+            dx_collectpayment.setSelected(!isPayAsYouGo);
+        } else if (paymentTypeObj instanceof String) {
+            String paymentTypeString = (String) paymentTypeObj;
+            boolean isPayAsYouGo = Boolean.parseBoolean(paymentTypeString);
+            group.setSelected(dx_payasyougo.getModel(), false);
+            group.setSelected(dx_collectpayment.getModel(), true);
+            dx_payasyougo.setSelected(isPayAsYouGo);
+            dx_collectpayment.setSelected(!isPayAsYouGo);
+        } else {
+            group.setSelected(dx_payasyougo.getModel(), true);
+            group.setSelected(dx_collectpayment.getModel(), false);
             dx_payasyougo.setSelected(true);
             dx_collectpayment.setSelected(false);
-        }else {
-            dx_payasyougo.setSelected(false);
-            dx_collectpayment.setSelected(true);
         }
     }
+
+    //修改按钮事件
     private void al_modify(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
@@ -52,34 +66,38 @@ public class forms_custom extends JFrame {
         dx_payasyougo.setEnabled(true);
     }
 
+    //退出按钮事件
     private void al_exit(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         System.exit(0);
     }
 
+    //下一件按钮事件
     private void al_next(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        if(n>=datas.size()-1){
+        if (n >= datas.size() - 1) {
             JOptionPane.showMessageDialog(null, "没有下一件订单！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-        }else {
+        } else {
             n++;
-           assignment();
+            assignment();
         }
     }
 
+    //上一件按钮事件
     private void al_previous(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        if(n<=0){
+        if (n <= 0) {
             JOptionPane.showMessageDialog(null, "已经到首件！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-        }else {
+        } else {
             n--;
             assignment();
         }
     }
 
+    //保存按钮事件
     private void al_save(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
@@ -90,37 +108,63 @@ public class forms_custom extends JFrame {
         dx_collectpayment.setEnabled(false);
         dx_payasyougo.setEnabled(false);
         Vector<Object> data = new Vector<>(datas.get(n));
-        data.set(10,wbk_name2.getText());
-        data.set(11, wbk_phone.getText());
-        data.set(4,wbk_address.getText());
-        data.set(7,wbk_notes.getText());
-        if(dx_payasyougo.isSelected()){
-            data.set(9,0);
-        }else {
-            data.set(9,1);
+        data.set(3, wbk_name2.getText());
+        data.set(4, wbk_phone.getText());
+        data.set(5, wbk_address.getText());
+        data.set(8, wbk_notes.getText());
+        if (dx_payasyougo.isSelected()) {
+            data.set(9, 0);
+        } else {
+            data.set(9, 0);
         }
-        datas.set(n,data);
+        datas.set(n, data);
         String sql = "update goods set putawayname =?,phone=?,address=?,notes=?,way=? where id=?";
         Connection connection = linksql.getconnection();
-        PreparedStatement statement =null;
+        PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(sql);
-            statement.setString(1,wbk_name2.getText());
-            statement.setString(2,wbk_phone.getText());
-            statement.setString(3,wbk_address.getText());
-            statement.setString(4,wbk_notes.getText());
-            if(dx_payasyougo.getInheritsPopupMenu()){
-                statement.setInt(5,0);
-            }else {
-                statement.setInt(5,1);
+            statement.setString(1, wbk_name2.getText());
+            statement.setString(2, wbk_phone.getText());
+            statement.setString(3, wbk_address.getText());
+            statement.setString(4, wbk_notes.getText());
+            if (dx_payasyougo.isSelected()) {
+                statement.setInt(5, 0);
+            } else {
+                statement.setInt(5, 1);
             }
-            statement.setString(6,wbk_id.getText());
+            statement.setString(6, wbk_id.getText());
             statement.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
-        }finally {
-            linksql.closesql(connection,statement,null);
+        } finally {
+            linksql.closesql(connection, statement, null);
         }
+    }
+
+    //删除此订单按钮事件
+    private void al_delete(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        String sql = "delete from goods where id = ?";
+        Connection connection = linksql.getconnection();
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, wbk_id.getText());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        } finally {
+            linksql.closesql(connection, statement, null);
+        }
+    }
+    //修改个人信息按钮事件
+    private void al_modifymy(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        this.setVisible(false);
+        forms_personalcustomer personalcustomer = new forms_personalcustomer();
+        personalcustomer.setVisible(true);
     }
 
     private void initComponents() {
@@ -235,6 +279,7 @@ public class forms_custom extends JFrame {
         al_delete.setMaximumSize(null);
         al_delete.setMinimumSize(null);
         al_delete.setPreferredSize(new Dimension(110, 25));
+        al_delete.addActionListener(e -> al_delete(e));
         contentPane.add(al_delete);
         al_delete.setBounds(new Rectangle(new Point(160, 410), al_delete.getPreferredSize()));
 
@@ -266,10 +311,11 @@ public class forms_custom extends JFrame {
         al_save.setBounds(410, 410, 75, 25);
 
         //---- al_modifymy ----
-        al_modifymy.setText("\u4fee\u6539\u4e2a\u4eba\u4fe1\u606f");
+        al_modifymy.setText("\u4e2a\u4eba\u4fe1\u606f");
         al_modifymy.setMaximumSize(null);
         al_modifymy.setMinimumSize(null);
         al_modifymy.setPreferredSize(new Dimension(110, 25));
+        al_modifymy.addActionListener(e -> al_modifymy(e));
         contentPane.add(al_modifymy);
         al_modifymy.setBounds(new Rectangle(new Point(40, 410), al_modifymy.getPreferredSize()));
 
@@ -482,38 +528,10 @@ public class forms_custom extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        String sql1 ="select account from temporary";
-        String sql2 ="select * from goods where custom=?";
-        Connection connection = linksql.getconnection();
-        PreparedStatement statement=null;
-        ResultSet resultSet=null;
-        try {
-            statement = connection.prepareStatement(sql1);
-            resultSet = statement.executeQuery();
-            resultSet.next();
-            account = resultSet.getString(1);
-            statement =connection.prepareStatement(sql2);
-            statement.setString(1,account);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                if(resultSet.getString(1).isEmpty()){
-                    JOptionPane.showMessageDialog(null, "没有订单，请退出！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-                }else {
-                    Vector<Object> data=new Vector<Object>();
-                    for (int j=0;j<columns;j++){
-                        data.add( resultSet.getString(j + 1));
-                    }
-                    datas.add(data);
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            linksql.closesql(connection,statement,resultSet);
-        }
+        datas = inspection.readdata(arrange);
         assignment();
-        group.add(dx_collectpayment);
         group.add(dx_payasyougo);
+        group.add(dx_collectpayment);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -556,10 +574,12 @@ public class forms_custom extends JFrame {
     private JTextField wbk_name2;
     private JTextField wbk_address;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    //获得账户名
     private String account;
-    private ButtonGroup group =new ButtonGroup();
-    private static Vector<Vector<Object>> datas=new Vector<Vector<Object>>();
-    private int columns=12;
-    private int n =0;
+    private final ButtonGroup group = new ButtonGroup();
+    private Vector<Vector<Object>> datas = new Vector<Vector<Object>>();
+    //列的数量
+    private int arrange = 11;
+    private int n = 0;
 
 }
