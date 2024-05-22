@@ -5,7 +5,7 @@ import java.util.Vector;
 
 public class inspection {
     //获得账户名
-    private static String readaccount(){
+    public static String readaccount(){
         String account;
         String sql ="select account from temporary";
         Connection connection = linksql.getconnection();

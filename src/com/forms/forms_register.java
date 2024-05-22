@@ -43,8 +43,8 @@ public class forms_register extends JFrame {
                 if(inspection.validate("staff",account,password)){
                     inspection.valitemp(account,password);
                     this.setVisible(false);
-                    forms_staff staff = new forms_staff();
-                    staff.setVisible(true);
+                    forms_staffwork staffwork = new forms_staffwork();
+                    staffwork.setVisible(true);
                 }else {
                     JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
                 }

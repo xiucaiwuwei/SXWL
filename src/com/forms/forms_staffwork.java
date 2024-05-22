@@ -5,6 +5,7 @@
 package com.forms;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
@@ -13,6 +14,25 @@ import javax.swing.*;
 public class forms_staffwork extends JFrame {
     public forms_staffwork() {
         initComponents();
+    }
+
+    private void menuItem2(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        forms_staff staff = new forms_staff();
+        staff.setVisible(true);
+    }
+
+    private void al_exit(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        System.exit(0);
+    }
+
+    private void menuItem3(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        System.exit(0);
     }
 
     private void initComponents() {
@@ -59,10 +79,12 @@ public class forms_staffwork extends JFrame {
 
                 //---- menuItem2 ----
                 menuItem2.setText("\u4e2a\u4eba\u4fe1\u606f");
+                menuItem2.addActionListener(e -> menuItem2(e));
                 menu1.add(menuItem2);
 
                 //---- menuItem3 ----
                 menuItem3.setText("\u9000\u51fa\u7cfb\u7edf");
+                menuItem3.addActionListener(e -> menuItem3(e));
                 menu1.add(menuItem3);
             }
             menuBar1.add(menu1);
@@ -71,6 +93,7 @@ public class forms_staffwork extends JFrame {
 
         //---- al_exit ----
         al_exit.setText("\u9000\u51fa");
+        al_exit.addActionListener(e -> al_exit(e));
         contentPane.add(al_exit);
         al_exit.setBounds(new Rectangle(new Point(868, 515), al_exit.getPreferredSize()));
 
@@ -160,7 +183,6 @@ public class forms_staffwork extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-
 
     }
 

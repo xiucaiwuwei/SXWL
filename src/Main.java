@@ -18,11 +18,13 @@ public class Main {
 //        forms_staff staff = new forms_staff();
 //        staff.setVisible(true);
 //
-//        forms_staffwork staffwork = new forms_staffwork();
-//        staffwork.setVisible(true);
+        forms_staffwork staffwork = new forms_staffwork();
+        staffwork.setVisible(true);
 
-        forms_custom custom = new forms_custom();
-        custom.setVisible(true);
+//        forms_custom custom = new forms_custom();
+//        custom.setVisible(true);
+//        forms_personalcustomer personalcustomer = new forms_personalcustomer();
+//        personalcustomer.setVisible(true);
     }
 
 }
