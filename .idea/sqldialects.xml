@@ -3,5 +3,12 @@
   <component name="SqlDialectMappings">
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/18ec410b-ae00-41f0-9fe2-99991b6f356e/console.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/com/database/inspection.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/database/operatecustom.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/database/operategoods.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/database/operatestaff.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/database/operatetemp.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/forms/forms_custom.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/forms/forms_personalcustomer.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/com/forms/forms_staff.java" dialect="GenericSQL" />
   </component>
 </project>

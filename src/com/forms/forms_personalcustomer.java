@@ -8,10 +8,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import javax.swing.*;
 import com.database.*;
+import com.database.linksql;
+import com.database.operatetemp;
+import com.database.operatecustom;
 /**
  * @author 17529
  */
@@ -59,7 +62,6 @@ public class forms_personalcustomer extends JFrame {
             wbk_address1.setEnabled(false);
             wbk_address2.setEnabled(false);
             String sql1 = "update custom set account=?,password = ?, phone = ?, address1 = ?, address2 = ? where account = ?";
-            String sql2 = "update temporary set account=?,password=? where account=?";
             Connection connection = linksql.getconnection();
             PreparedStatement statement = null;
             try {
@@ -69,12 +71,7 @@ public class forms_personalcustomer extends JFrame {
                 statement.setString(3, wbk_phone.getText());
                 statement.setString(4, wbk_address1.getText());
                 statement.setString(5, wbk_address2.getText());
-                statement.setString(6, inspection.readaccount());
-                statement.executeUpdate();
-                statement = connection.prepareStatement(sql2);
-                statement.setString(1, wbk_account.getText());
-                statement.setString(2, wbk_password.getText());
-                statement.setString(3, inspection.readaccount());
+                statement.setString(6,operatetemp.readtemp().get(0));
                 statement.executeUpdate();
                 JOptionPane.showMessageDialog(null, "修改成功", "提示", JOptionPane.WARNING_MESSAGE);
             } catch (SQLException ex) {
@@ -82,6 +79,7 @@ public class forms_personalcustomer extends JFrame {
             }finally {
                 linksql.closesql(connection, statement, null);
             }
+            inspection.validate("custom", wbk_account.getText(), wbk_password.getText());
         }
     }
 
@@ -275,29 +273,20 @@ public class forms_personalcustomer extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        String account = inspection.readaccount();
-        String sql = "select * from custom where account=?";
-        Connection connection = linksql.getconnection();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement=connection.prepareStatement(sql);
-            statement.setString(1,account);
-            resultSet = statement.executeQuery();
-            resultSet.next();
-            account = resultSet.getString(1);
-            wbk_account.setText(account);
-            wbk_password.setText(resultSet.getString(2));
-            wbk_phone.setText(resultSet.getString(3));
-            wbk_address1.setText(resultSet.getString(4));
-            wbk_address2.setText(resultSet.getString(5));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            linksql.closesql(connection,statement,resultSet);
+        wbk_account.setText(operatetemp.readtemp().get(0));
+        wbk_password.setText(operatetemp.readtemp().get(1));
+        Vector<String> data = operatecustom.readcustom(operatetemp.readtemp().get(0));
+        if (data != null && data.size() > 2) {
+            wbk_phone.setText(data.get(2));
+            if (data.size() > 3) {
+                wbk_address1.setText(data.get(3));
+                if (data.size() > 4) {
+                    wbk_address2.setText(data.get(4));
+                }
+            }
         }
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JMenuBar menuBar1;
     private JPanel hSpacer1;
@@ -319,5 +308,4 @@ public class forms_personalcustomer extends JFrame {
     private JPanel rq_profilepicture;
     private JLabel bq_profilepicture;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private String account;
 }

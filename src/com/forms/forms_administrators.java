@@ -4,12 +4,14 @@
 
 package com.forms;
 
+import com.database.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  * @author Administrator
@@ -35,6 +37,7 @@ public class forms_administrators extends JFrame {
     private void button2(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        Vector<Vector<Object>> datas = operatestaff.readstaffs();
         Vector<String> title = new Vector<>();
         title.add("员工编号");
         title.add("姓名");
@@ -52,6 +55,7 @@ public class forms_administrators extends JFrame {
     private void button3(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        Vector<Vector<Object>> datas = operatecustom.readcustoms();
         Vector<String> title = new Vector<>();
         title.add("账户");
         title.add("密码");
@@ -64,6 +68,7 @@ public class forms_administrators extends JFrame {
     private void button4(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        Vector<Vector<Object>> datas = operategoods.readgoods();
         Vector<String> title = new Vector<>();
         title.add("订单编号");
         title.add("名称");
@@ -200,5 +205,4 @@ public class forms_administrators extends JFrame {
     private JScrollPane scrollPane1;
     private JTable table1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private Vector<Vector<Object>> datas = null;
 }

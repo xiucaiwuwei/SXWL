@@ -5,33 +5,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-/**
- * 一个简单的工具类，用于建立和关闭与数据库的连接。
- * 提供静态方法来配置数据库连接参数，并获取和关闭数据库连接资源。
- */
 public class linksql {
-    /**
-     * 数据库驱动类名，需要根据实际使用的数据库JDBC驱动进行设置。
-     */
+
     private static String Driver;
-    /**
-     * 数据库URL，用于指定数据库服务器的位置和数据库名称。
-     */
     private static String URL;
-    /**
-     * 连接数据库所需的用户名。
-     */
     private static String username;
-    /**
-     * 连接数据库所需的密码。
-     */
     private static String password;
 
     /**
      * 获取数据库连接。如果出现异常，将抛出运行时异常。
      *
      * @return 数据库连接对象
-     * @throws RuntimeException 包装了原生的SQLException，用于简化异常处理
      */
     public static Connection getconnection() {
         Connection connection;

@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.*;
-import com.database.*;
+
+import com.database.linksql;
+import com.database.operatetemp;
 
 /**
  * @author Administrator
@@ -252,7 +254,7 @@ public class forms_staff extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        wbk_id.setText(inspection.readaccount());
+        wbk_id.setText(operatetemp.readtemp().get(0));
         String sql = "select * from staff where account=?";
         Connection connection = linksql.getconnection();
         PreparedStatement statement = null;

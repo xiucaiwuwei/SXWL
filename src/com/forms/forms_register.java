@@ -6,8 +6,11 @@ package com.forms;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Vector;
 import javax.swing.*;
 import com.database.*;
+import com.database.operatetemp;
+import com.database.operatecustom;
 /**
  * @author Administrator
  */
@@ -32,7 +35,7 @@ public class forms_register extends JFrame {
         }else {
             if(select==0){
                 if(inspection.validate("custom",account,password)){
-                    inspection.valitemp(account,password);
+                    operatetemp.importtemp(account,password,select);
                     this.setVisible(false);
                     forms_custom custom = new forms_custom();
                     custom.setVisible(true);
@@ -41,7 +44,7 @@ public class forms_register extends JFrame {
                 }
             }else if(select==1){
                 if(inspection.validate("staff",account,password)){
-                    inspection.valitemp(account,password);
+                    operatetemp.importtemp(account,password,select);
                     this.setVisible(false);
                     forms_staffwork staffwork = new forms_staffwork();
                     staffwork.setVisible(true);
@@ -50,7 +53,7 @@ public class forms_register extends JFrame {
                 }
             }else {
                 if (inspection.validate("administrators", account, password)) {
-                    inspection.valitemp(account,password);
+                    operatetemp.importtemp(account,password, select);
                     this.setVisible(false);
                     forms_administrators administrators = new forms_administrators();
                     administrators.setVisible(true);
@@ -68,6 +71,31 @@ public class forms_register extends JFrame {
         al_register.setEnabled(select == 0);
     }
 
+    private void al_register(ActionEvent e) {
+        // TODO add your code here
+        Boolean flag = true;
+        System.out.println(e.getActionCommand());
+        if (wbk_account.getText().isEmpty() && String.valueOf(wbk_password.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(null, "用户名和密码不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+            flag = false;
+        } else if (!wbk_account.getText().isEmpty() && String.valueOf(wbk_password.getPassword()).isEmpty()) {
+            JOptionPane.showMessageDialog(null, "密码不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+            flag = false;
+        }
+        if (operatecustom.selectaccount(wbk_account.getText())) {
+            JOptionPane.showMessageDialog(null, "该用户名已存在！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+            flag = false;
+        }
+        if (flag) {
+            operatetemp.importtemp(wbk_account.getText(), String.valueOf(wbk_password.getPassword()), 0);
+            operatecustom.importcustom(wbk_account.getText(), String.valueOf(wbk_password.getPassword()));
+            JOptionPane.showMessageDialog(null, "注册成功！", "提示", JOptionPane.PLAIN_MESSAGE, null);
+            this.setVisible(false);
+            forms_personalcustomer personalcustomer = new forms_personalcustomer();
+            personalcustomer.setVisible(true);
+        }
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         bq_title = new JLabel();
@@ -75,7 +103,6 @@ public class forms_register extends JFrame {
         bq_password = new JLabel();
         wbk_account = new JFormattedTextField();
         wbk_password = new JPasswordField();
-        //noinspection rawtypes
         limitation = new JComboBox();
         al_publish = new JButton();
         al_register = new JButton();
@@ -127,11 +154,11 @@ public class forms_register extends JFrame {
         //---- limitation ----
         limitation.setMaximumSize(null);
         limitation.setMinimumSize(null);
-        limitation.setPreferredSize(new Dimension(80, 25));
+        limitation.setPreferredSize(new Dimension(70, 25));
         limitation.setActionCommand("\u6743\u9650");
         limitation.addActionListener(e -> limitation(e));
         contentPane.add(limitation);
-        limitation.setBounds(new Rectangle(new Point(305, 0), limitation.getPreferredSize()));
+        limitation.setBounds(new Rectangle(new Point(315, 0), limitation.getPreferredSize()));
 
         //---- al_publish ----
         al_publish.setText("\u767b\u5f55");
@@ -147,6 +174,7 @@ public class forms_register extends JFrame {
         al_register.setMaximumSize(null);
         al_register.setMinimumSize(null);
         al_register.setPreferredSize(new Dimension(75, 30));
+        al_register.addActionListener(e -> al_register(e));
         contentPane.add(al_register);
         al_register.setBounds(new Rectangle(new Point(105, 195), al_register.getPreferredSize()));
 
@@ -167,10 +195,11 @@ public class forms_register extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        limitation.setPrototypeDisplayValue("客户");
-        limitation.addItem("客户");
-        limitation.addItem("员工");
-        limitation.addItem("管理员");
+        Vector<String> limit = new Vector<>();
+        limit.add("客户");
+        limit.add("员工");
+        limit.add("管理员");
+        limitation.setModel(new DefaultComboBoxModel(limit));
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off

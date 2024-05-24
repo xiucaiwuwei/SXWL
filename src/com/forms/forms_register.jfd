@@ -61,11 +61,11 @@ new FormModel {
 				name: "limitation"
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
-				"preferredSize": new java.awt.Dimension( 80, 25 )
+				"preferredSize": new java.awt.Dimension( 70, 25 )
 				"actionCommand": "权限"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "limitation", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 305
+				"x": 315
 				"y": 0
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
@@ -85,6 +85,7 @@ new FormModel {
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"preferredSize": new java.awt.Dimension( 75, 30 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_register", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 105
 				"y": 195

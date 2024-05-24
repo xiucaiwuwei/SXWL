@@ -1,4 +1,5 @@
-import com.database.*;
+import com.database.linksql;
+import com.database.operatetemp;
 import com.forms.*;
 public class Main {
     static {
@@ -6,20 +7,20 @@ public class Main {
         linksql.setURL("jdbc:mysql://localhost:3306/sxdate");
         linksql.setUsername("root");
         linksql.setPassword("123456");
-        //inspection.closetemp();
+        operatetemp.emptytemp();
     }
     public static void main(String[] args) {
-//        forms_register register = new forms_register();
-//        register.setVisible(true);
-//
+        forms_register register = new forms_register();
+        register.setVisible(true);
+
 //        forms_administrators administrators = new forms_administrators();
 //        administrators.setVisible(true);
 
 //        forms_staff staff = new forms_staff();
 //        staff.setVisible(true);
 
-        forms_staffwork staffwork = new forms_staffwork();
-        staffwork.setVisible(true);
+//        forms_staffwork staffwork = new forms_staffwork();
+//        staffwork.setVisible(true);
 
 //        forms_custom custom = new forms_custom();
 //        custom.setVisible(true);

@@ -4,7 +4,8 @@
 
 package com.forms;
 
-import com.database.inspection;
+import com.database.operategoods;
+import com.database.operatetemp;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +13,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
 
 /**
  * @author Administrator
@@ -48,7 +50,7 @@ public class forms_staffwork extends JFrame {
     }
 
     private void initComponents() {
-        Vector<Vector<Object>> datas = inspection.readgoods(inspection.readaccount());
+        Vector<Vector<Object>> datas = operategoods.selectstaff(operatetemp.readtemp().get(0));
         Vector<String> title = new Vector<>();
         title.add("订单编号");
         title.add("发货时间");

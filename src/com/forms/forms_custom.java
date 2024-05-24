@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
@@ -532,7 +531,7 @@ public class forms_custom extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        datas = inspection.readdata(arrange);
+        datas = operategoods.selectcustom(operatetemp.readtemp().get(0));
         assignment();
         group.add(dx_payasyougo);
         group.add(dx_collectpayment);
@@ -584,6 +583,5 @@ public class forms_custom extends JFrame {
     private final ButtonGroup group = new ButtonGroup();
     private Vector<Vector<Object>> datas = new Vector<Vector<Object>>();
     //列的数量
-    private int arrange = 11;
     private int n = 0;
 }

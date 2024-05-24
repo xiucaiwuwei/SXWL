@@ -5,13 +5,10 @@
 package com.forms;
 
 import com.database.inspection;
-import com.database.linksql;
+import com.database.operatetemp;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.Vector;
 import javax.swing.*;
 
 /**
@@ -32,9 +29,9 @@ public class forms_modify extends JFrame {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         //获得登录权限
-        String table = inspection.readpassword().get(1);
+        String table = operatetemp.readtemp().get(2);
         //旧密码
-        String passworded = String.valueOf(inspection.readpassword().get(0));
+        String passworded = String.valueOf(operatetemp.readtemp().get(1));
         //新密码
         String password = String.valueOf(wbk_password.getPassword());
         //确认密码
@@ -172,7 +169,7 @@ public class forms_modify extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        wbk_account.setText(inspection.readaccount());
+        wbk_account.setText(operatetemp.readtemp().get(0));
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
