@@ -2,15 +2,21 @@
  * Created by JFormDesigner on Sat May 18 08:45:25 CST 2024
  */
 
-package com.forms;
+package com.forms.share;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
 import javax.swing.*;
 import com.database.*;
-import com.database.operatetemp;
-import com.database.operatecustom;
+import com.database.operatetable.operatetemp;
+import com.database.operatetable.operatecustom;
+import com.forms.administrators.forms_administrators;
+import com.forms.custom.forms_customwork;
+import com.forms.custom.forms_custom;
+import com.forms.staff.forms_staffwork;
+import com.forms.custom.*;
+
 /**
  * @author Administrator
  */
@@ -37,7 +43,7 @@ public class forms_register extends JFrame {
                 if(inspection.validate("custom",account,password)){
                     operatetemp.importtemp(account,password,select);
                     this.setVisible(false);
-                    forms_custom custom = new forms_custom();
+                    forms_customwork custom = new forms_customwork();
                     custom.setVisible(true);
                 }else {
                     JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
@@ -73,27 +79,9 @@ public class forms_register extends JFrame {
 
     private void al_register(ActionEvent e) {
         // TODO add your code here
-        Boolean flag = true;
-        System.out.println(e.getActionCommand());
-        if (wbk_account.getText().isEmpty() && String.valueOf(wbk_password.getPassword()).isEmpty()) {
-            JOptionPane.showMessageDialog(null, "用户名和密码不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-            flag = false;
-        } else if (!wbk_account.getText().isEmpty() && String.valueOf(wbk_password.getPassword()).isEmpty()) {
-            JOptionPane.showMessageDialog(null, "密码不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-            flag = false;
-        }
-        if (operatecustom.selectaccount(wbk_account.getText())) {
-            JOptionPane.showMessageDialog(null, "该用户名已存在！", "警告", JOptionPane.PLAIN_MESSAGE, null);
-            flag = false;
-        }
-        if (flag) {
-            operatetemp.importtemp(wbk_account.getText(), String.valueOf(wbk_password.getPassword()), 0);
-            operatecustom.importcustom(wbk_account.getText(), String.valueOf(wbk_password.getPassword()));
-            JOptionPane.showMessageDialog(null, "注册成功！", "提示", JOptionPane.PLAIN_MESSAGE, null);
-            this.setVisible(false);
-            forms_personalcustomer personalcustomer = new forms_personalcustomer();
-            personalcustomer.setVisible(true);
-        }
+        setVisible(false);
+        forms_customregister customregister = new forms_customregister();
+        customregister.setVisible(true);
     }
 
     private void initComponents() {

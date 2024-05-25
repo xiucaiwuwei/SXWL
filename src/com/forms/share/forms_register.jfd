@@ -91,7 +91,7 @@ new FormModel {
 				"y": 195
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 35, 15 )
+			"location": new java.awt.Point( 35, 10 )
 			"size": new java.awt.Dimension( 400, 300 )
 		} )
 	}

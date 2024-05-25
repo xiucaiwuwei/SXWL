@@ -2,7 +2,7 @@
  * Created by JFormDesigner on Sat May 18 22:16:23 CST 2024
  */
 
-package com.forms;
+package com.forms.staff;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -13,7 +13,8 @@ import java.sql.SQLException;
 import javax.swing.*;
 
 import com.database.linksql;
-import com.database.operatetemp;
+import com.database.operatetable.operatetemp;
+import com.forms.staff.*;
 
 /**
  * @author Administrator
@@ -55,6 +56,13 @@ public class forms_staff extends JFrame {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         this.setVisible(false);
+    }
+
+    private void al_query(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        forms_wages wages = new forms_wages();
+        wages.setVisible(true);
     }
 
     private void initComponents() {
@@ -190,6 +198,7 @@ public class forms_staff extends JFrame {
         //---- al_query ----
         al_query.setText("\u67e5\u8be2\u5de5\u8d44");
         al_query.setPreferredSize(new Dimension(120, 25));
+        al_query.addActionListener(e -> al_query(e));
         contentPane.add(al_query);
         al_query.setBounds(new Rectangle(new Point(205, 245), al_query.getPreferredSize()));
 

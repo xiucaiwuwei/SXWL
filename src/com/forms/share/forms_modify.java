@@ -2,10 +2,10 @@
  * Created by JFormDesigner on Thu May 23 22:44:22 CST 2024
  */
 
-package com.forms;
+package com.forms.share;
 
 import com.database.inspection;
-import com.database.operatetemp;
+import com.database.operatetable.operatetemp;
 
 import java.awt.*;
 import java.awt.event.*;

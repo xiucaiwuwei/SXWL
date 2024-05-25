@@ -2,9 +2,12 @@
  * Created by JFormDesigner on Sat May 18 09:20:46 CST 2024
  */
 
-package com.forms;
+package com.forms.administrators;
 
-import com.database.*;
+import com.database.operatetable.operatecustom;
+import com.database.operatetable.operategoods;
+import com.database.operatetable.operatestaff;
+import com.forms.share.forms_modify;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -46,7 +49,6 @@ public class forms_administrators extends JFrame {
         title.add("职位");
         title.add("联系方式");
         title.add("入职时间");
-        title.add("工资");
         title.add("账号");
         title.add("密码");
         table1.setModel(new DefaultTableModel(datas, title));

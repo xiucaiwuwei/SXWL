@@ -2,24 +2,21 @@
  * Created by JFormDesigner on Wed May 22 13:55:56 CST 2024
  */
 
-package com.forms;
+package com.forms.custom;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
 import com.database.*;
-import com.database.linksql;
-import com.database.operatetemp;
-import com.database.operatecustom;
+import com.database.operatetable.operatetemp;
+import com.database.operatetable.operatecustom;
+
 /**
  * @author 17529
  */
-public class forms_personalcustomer extends JFrame {
-    public forms_personalcustomer() {
+public class forms_custom extends JFrame {
+    public forms_custom() {
         initComponents();
     }
     //退出按钮事件
@@ -33,22 +30,13 @@ public class forms_personalcustomer extends JFrame {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         this.setVisible(false);
-        forms_custom custom = new forms_custom();
+        forms_customwork custom = new forms_customwork();
         custom.setVisible(true);
-    }
-
-    private void al_modify(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        wbk_account.setEnabled(true);
-        wbk_password.setEnabled(true);
-        wbk_phone.setEnabled(true);
-        wbk_address1.setEnabled(true);
-        wbk_address2.setEnabled(true);
     }
 
     private void al_save(ActionEvent e) {
         // TODO add your code here
+        System.out.println(e.getActionCommand());
         if(wbk_account.getText().isEmpty() || wbk_password.getText().isEmpty() || wbk_phone.getText().isEmpty()
                 || wbk_address1.getText().isEmpty())
         {
@@ -56,30 +44,13 @@ public class forms_personalcustomer extends JFrame {
         }
         else
         {
-            wbk_account.setEnabled(false);
-            wbk_password.setEnabled(false);
-            wbk_phone.setEnabled(false);
-            wbk_address1.setEnabled(false);
-            wbk_address2.setEnabled(false);
-            String sql1 = "update custom set account=?,password = ?, phone = ?, address1 = ?, address2 = ? where account = ?";
-            Connection connection = linksql.getconnection();
-            PreparedStatement statement = null;
-            try {
-                statement = connection.prepareStatement(sql1);
-                statement.setString(1, wbk_account.getText());
-                statement.setString(2, wbk_password.getText());
-                statement.setString(3, wbk_phone.getText());
-                statement.setString(4, wbk_address1.getText());
-                statement.setString(5, wbk_address2.getText());
-                statement.setString(6,operatetemp.readtemp().get(0));
-                statement.executeUpdate();
-                JOptionPane.showMessageDialog(null, "修改成功", "提示", JOptionPane.WARNING_MESSAGE);
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }finally {
-                linksql.closesql(connection, statement, null);
-            }
-            inspection.validate("custom", wbk_account.getText(), wbk_password.getText());
+            data.set(0,wbk_account.getText());
+            data.set(1,wbk_password.getText());
+            data.set(2,wbk_phone.getText());
+            data.set(3,wbk_address1.getText());
+            data.set(4,wbk_address2.getText());
+            operatecustom.updatecustom(data);
+            operatetemp.updatetemp(wbk_account.getText(),wbk_password.getText(),0);
         }
     }
 
@@ -87,7 +58,6 @@ public class forms_personalcustomer extends JFrame {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         menuBar1 = new JMenuBar();
         hSpacer1 = new JPanel(null);
-        al_modify = new JButton();
         al_save = new JButton();
         al_return = new JButton();
         al_exit = new JButton();
@@ -115,14 +85,6 @@ public class forms_personalcustomer extends JFrame {
         //======== menuBar1 ========
         {
             menuBar1.add(hSpacer1);
-
-            //---- al_modify ----
-            al_modify.setText("\u4fee\u6539");
-            al_modify.setPreferredSize(new Dimension(80, 30));
-            al_modify.setMinimumSize(null);
-            al_modify.setMaximumSize(null);
-            al_modify.addActionListener(e -> al_modify(e));
-            menuBar1.add(al_modify);
 
             //---- al_save ----
             al_save.setText("\u4fdd\u5b58");
@@ -163,7 +125,6 @@ public class forms_personalcustomer extends JFrame {
         bq_account.setBounds(50, 75, bq_account.getPreferredSize().width, 15);
 
         //---- wbk_account ----
-        wbk_account.setEnabled(false);
         wbk_account.setPreferredSize(new Dimension(120, 30));
         contentPane.add(wbk_account);
         wbk_account.setBounds(100, 65, 120, wbk_account.getPreferredSize().height);
@@ -176,7 +137,6 @@ public class forms_personalcustomer extends JFrame {
         bq_password.setBounds(50, 125, 40, 20);
 
         //---- wbk_password ----
-        wbk_password.setEnabled(false);
         wbk_password.setMaximumSize(null);
         wbk_password.setMinimumSize(null);
         wbk_password.setPreferredSize(new Dimension(120, 30));
@@ -190,7 +150,6 @@ public class forms_personalcustomer extends JFrame {
         bq_phone.setBounds(50, 175, 40, 18);
 
         //---- wbk_phone ----
-        wbk_phone.setEnabled(false);
         wbk_phone.setPreferredSize(new Dimension(120, 30));
         wbk_phone.setMinimumSize(null);
         wbk_phone.setMaximumSize(null);
@@ -204,7 +163,6 @@ public class forms_personalcustomer extends JFrame {
         bq_address1.setBounds(20, 230, 70, 20);
 
         //---- wbk_address1 ----
-        wbk_address1.setEnabled(false);
         wbk_address1.setMaximumSize(null);
         wbk_address1.setMinimumSize(null);
         wbk_address1.setPreferredSize(new Dimension(260, 30));
@@ -218,7 +176,6 @@ public class forms_personalcustomer extends JFrame {
         bq_address2.setBounds(20, 281, 70, 18);
 
         //---- wbk_address2 ----
-        wbk_address2.setEnabled(false);
         wbk_address2.setPreferredSize(new Dimension(260, 30));
         wbk_address2.setMinimumSize(null);
         wbk_address2.setMaximumSize(null);
@@ -273,24 +230,18 @@ public class forms_personalcustomer extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        wbk_account.setText(operatetemp.readtemp().get(0));
-        wbk_password.setText(operatetemp.readtemp().get(1));
-        Vector<String> data = operatecustom.readcustom(operatetemp.readtemp().get(0));
-        if (data != null && data.size() > 2) {
-            wbk_phone.setText(data.get(2));
-            if (data.size() > 3) {
-                wbk_address1.setText(data.get(3));
-                if (data.size() > 4) {
-                    wbk_address2.setText(data.get(4));
-                }
-            }
-        }
+
+        data = operatecustom.readcustom(operatetemp.readtemp().get(0));
+        wbk_account.setText(data.get(0));
+        wbk_password.setText(data.get(1));
+        wbk_phone.setText(data.get(2));
+        wbk_address1.setText(data.get(3));
+        wbk_address2.setText(data.get(4));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JMenuBar menuBar1;
     private JPanel hSpacer1;
-    private JButton al_modify;
     private JButton al_save;
     private JButton al_return;
     private JButton al_exit;
@@ -308,4 +259,5 @@ public class forms_personalcustomer extends JFrame {
     private JPanel rq_profilepicture;
     private JLabel bq_profilepicture;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    private Vector<String> data;
 }

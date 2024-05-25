@@ -2,10 +2,11 @@
  * Created by JFormDesigner on Sun May 19 11:12:22 CST 2024
  */
 
-package com.forms;
+package com.forms.staff;
 
-import com.database.operategoods;
-import com.database.operatetemp;
+import com.database.operatetable.operategoods;
+import com.database.operatetable.operatetemp;
+import com.forms.share.forms_modify;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -36,12 +37,6 @@ public class forms_staffwork extends JFrame {
         System.exit(0);
     }
 
-    private void menuItem3(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        System.exit(0);
-    }
-
     private void xx_modify(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
@@ -67,7 +62,6 @@ public class forms_staffwork extends JFrame {
         menu1 = new JMenu();
         xx_modify = new JMenuItem();
         xx_information = new JMenuItem();
-        xx_exit = new JMenuItem();
         hSpacer1 = new JPanel(null);
         bq_id2 = new JLabel();
         wbk_search = new JTextField();
@@ -76,7 +70,6 @@ public class forms_staffwork extends JFrame {
         rq_goods = new JScrollPane();
         bg_goods = new JTable();
         bq_sort = new JLabel();
-        al_modify = new JButton();
         al_save = new JButton();
         rq_sort = new JPanel();
         dx_rise = new JRadioButton();
@@ -106,11 +99,6 @@ public class forms_staffwork extends JFrame {
                 xx_information.setText("\u4e2a\u4eba\u4fe1\u606f");
                 xx_information.addActionListener(e -> menuItem2(e));
                 menu1.add(xx_information);
-
-                //---- xx_exit ----
-                xx_exit.setText("\u9000\u51fa\u7cfb\u7edf");
-                xx_exit.addActionListener(e -> menuItem3(e));
-                menu1.add(xx_exit);
             }
             menuBar1.add(menu1);
 
@@ -155,11 +143,6 @@ public class forms_staffwork extends JFrame {
         contentPane.add(bq_sort);
         bq_sort.setBounds(new Rectangle(new Point(50, 519), bq_sort.getPreferredSize()));
 
-        //---- al_modify ----
-        al_modify.setText("\u4fee\u6539");
-        contentPane.add(al_modify);
-        al_modify.setBounds(new Rectangle(new Point(696, 515), al_modify.getPreferredSize()));
-
         //---- al_save ----
         al_save.setText("\u4fdd\u5b58");
         contentPane.add(al_save);
@@ -195,12 +178,12 @@ public class forms_staffwork extends JFrame {
             }
         }
         contentPane.add(rq_sort);
-        rq_sort.setBounds(205, 517, 115, rq_sort.getPreferredSize().height);
+        rq_sort.setBounds(185, 515, 115, rq_sort.getPreferredSize().height);
 
         //---- al_delete ----
         al_delete.setText("\u5220\u9664");
         contentPane.add(al_delete);
-        al_delete.setBounds(new Rectangle(new Point(610, 515), al_delete.getPreferredSize()));
+        al_delete.setBounds(new Rectangle(new Point(695, 515), al_delete.getPreferredSize()));
 
         {
             // compute preferred size
@@ -232,7 +215,6 @@ public class forms_staffwork extends JFrame {
     private JMenu menu1;
     private JMenuItem xx_modify;
     private JMenuItem xx_information;
-    private JMenuItem xx_exit;
     private JPanel hSpacer1;
     private JLabel bq_id2;
     private JTextField wbk_search;
@@ -241,7 +223,6 @@ public class forms_staffwork extends JFrame {
     private JScrollPane rq_goods;
     private JTable bg_goods;
     private JLabel bq_sort;
-    private JButton al_modify;
     private JButton al_save;
     private JPanel rq_sort;
     private JRadioButton dx_rise;

@@ -1,19 +1,21 @@
-package com.database;
+package com.database.operatetable;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
+import static com.database.linksql.*;
+
 public class operatestaff {
-    private static final Connection connection = linksql.getconnection();
+    private static Connection connection = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
     public static Vector<Vector<Object>> readstaffs() {
-        Vector<Vector<Object>> datas = new Vector<Vector<Object>>();
+        Vector<Vector<Object>> datas = new Vector<>();
         String sql = "select * from staff";
         try {
-            connection.setCatalog("sxdate");
+            connection = getconnection();
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -27,7 +29,7 @@ public class operatestaff {
         }catch (Exception e){
             throw new RuntimeException(e);
         }finally {
-            linksql.closesql(connection,statement,resultSet);
+            closesql(connection,statement,resultSet);
         }
     }
 }

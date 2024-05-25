@@ -42,13 +42,6 @@ new FormModel {
 				"y": 519
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "al_modify"
-				"text": "修改"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 696
-				"y": 515
-			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_save"
 				"text": "保存"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
@@ -72,15 +65,15 @@ new FormModel {
 					"y": 0
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 205
-				"y": 517
+				"x": 185
+				"y": 515
 				"width": 115
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_delete"
 				"text": "删除"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 610
+				"x": 695
 				"y": 515
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
@@ -97,11 +90,6 @@ new FormModel {
 						name: "xx_information"
 						"text": "个人信息"
 						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem2", true ) )
-					} )
-					add( new FormComponent( "javax.swing.JMenuItem" ) {
-						name: "xx_exit"
-						"text": "退出系统"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem3", true ) )
 					} )
 				} )
 				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
