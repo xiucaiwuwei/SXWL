@@ -5,6 +5,7 @@
 package com.forms.staff;
 
 import com.database.operatetable.operategoods;
+import com.database.operatetable.operatestaff;
 import com.database.operatetable.operatetemp;
 import com.forms.share.forms_modify;
 
@@ -44,6 +45,22 @@ public class forms_staffwork extends JFrame {
         modify.setVisible(true);
     }
 
+    private void al_delete(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        int index = bg_goods.getSelectedRow();
+        if(index == -1){
+            JOptionPane.showMessageDialog(null,"请选择要删除的订单");
+        }
+        String id = (String)bg_goods.getValueAt(index,0);
+        if(operatestaff.deletestaff(id)){
+            JOptionPane.showMessageDialog(null, "删除成功");
+
+        } else{
+            JOptionPane.showMessageDialog(null, "删除失败");
+        }
+    }
+
     private void initComponents() {
         Vector<Vector<Object>> datas = operategoods.selectstaff(operatetemp.readtemp().get(0));
         Vector<String> title = new Vector<>();
@@ -69,6 +86,7 @@ public class forms_staffwork extends JFrame {
         al_exit = new JButton();
         rq_goods = new JScrollPane();
         bg_goods = new JTable();
+
         bq_sort = new JLabel();
         al_save = new JButton();
         rq_sort = new JPanel();
@@ -182,6 +200,7 @@ public class forms_staffwork extends JFrame {
 
         //---- al_delete ----
         al_delete.setText("\u5220\u9664");
+        al_delete.addActionListener(e -> al_delete(e));
         contentPane.add(al_delete);
         al_delete.setBounds(new Rectangle(new Point(695, 515), al_delete.getPreferredSize()));
 
@@ -222,6 +241,7 @@ public class forms_staffwork extends JFrame {
     private JButton al_exit;
     private JScrollPane rq_goods;
     private JTable bg_goods;
+
     private JLabel bq_sort;
     private JButton al_save;
     private JPanel rq_sort;

@@ -32,4 +32,17 @@ public class operatestaff {
             closesql(connection,statement,resultSet);
         }
     }
+    public static boolean deletestaff(String id) {
+        String sql = "delete from staff where id = ?";
+        try {
+            connection = getconnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,id);
+            return statement.executeUpdate()>0;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            closesql(connection,statement,resultSet);
+        }
+    }
 }
