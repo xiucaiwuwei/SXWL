@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class linksql {
+public class LinkSQL {
 
     private static String Driver;
     private static String URL;
@@ -66,7 +66,7 @@ public class linksql {
      * @param URL 数据库连接URL
      */
     public static void setURL(String URL) {
-        linksql.URL = URL;
+        LinkSQL.URL = URL;
     }
 
     /**
@@ -75,7 +75,7 @@ public class linksql {
      * @param username 数据库用户名
      */
     public static void setUsername(String username) {
-        linksql.username = username;
+        LinkSQL.username = username;
     }
 
     /**
@@ -84,6 +84,6 @@ public class linksql {
      * @param password 数据库密码
      */
     public static void setPassword(String password) {
-        linksql.password = password;
+        LinkSQL.password = password;
     }
 }

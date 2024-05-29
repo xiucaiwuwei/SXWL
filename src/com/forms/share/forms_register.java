@@ -8,12 +8,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
 import javax.swing.*;
-import com.database.*;
-import com.database.operatetable.operatetemp;
-import com.database.operatetable.operatecustom;
+
+import com.database.operatetable.IncreaseTable;
+import com.database.operatetable.InspectionTable;
 import com.forms.administrators.forms_administrators;
 import com.forms.custom.forms_customwork;
-import com.forms.custom.forms_custom;
 import com.forms.staff.forms_staffwork;
 import com.forms.custom.*;
 
@@ -33,39 +32,45 @@ public class forms_register extends JFrame {
         String account = wbk_account.getText();
         String password = String.valueOf(wbk_password.getPassword());
         if (account.isEmpty() && password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "用户名和密码不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+            JOptionPane.showMessageDialog(null, "用户名和密码不能为空！");
         } else if (!account.isEmpty() && password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "密码不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+            JOptionPane.showMessageDialog(null, "密码不能为空！");
         } else if (account.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "用户名不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+            JOptionPane.showMessageDialog(null, "用户名不能为空！");
         }else {
+            boolean flag = true;
             if(select==0){
-                if(inspection.validate("custom",account,password)){
-                    operatetemp.importtemp(account,password,select);
-                    this.setVisible(false);
+                if(InspectionTable.InspectionAccount("custom",account,password)){
                     forms_customwork custom = new forms_customwork();
                     custom.setVisible(true);
                 }else {
-                    JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+                    JOptionPane.showMessageDialog(null, "用户名和密码错误！");
+                    flag=false;
                 }
             }else if(select==1){
-                if(inspection.validate("staff",account,password)){
-                    operatetemp.importtemp(account,password,select);
-                    this.setVisible(false);
+                if(InspectionTable.InspectionAccount("staff",account,password)){
                     forms_staffwork staffwork = new forms_staffwork();
                     staffwork.setVisible(true);
                 }else {
-                    JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+                    JOptionPane.showMessageDialog(null, "用户名和密码错误！");
+                    flag=false;
                 }
             }else {
-                if (inspection.validate("administrators", account, password)) {
-                    operatetemp.importtemp(account,password, select);
-                    this.setVisible(false);
+                if (InspectionTable.InspectionAccount("administrators", account, password)) {
                     forms_administrators administrators = new forms_administrators();
                     administrators.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(null, "用户名和密码错误！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+                    JOptionPane.showMessageDialog(null, "用户名和密码错误！");
+                    flag=false;
                 }
+            }
+            if (flag){
+                this.setVisible(false);
+                Vector<String> data =new Vector<>();
+                data.add(account);
+                data.add(password);
+                data.add(String.valueOf(select));
+                IncreaseTable.IncreaseTemporary(data);
             }
         }
     }

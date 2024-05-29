@@ -1,28 +1,37 @@
-import com.database.linksql;
-import com.database.operatetable.operatetemp;
-import com.forms.custom.*;
-import com.forms.staff.forms_staffwork;
+import com.database.LinkSQL;
+import com.database.operatetable.DeleteTable;
+import com.database.operatetable.IncreaseTable;
+import com.forms.administrators.forms_administrators;
+
+import java.util.Vector;
 
 public class Main {
     static {
-        linksql.setDriver("com.mysql.cj.jdbc.Driver");
-        linksql.setURL("jdbc:mysql://localhost:3306/sxdate");
-        linksql.setUsername("root");
-        linksql.setPassword("123456");
-        //operatetemp.emptytemp();
+        LinkSQL.setDriver("com.mysql.cj.jdbc.Driver");
+        LinkSQL.setURL("jdbc:mysql://localhost:3306/sxdate");
+        LinkSQL.setUsername("root");
+        LinkSQL.setPassword("123456");
+        DeleteTable.deleteTable("temporary",null);
     }
+
     public static void main(String[] args) {
+        Vector<String> data = new Vector<>();
+        data.add("xzx");
+        data.add("123456");
+        data.add("2");
+        IncreaseTable.IncreaseTemporary(data);
+
 //        forms_register register = new forms_register();
 //        register.setVisible(true);
 
-//        forms_administrators administrators = new forms_administrators();
-//        administrators.setVisible(true);
+        forms_administrators administrators = new forms_administrators();
+        administrators.setVisible(true);
 
 //        forms_staff staff = new forms_staff();
 //        staff.setVisible(true);
 
-        forms_staffwork staffwork = new forms_staffwork();
-        staffwork.setVisible(true);
+//        forms_staffwork staffwork = new forms_staffwork();
+//        staffwork.setVisible(true);
 
 //        forms_custom custom = new forms_custom();
 //        custom.setVisible(true);
@@ -34,5 +43,4 @@ public class Main {
 //        wages.setVisible(true);
 
     }
-
 }

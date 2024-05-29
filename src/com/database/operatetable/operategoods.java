@@ -3,16 +3,30 @@ package com.database.operatetable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Vector;
 
-import static com.database.linksql.*;
+import static com.database.LinkSQL.*;
 
 public class operategoods {
     private static Connection connection = null;
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
 
+    public static void updategoodsstaff(Vector<Object> data){
+        String sql = "update goods set id=?,deliverytime=?,putawayname=?,phone=?,address=?,notes=?,way=?,receiptstatus=?,signingtime=? where id=?";
+        try {
+            connection = getconnection();
+            statement = connection.prepareStatement(sql);
+            for (int i = 0; i < data.size(); i++) {
+                statement.setString(i + 1, String.valueOf(data.get(i)));
+            }
+            statement.executeUpdate();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            closesql(connection, statement, resultSet);
+        }
+    }
     public static void updategoods(Vector<Object> data){
         String sql = "update goods set id=?,name=?,number=?,putawayname=?,phone=?,paymenttime=?," +
                 "deliverytime=?,address=?,notes=?,way=? where id=?";
@@ -28,46 +42,6 @@ public class operategoods {
             closesql(connection, statement, resultSet);
         }
     }
-    public static void deletegoods(String id){
-        String sql = "delete from goods where id = ?";
-        try {
-            connection = getconnection();
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, id);
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        } finally {
-            closesql(connection, statement, resultSet);
-        }
-    }
-    /**
-     * 读取账户信息。
-     *
-     * @return 包含账户信息的二维Vector对象。
-     */
-    public static Vector<Vector<Object>> readgoods() {
-        Vector<Vector<Object>> datas = new Vector<>();
-        String sql = "select * from goods";
-        try {
-            connection = getconnection();
-            statement = connection.prepareStatement(sql);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Vector<Object> data = new Vector<>();
-                for (int j = 0; j < 15; j++) {
-                    data.add(resultSet.getObject(j + 1));
-                }
-                datas.add(data);
-            }
-            return datas;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            closesql(connection, statement, resultSet);
-        }
-    }
-
     /**
      * 读取账户信息。
      *

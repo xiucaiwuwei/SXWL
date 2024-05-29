@@ -9,7 +9,8 @@ import java.awt.event.*;
 import java.util.Vector;
 import javax.swing.*;
 
-import com.database.operatetable.operatecustom;
+import com.database.operatetable.IncreaseTable;
+import com.database.operatetable.InspectionTable;
 import com.forms.share.*;
 import com.database.*;
 /**
@@ -44,7 +45,7 @@ public class forms_customregister extends JFrame {
         }else{
             if(wbk_password.getText().equals(wbk_passwords.getText())) {
                 if(wbk_pass.getText().equals(wbk_passed.getText())) {
-                    if(operatecustom.selectaccount(wbk_name.getText())) {
+                    if(InspectionTable.InspectionAccount("custom",wbk_name.getText())) {
                         JOptionPane.showMessageDialog(null,"该用户名已存在！");
                     }else {
                         JOptionPane.showMessageDialog(null,"注册成功！");
@@ -54,7 +55,7 @@ public class forms_customregister extends JFrame {
                         data.add(wbk_phone.getText());
                         data.add(wbk_address1.getText());
                         data.add(wbk_address2.getText());
-                        operatecustom.importcustom(data);
+                        IncreaseTable.IncreaseCustom(data);
                         setVisible(false);
                         forms_register register = new forms_register();
                         register.setVisible(true);
@@ -234,7 +235,7 @@ public class forms_customregister extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
         wbk_passed.setEnabled(false);
-        wbk_passed.setText(code.getcode());
+        wbk_passed.setText(Code.getCode());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

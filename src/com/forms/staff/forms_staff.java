@@ -12,9 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.*;
 
-import com.database.linksql;
-import com.database.operatetable.operatetemp;
-import com.forms.staff.*;
+import com.database.LinkSQL;
+import com.database.operatetable.ReadTable;
 
 /**
  * @author Administrator
@@ -38,7 +37,7 @@ public class forms_staff extends JFrame {
             JOptionPane.showMessageDialog(null, "联系电话不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
         }else {
             String sql ="update staff set phone=? where id=?";
-            Connection connection = linksql.getconnection();
+            Connection connection = LinkSQL.getconnection();
             PreparedStatement statement;
             try {
                 statement = connection.prepareStatement(sql);
@@ -48,7 +47,7 @@ public class forms_staff extends JFrame {
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
-            linksql.closesql(connection,statement,null);
+            LinkSQL.closesql(connection,statement,null);
         }
     }
 
@@ -263,9 +262,9 @@ public class forms_staff extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        wbk_id.setText(operatetemp.readtemp().get(0));
+        wbk_id.setText(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         String sql = "select * from staff where account=?";
-        Connection connection = linksql.getconnection();
+        Connection connection = LinkSQL.getconnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -282,7 +281,7 @@ public class forms_staff extends JFrame {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {
-            linksql.closesql(connection,statement,resultSet);
+            LinkSQL.closesql(connection,statement,resultSet);
         }
     }
 

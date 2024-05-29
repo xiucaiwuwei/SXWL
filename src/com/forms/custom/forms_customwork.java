@@ -6,15 +6,10 @@ package com.forms.custom;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.Vector;
 import javax.swing.*;
-import com.database.*;
-import com.database.operatetable.operatecustom;
-import com.database.operatetable.operategoods;
-import com.database.operatetable.operatetemp;
+
+import com.database.operatetable.*;
 
 /**
  * @author Administrator
@@ -103,7 +98,7 @@ public class forms_customwork extends JFrame {
     private void al_delete(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        operategoods.deletegoods(wbk_id.getText());
+        DeleteTable.deleteTable("custom",wbk_id.getText());
         datas.remove(n);
         JOptionPane.showMessageDialog(null, "删除成功！", "提示", JOptionPane.PLAIN_MESSAGE, null);
     }
@@ -150,7 +145,7 @@ public class forms_customwork extends JFrame {
     private void al_record(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        datas = operategoods.selectcustom(operatetemp.readtemp().get(0));
+        datas = operategoods.selectcustom(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         assignment();
     }
 

@@ -5,6 +5,8 @@
 package com.forms.staff;
 
 import java.awt.event.*;
+
+import com.database.operatetable.ReadTable;
 import com.database.operatetable.operatewages;
 
 import java.awt.*;
@@ -87,7 +89,7 @@ public class forms_wages extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
         Vector<Vector<Object>> datas = new Vector<>();
-        datas.add(operatewages.readwages());
+        datas=ReadTable.QueryTable("wages", String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         Vector<String> title = new Vector<>();
         title.add("工号");
         title.add("姓名");

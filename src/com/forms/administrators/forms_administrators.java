@@ -4,9 +4,7 @@
 
 package com.forms.administrators;
 
-import com.database.operatetable.operatecustom;
-import com.database.operatetable.operategoods;
-import com.database.operatetable.operatestaff;
+import com.database.operatetable.*;
 import com.forms.share.forms_modify;
 
 import java.awt.*;
@@ -14,6 +12,9 @@ import java.awt.event.*;
 import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
+import static com.database.operatetable.DeleteTable.*;
 
 
 /**
@@ -24,54 +25,76 @@ public class forms_administrators extends JFrame {
         initComponents();
     }
 
-    private void bg_passwork(ActionEvent e) {
+    /**
+     * 根据条件选择要操作的表格。
+     *
+     * @return 表格名称，作为后续操作的数据源。
+     */
+    private boolean deletetable(String id){
+        if (n==1) {
+            return deleteTable("custom",id);
+        }else if (n==2){
+            return deleteTable("staff",id);
+        }else if (n==3){
+            return deleteTable("goods",id);
+        }else if (n==4){
+            return deleteTable("wages",id);
+        }else {
+            return false;
+        }
+    }
+
+    private void al_password(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         forms_modify modify = new forms_modify();
         modify.setVisible(true);
     }
 
-    private void bg_exit(ActionEvent e) {
+    private void al_staff(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        System.exit(0);
-    }
-
-    private void button2(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        Vector<Vector<Object>> datas = operatestaff.readstaffs();
-        Vector<String> title = new Vector<>();
+        bq_title.setText("员    工    表");
+        datas = ReadTable.readTable("staff");
+        title = new Vector<>();
         title.add("员工编号");
         title.add("姓名");
         title.add("性别");
         title.add("年龄");
-        title.add("职位");
-        title.add("联系方式");
         title.add("入职时间");
+        title.add("职位");
+        title.add("联系电话");
         title.add("账号");
         title.add("密码");
-        table1.setModel(new DefaultTableModel(datas, title));
+        bg_table.setModel(new DefaultTableModel(datas, title));
+        JTableHeader header = bg_table.getTableHeader();
+        header.setReorderingAllowed(false);
+        n=2;
     }
 
-    private void button3(ActionEvent e) {
+    private void al_custom(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        Vector<Vector<Object>> datas = operatecustom.readcustoms();
-        Vector<String> title = new Vector<>();
+        bq_title.setText("客    户    表");
+        datas = ReadTable.readTable("custom");
+        title = new Vector<>();
         title.add("账户");
         title.add("密码");
         title.add("电话");
         title.add("地址1");
         title.add("地址2");
-        table1.setModel(new DefaultTableModel(datas, title));
+        bg_table.setModel(new DefaultTableModel(datas, title));
+        JTableHeader header = bg_table.getTableHeader();
+        header.setReorderingAllowed(false);
+        n=1;
     }
 
-    private void button4(ActionEvent e) {
+    private void al_goods(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        Vector<Vector<Object>> datas = operategoods.readgoods();
-        Vector<String> title = new Vector<>();
+        bq_title.setText("货    物    表");
+        datas = ReadTable.readTable("goods");
+        title = new Vector<>();
         title.add("订单编号");
         title.add("名称");
         title.add("数量");
@@ -87,23 +110,109 @@ public class forms_administrators extends JFrame {
         title.add("配送员");
         title.add("签收情况");
         title.add("签收时间");
-        table1.setModel(new DefaultTableModel(datas, title));
+        bg_table.setModel(new DefaultTableModel(datas, title));
+        JTableHeader header = bg_table.getTableHeader();
+        header.setReorderingAllowed(false);
+        n=3;
+    }
+
+    private void al_delete(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        int[] selectedRows = bg_table.getSelectedRows();
+        if (selectedRows.length > 0) {
+            DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+            for (int i = selectedRows.length - 1; i >= 0; i--) {
+                int rowIndex = selectedRows[i];
+                if(deletetable(model.getValueAt(rowIndex, 0).toString())){
+                    JOptionPane.showMessageDialog(null, "删除成功");
+                }else {
+                    JOptionPane.showMessageDialog(null, "删除失败");
+                }
+                model.removeRow(rowIndex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "请选择至少一行进行删除");
+        }
+    }
+
+    private void al_increase(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+        if(title.isEmpty()){
+            JOptionPane.showMessageDialog(null, "请选择表格");
+        }else {
+            model.addRow(new Object[title.size()]);
+        }
+    }
+
+    private void al_exit(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        System.exit(0);
+    }
+
+    private void al_save(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        if(title.isEmpty()){
+            JOptionPane.showMessageDialog(null, "未选择表格");
+        }else {
+            DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+            for (int i = 0; i < bg_table.getRowCount(); i++) {
+                if(bg_table.isCellSelected(i, 1)){
+                    Vector<String> data = new Vector<>();
+                    for (int j = 0; j < bg_table.getColumnCount(); j++) {
+                        data.add(model.getValueAt(i, j).toString());
+                    }
+                    data.add(datas.get(i).get(0).toString());
+                    operatestaff.updatestaff(data);
+                }
+
+            }
+        }
+    }
+
+    private void al_wages(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        datas = ReadTable.readTable("wages");
+        title = new Vector<>();
+        title.add("员工编号");
+        title.add("姓名");
+        title.add("基本工资");
+        title.add("在职天数");
+        title.add("应发工资");
+        title.add("月奖金");
+        title.add("应扣工资");
+        title.add("实发工资");
+        title.add("备注");
+        bg_table.setModel(new DefaultTableModel(datas, title));
+        JTableHeader header = bg_table.getTableHeader();
+        header.setReorderingAllowed(false);
+        n=4;
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         actionbar = new JMenuBar();
-        setup = new JMenu();
-        bg_passwork = new JMenuItem();
-        bg_exit = new JMenuItem();
-        button2 = new JButton();
-        button3 = new JButton();
-        button4 = new JButton();
+        al_password = new JButton();
+        al_staff = new JButton();
+        al_custom = new JButton();
+        al_goods = new JButton();
+        al_wages = new JButton();
         hSpacer1 = new JPanel(null);
-        textField1 = new JTextField();
-        button1 = new JButton();
-        scrollPane1 = new JScrollPane();
-        table1 = new JTable();
+        bq_id = new JLabel();
+        wbk_id = new JTextField();
+        al_search = new JButton();
+        al_exit = new JButton();
+        al_delete = new JButton();
+        al_save = new JButton();
+        al_increase = new JButton();
+        bq_title = new JLabel();
+        rq_table = new JScrollPane();
+        bg_table = new JTable();
 
         //======== this ========
         setTitle("\u53cc\u96c4\u7269\u6d41");
@@ -118,61 +227,90 @@ public class forms_administrators extends JFrame {
         //======== actionbar ========
         {
 
-            //======== setup ========
-            {
-                setup.setText("\u8bbe\u7f6e");
-                setup.setPreferredSize(new Dimension(40, 19));
-                setup.setHorizontalAlignment(SwingConstants.CENTER);
+            //---- al_password ----
+            al_password.setText("\u4fee\u6539\u5bc6\u7801");
+            al_password.addActionListener(e -> al_password(e));
+            actionbar.add(al_password);
 
-                //---- bg_passwork ----
-                bg_passwork.setText("\u4fee\u6539\u5bc6\u7801");
-                bg_passwork.addActionListener(e -> bg_passwork(e));
-                setup.add(bg_passwork);
+            //---- al_staff ----
+            al_staff.setText("\u5458\u5de5\u8868");
+            al_staff.addActionListener(e -> al_staff(e));
+            actionbar.add(al_staff);
 
-                //---- bg_exit ----
-                bg_exit.setText("\u9000\u51fa\u7cfb\u7edf");
-                bg_exit.addActionListener(e -> bg_exit(e));
-                setup.add(bg_exit);
-            }
-            actionbar.add(setup);
+            //---- al_custom ----
+            al_custom.setText("\u5ba2\u6237\u8868");
+            al_custom.addActionListener(e -> al_custom(e));
+            actionbar.add(al_custom);
 
-            //---- button2 ----
-            button2.setText("\u5458\u5de5\u8868");
-            button2.addActionListener(e -> button2(e));
-            actionbar.add(button2);
+            //---- al_goods ----
+            al_goods.setText("\u8d27\u7269\u8868");
+            al_goods.addActionListener(e -> al_goods(e));
+            actionbar.add(al_goods);
 
-            //---- button3 ----
-            button3.setText("\u5ba2\u6237\u8868");
-            button3.addActionListener(e -> button3(e));
-            actionbar.add(button3);
-
-            //---- button4 ----
-            button4.setText("\u8d27\u7269\u8868");
-            button4.addActionListener(e -> button4(e));
-            actionbar.add(button4);
+            //---- al_wages ----
+            al_wages.setText("\u5de5\u8d44\u8868");
+            al_wages.addActionListener(e -> al_wages(e));
+            actionbar.add(al_wages);
 
             //---- hSpacer1 ----
             hSpacer1.setPreferredSize(new Dimension(1000, 10));
             actionbar.add(hSpacer1);
 
-            //---- textField1 ----
-            textField1.setMaximumSize(null);
-            textField1.setMinimumSize(null);
-            textField1.setPreferredSize(new Dimension(240, 25));
-            actionbar.add(textField1);
+            //---- bq_id ----
+            bq_id.setText("\u7f16\u53f7");
+            actionbar.add(bq_id);
 
-            //---- button1 ----
-            button1.setText("\u641c\u7d22");
-            actionbar.add(button1);
+            //---- wbk_id ----
+            wbk_id.setMaximumSize(null);
+            wbk_id.setMinimumSize(null);
+            wbk_id.setPreferredSize(new Dimension(240, 25));
+            actionbar.add(wbk_id);
+
+            //---- al_search ----
+            al_search.setText("\u641c\u7d22");
+            actionbar.add(al_search);
         }
         setJMenuBar(actionbar);
 
-        //======== scrollPane1 ========
+        //---- al_exit ----
+        al_exit.setText("\u9000\u51fa");
+        al_exit.addActionListener(e -> al_exit(e));
+        contentPane.add(al_exit);
+        al_exit.setBounds(new Rectangle(new Point(890, 10), al_exit.getPreferredSize()));
+
+        //---- al_delete ----
+        al_delete.setText("\u5220\u9664");
+        al_delete.addActionListener(e -> al_delete(e));
+        contentPane.add(al_delete);
+        al_delete.setBounds(new Rectangle(new Point(810, 10), al_delete.getPreferredSize()));
+
+        //---- al_save ----
+        al_save.setText("\u4fdd\u5b58");
+        al_save.addActionListener(e -> al_save(e));
+        contentPane.add(al_save);
+        al_save.setBounds(new Rectangle(new Point(730, 10), al_save.getPreferredSize()));
+
+        //---- al_increase ----
+        al_increase.setText("\u6dfb\u52a0");
+        al_increase.addActionListener(e -> al_increase(e));
+        contentPane.add(al_increase);
+        al_increase.setBounds(new Rectangle(new Point(650, 10), al_increase.getPreferredSize()));
+
+        //---- bq_title ----
+        bq_title.setText("\u8bf7\u5148\u9009\u62e9\u8868");
+        bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD, 24));
+        contentPane.add(bq_title);
+        bq_title.setBounds(20, 5, 620, 40);
+
+        //======== rq_table ========
         {
-            scrollPane1.setViewportView(table1);
+
+            //---- bg_table ----
+            bg_table.setFont(bg_table.getFont().deriveFont(bg_table.getFont().getStyle() & ~Font.ITALIC));
+            rq_table.setViewportView(bg_table);
         }
-        contentPane.add(scrollPane1);
-        scrollPane1.setBounds(15, 15, 950, 490);
+        contentPane.add(rq_table);
+        rq_table.setBounds(15, 50, 950, 460);
 
         {
             // compute preferred size
@@ -191,20 +329,29 @@ public class forms_administrators extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JMenuBar actionbar;
-    private JMenu setup;
-    private JMenuItem bg_passwork;
-    private JMenuItem bg_exit;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
+    private JButton al_password;
+    private JButton al_staff;
+    private JButton al_custom;
+    private JButton al_goods;
+    private JButton al_wages;
     private JPanel hSpacer1;
-    private JTextField textField1;
-    private JButton button1;
-    private JScrollPane scrollPane1;
-    private JTable table1;
+    private JLabel bq_id;
+    private JTextField wbk_id;
+    private JButton al_search;
+    private JButton al_exit;
+    private JButton al_delete;
+    private JButton al_save;
+    private JButton al_increase;
+    private JLabel bq_title;
+    private JScrollPane rq_table;
+    private JTable bg_table;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
+    private int n=0;
+    private Vector<String> title;
+    private Vector<Vector<Object>> datas;
 }

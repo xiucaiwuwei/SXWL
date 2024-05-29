@@ -4,9 +4,7 @@
 
 package com.forms.staff;
 
-import com.database.operatetable.operategoods;
-import com.database.operatetable.operatestaff;
-import com.database.operatetable.operatetemp;
+import com.database.operatetable.*;
 import com.forms.share.forms_modify;
 
 import java.awt.*;
@@ -15,6 +13,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
 
 
 /**
@@ -48,22 +47,59 @@ public class forms_staffwork extends JFrame {
     private void al_delete(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        int index = bg_goods.getSelectedRow();
-        if(index == -1){
-            JOptionPane.showMessageDialog(null,"请选择要删除的订单");
-        }
-        String id = (String)bg_goods.getValueAt(index,0);
-        if(operatestaff.deletestaff(id)){
-            JOptionPane.showMessageDialog(null, "删除成功");
-
-        } else{
-            JOptionPane.showMessageDialog(null, "删除失败");
+        int[] selectedRows = bg_goods.getSelectedRows();
+        if (selectedRows.length > 0) {
+            DefaultTableModel model = (DefaultTableModel) bg_goods.getModel();
+            for (int i = selectedRows.length - 1; i >= 0; i--) {
+                int rowIndex = selectedRows[i];
+                DeleteTable.deleteTable("goods",model.getValueAt(rowIndex, 0).toString());
+                model.removeRow(rowIndex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "请选择至少一行进行删除");
         }
     }
 
+    private void al_save(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        DefaultTableModel model = (DefaultTableModel) bg_goods.getModel();
+        for (int i = 0; i < bg_goods.getRowCount(); i++) {
+            if (bg_goods.isCellSelected(i, 1)) {
+                Vector<Object> data = new Vector<>();
+                for (int j = 0; j < bg_goods.getColumnCount(); j++){
+                    data.add(model.getValueAt(i, j));
+                    if (j==6){
+                        if(model.getValueAt(i, j).toString().equals("货到付款")){
+                            data.set(j,1);
+                        }else{
+                            data.set(j,0);
+                        }
+                    }
+                    if(j==7){
+                        if(model.getValueAt(i, j).toString().equals("已签收")){
+                            data.set(j,1);
+                        }else{
+                            data.set(j,0);
+                        }
+                    }
+                }
+                data.add(datas.get(i).get(0));
+                operategoods.updategoodsstaff(data);
+            }
+        }
+    }
+
+    private void button1(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        datas = operategoods.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        bg_goods.setModel(new DefaultTableModel(datas, title));
+    }
+
     private void initComponents() {
-        Vector<Vector<Object>> datas = operategoods.selectstaff(operatetemp.readtemp().get(0));
-        Vector<String> title = new Vector<>();
+        datas = operategoods.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        title = new Vector<>();
         title.add("订单编号");
         title.add("发货时间");
         title.add("签收人姓名");
@@ -93,6 +129,8 @@ public class forms_staffwork extends JFrame {
         dx_rise = new JRadioButton();
         dx_fall = new JRadioButton();
         al_delete = new JButton();
+        button1 = new JButton();
+        button2 = new JButton();
 
         //======== this ========
         setResizable(false);
@@ -163,8 +201,9 @@ public class forms_staffwork extends JFrame {
 
         //---- al_save ----
         al_save.setText("\u4fdd\u5b58");
+        al_save.addActionListener(e -> al_save(e));
         contentPane.add(al_save);
-        al_save.setBounds(new Rectangle(new Point(782, 515), al_save.getPreferredSize()));
+        al_save.setBounds(new Rectangle(new Point(700, 515), al_save.getPreferredSize()));
 
         //======== rq_sort ========
         {
@@ -202,7 +241,18 @@ public class forms_staffwork extends JFrame {
         al_delete.setText("\u5220\u9664");
         al_delete.addActionListener(e -> al_delete(e));
         contentPane.add(al_delete);
-        al_delete.setBounds(new Rectangle(new Point(695, 515), al_delete.getPreferredSize()));
+        al_delete.setBounds(new Rectangle(new Point(530, 515), al_delete.getPreferredSize()));
+
+        //---- button1 ----
+        button1.setText("\u5237\u65b0");
+        button1.addActionListener(e -> button1(e));
+        contentPane.add(button1);
+        button1.setBounds(new Rectangle(new Point(785, 515), button1.getPreferredSize()));
+
+        //---- button2 ----
+        button2.setText("\u6dfb\u52a0");
+        contentPane.add(button2);
+        button2.setBounds(new Rectangle(new Point(615, 515), button2.getPreferredSize()));
 
         {
             // compute preferred size
@@ -226,7 +276,6 @@ public class forms_staffwork extends JFrame {
         sort.add(dx_fall);
         JTableHeader header = bg_goods.getTableHeader();
         header.setReorderingAllowed(false);
-
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -241,14 +290,17 @@ public class forms_staffwork extends JFrame {
     private JButton al_exit;
     private JScrollPane rq_goods;
     private JTable bg_goods;
-
+    private JComboBox typesof;
     private JLabel bq_sort;
     private JButton al_save;
     private JPanel rq_sort;
     private JRadioButton dx_rise;
     private JRadioButton dx_fall;
     private JButton al_delete;
+    private JButton button1;
+    private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private JComboBox<String> typesof;
     private ButtonGroup sort = new ButtonGroup();
+    private Vector<Vector<Object>> datas;
+    private Vector<String> title;
 }

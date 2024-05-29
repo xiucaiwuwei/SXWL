@@ -5,7 +5,7 @@
 package com.forms.share;
 
 import com.database.inspection;
-import com.database.operatetable.operatetemp;
+import com.database.operatetable.ReadTable;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -29,9 +29,9 @@ public class forms_modify extends JFrame {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         //获得登录权限
-        String table = operatetemp.readtemp().get(2);
+        String table = String.valueOf(ReadTable.readTable("temporary").get(0).get(2));
         //旧密码
-        String passworded = String.valueOf(operatetemp.readtemp().get(1));
+        String passworded = String.valueOf(String.valueOf(ReadTable.readTable("temporary").get(0).get(1)));
         //新密码
         String password = String.valueOf(wbk_password.getPassword());
         //确认密码
@@ -169,7 +169,7 @@ public class forms_modify extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        wbk_account.setText(operatetemp.readtemp().get(0));
+        wbk_account.setText(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
