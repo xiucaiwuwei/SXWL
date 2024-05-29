@@ -13,6 +13,21 @@ public class operategoods {
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
 
+    public static void updategoodsstaff(Vector<Object> data){
+        String sql = "update goods set id=?,deliverytime=?,putawayname=?,phone=?,address=?,notes=?,way=?,receiptstatus=?,signingtime=? where id=?";
+        try {
+            connection = getconnection();
+            statement = connection.prepareStatement(sql);
+            for (int i = 0; i < data.size(); i++) {
+                statement.setString(i + 1, String.valueOf(data.get(i)));
+            }
+            statement.executeUpdate();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            closesql(connection, statement, resultSet);
+        }
+    }
     public static void updategoods(Vector<Object> data){
         String sql = "update goods set id=?,name=?,number=?,putawayname=?,phone=?,paymenttime=?," +
                 "deliverytime=?,address=?,notes=?,way=? where id=?";
@@ -28,6 +43,10 @@ public class operategoods {
             closesql(connection, statement, resultSet);
         }
     }
+    /**
+     * 根据商品ID删除商品信息
+     * @param id 商品的唯一标识符
+     */
     public static void deletegoods(String id){
         String sql = "delete from goods where id = ?";
         try {
