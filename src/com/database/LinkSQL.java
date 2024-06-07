@@ -17,7 +17,7 @@ public class LinkSQL {
      *
      * @return 数据库连接对象
      */
-    public static Connection getconnection() {
+    public static Connection getConnection() {
         Connection connection;
         try {
             Class.forName(Driver);

@@ -167,7 +167,7 @@ public class forms_administrators extends JFrame {
                         data.add(model.getValueAt(i, j).toString());
                     }
                     data.add(datas.get(i).get(0).toString());
-                    operatestaff.updatestaff(data);
+                    UpdateTable.UpdateStaff(data);
                 }
 
             }

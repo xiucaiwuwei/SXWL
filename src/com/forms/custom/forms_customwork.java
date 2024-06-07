@@ -76,7 +76,7 @@ public class forms_customwork extends JFrame {
     private void al_save(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        Vector<Object> data = new Vector<>(datas.get(n));
+        Vector<String> data = new Vector<>(datas.get(n));
         data.set(0, wbk_id.getText());
         data.set(1, wbk_name.getText());
         data.set(2, wbk_number.getText());
@@ -87,12 +87,12 @@ public class forms_customwork extends JFrame {
         data.set(7, wbk_address.getText());
         data.set(8, wbk_notes.getText());
         if (dx_payasyougo.isSelected()) {
-            data.set(9, 0);
+            data.set(9, String.valueOf(0));
         } else {
-            data.set(9, 1);
+            data.set(9, String.valueOf(1));
         }
         datas.set(n, data);
-        operategoods.updategoods(data);
+        UpdateTable.UpdateGoods(data);
     }
     //删除此订单按钮事件
     private void al_delete(ActionEvent e) {
@@ -114,7 +114,7 @@ public class forms_customwork extends JFrame {
     private void al_search(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        Vector<Object> data = operatecustom.selectid(wbk_search.getText());
+        Vector<Object> data = SelectTable.selectid(wbk_search.getText());
         if (data != null) {
             wbk_id.setText(String.valueOf(data.get(0)));
             wbk_name.setText(String.valueOf(data.get(1)));
@@ -145,7 +145,7 @@ public class forms_customwork extends JFrame {
     private void al_record(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        datas = operategoods.selectcustom(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        datas = SelectTable.selectcustom(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         assignment();
     }
 
@@ -556,7 +556,7 @@ public class forms_customwork extends JFrame {
     //获得账户名
     private String account;
     private final ButtonGroup group = new ButtonGroup();
-    private Vector<Vector<Object>> datas = new Vector<Vector<Object>>();
+    private Vector<Vector<String>> datas = new Vector<Vector<String>>();
     //列的数量
     private int n = 0;
 }

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import static com.database.LinkSQL.closesql;
-import static com.database.LinkSQL.getconnection;
+import static com.database.LinkSQL.getConnection;
 
 public class InspectionTable {
     private static Connection connection = null;
@@ -12,7 +12,7 @@ public class InspectionTable {
 
     private static boolean Inspection(String sql) {
         try {
-            connection = getconnection();
+            connection = getConnection();
             statement = connection.prepareStatement(sql);
             return statement.execute();
         } catch (Exception e) {

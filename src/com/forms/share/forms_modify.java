@@ -4,8 +4,8 @@
 
 package com.forms.share;
 
-import com.database.inspection;
 import com.database.operatetable.ReadTable;
+import com.database.operatetable.UpdateTable;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -51,11 +51,11 @@ public class forms_modify extends JFrame {
             } else {
                 if (passwords.equals(password)) {
                     if (table.equals("2")){
-                        inspection.modifypassword("administrators", password);
+                        UpdateTable.ModifyPassword("administrators", password);
                     }else if (table.equals("1")){
-                        inspection.modifypassword("staff", password);
+                        UpdateTable.ModifyPassword("staff", password);
                     }else {
-                        inspection.modifypassword("custom", password);
+                        UpdateTable.ModifyPassword("custom", password);
                     }
                     this.setVisible(false);
                 } else {

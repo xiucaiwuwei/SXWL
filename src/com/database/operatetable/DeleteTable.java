@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import static com.database.LinkSQL.closesql;
-import static com.database.LinkSQL.getconnection;
+import static com.database.LinkSQL.getConnection;
 
 public class DeleteTable {
     private static Connection connection = null;
@@ -12,12 +12,17 @@ public class DeleteTable {
 
     private static boolean Delete(String sql) {
         try {
-            connection = getconnection();
+            // 获取数据库连接。
+            connection = getConnection();
+            // 创建预处理语句。
             statement = connection.prepareStatement(sql);
+            // 执行SQL删除操作并返回执行结果。
             return statement.execute();
         } catch (Exception e) {
+            // 如果发生异常，则抛出运行时异常。
             throw new RuntimeException(e);
         } finally {
+            // 无论操作是否成功，都关闭数据库连接和预处理语句。
             closesql(connection, statement, null);
         }
     }

@@ -37,7 +37,7 @@ public class forms_staff extends JFrame {
             JOptionPane.showMessageDialog(null, "联系电话不能为空！", "警告", JOptionPane.PLAIN_MESSAGE, null);
         }else {
             String sql ="update staff set phone=? where id=?";
-            Connection connection = LinkSQL.getconnection();
+            Connection connection = LinkSQL.getConnection();
             PreparedStatement statement;
             try {
                 statement = connection.prepareStatement(sql);
@@ -264,7 +264,7 @@ public class forms_staff extends JFrame {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
         wbk_id.setText(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         String sql = "select * from staff where account=?";
-        Connection connection = LinkSQL.getconnection();
+        Connection connection = LinkSQL.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {

@@ -66,26 +66,26 @@ public class forms_staffwork extends JFrame {
         DefaultTableModel model = (DefaultTableModel) bg_goods.getModel();
         for (int i = 0; i < bg_goods.getRowCount(); i++) {
             if (bg_goods.isCellSelected(i, 1)) {
-                Vector<Object> data = new Vector<>();
+                Vector<String> data = new Vector<>();
                 for (int j = 0; j < bg_goods.getColumnCount(); j++){
-                    data.add(model.getValueAt(i, j));
+                    data.add(String.valueOf(model.getValueAt(i, j)));
                     if (j==6){
                         if(model.getValueAt(i, j).toString().equals("货到付款")){
-                            data.set(j,1);
+                            data.set(j, String.valueOf(1));
                         }else{
-                            data.set(j,0);
+                            data.set(j, String.valueOf(0));
                         }
                     }
                     if(j==7){
                         if(model.getValueAt(i, j).toString().equals("已签收")){
-                            data.set(j,1);
+                            data.set(j, String.valueOf(1));
                         }else{
-                            data.set(j,0);
+                            data.set(j, String.valueOf(0));
                         }
                     }
                 }
-                data.add(datas.get(i).get(0));
-                operategoods.updategoodsstaff(data);
+                data.add(String.valueOf(datas.get(i).get(0)));
+                UpdateTable.UpdateGoodsStaff(data);
             }
         }
     }
@@ -93,12 +93,12 @@ public class forms_staffwork extends JFrame {
     private void button1(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        datas = operategoods.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        datas = SelectTable.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         bg_goods.setModel(new DefaultTableModel(datas, title));
     }
 
     private void initComponents() {
-        datas = operategoods.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        datas = SelectTable.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         title = new Vector<>();
         title.add("订单编号");
         title.add("发货时间");
@@ -300,7 +300,7 @@ public class forms_staffwork extends JFrame {
     private JButton button1;
     private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private ButtonGroup sort = new ButtonGroup();
+    private final ButtonGroup sort = new ButtonGroup();
     private Vector<Vector<Object>> datas;
     private Vector<String> title;
 }

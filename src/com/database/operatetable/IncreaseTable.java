@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.util.Vector;
 
 import static com.database.LinkSQL.closesql;
-import static com.database.LinkSQL.getconnection;
+import static com.database.LinkSQL.getConnection;
 
 public class IncreaseTable {
     private static Connection connection = null;
@@ -13,7 +13,7 @@ public class IncreaseTable {
 
     private static boolean Increase(String sql, Vector<String> data) {
         try {
-            connection = getconnection();
+            connection = getConnection();
             statement = connection.prepareStatement(sql);
             for (int i = 0; i < data.size(); i++) {
                 statement.setString(i + 1, data.get(i));
@@ -26,9 +26,9 @@ public class IncreaseTable {
         }
     }
 
-    public static boolean IncreaseCustom(Vector<String> data) {
+    public static void IncreaseCustom(Vector<String> data) {
         String sql = "insert into custom(account, password, phone, address1, address2) values(?,?,?,?,?)";
-        return Increase(sql, data);
+        Increase(sql, data);
     }
 
     public static boolean IncreaseStaff(Vector<String> data) {

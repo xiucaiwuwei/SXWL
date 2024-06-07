@@ -15,7 +15,7 @@ public class ReadTable {
     private static Vector<Vector<Object>> Read(String sql) {
         Vector<Vector<Object>> datas = new Vector<>();
         try {
-            connection = getconnection();
+            connection = getConnection();
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {

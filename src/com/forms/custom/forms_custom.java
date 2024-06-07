@@ -10,12 +10,8 @@ import java.util.Vector;
 import javax.swing.*;
 
 import com.database.operatetable.ReadTable;
-import com.database.operatetable.operatetemp;
-import com.database.operatetable.operatecustom;
+import com.database.operatetable.UpdateTable;
 
-/**
- * @author 17529
- */
 public class forms_custom extends JFrame {
     public forms_custom() {
         initComponents();
@@ -50,8 +46,8 @@ public class forms_custom extends JFrame {
             data.set(2,wbk_phone.getText());
             data.set(3,wbk_address1.getText());
             data.set(4,wbk_address2.getText());
-            operatecustom.updatecustom(data);
-            operatetemp.updatetemp(wbk_account.getText(),wbk_password.getText(),0);
+            UpdateTable.UpdateCustom(data);
+            UpdateTable.ModifyTemp(wbk_account.getText(),wbk_password.getText());
         }
     }
 
@@ -231,13 +227,15 @@ public class forms_custom extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-
-        data = ReadTable.QueryTable("custom", String.valueOf(ReadTable.readTable("temporary").get(0).get(0))).get(0);
-        wbk_account.setText(String.valueOf(data.get(0)));
-        wbk_password.setText(String.valueOf(data.get(1)));
-        wbk_phone.setText(String.valueOf(data.get(2)));
-        wbk_address1.setText(String.valueOf(data.get(3)));
-        wbk_address2.setText(String.valueOf(data.get(4)));
+        for (int i = 0; i < ReadTable.QueryTable("custom", String.valueOf(ReadTable.readTable("temporary").get(0).get(0))).size(); i++) {
+            data.add(String.valueOf(ReadTable.QueryTable("custom", String.valueOf(ReadTable.readTable("temporary").get(0).get(0))).get(i)));
+        }
+        data.add(String.valueOf(ReadTable.readTable("temporary").get(0).get(1)));
+        wbk_account.setText(data.get(0));
+        wbk_password.setText(data.get(1));
+        wbk_phone.setText(data.get(2));
+        wbk_address1.setText(data.get(3));
+        wbk_address2.setText(data.get(4));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -260,5 +258,5 @@ public class forms_custom extends JFrame {
     private JPanel rq_profilepicture;
     private JLabel bq_profilepicture;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private Vector<Object> data;
+    private Vector<String> data;
 }

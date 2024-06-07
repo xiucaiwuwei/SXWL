@@ -7,7 +7,6 @@ package com.forms.staff;
 import java.awt.event.*;
 
 import com.database.operatetable.ReadTable;
-import com.database.operatetable.operatewages;
 
 import java.awt.*;
 import java.util.Vector;
