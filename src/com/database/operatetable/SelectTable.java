@@ -14,9 +14,9 @@ public class SelectTable {
     private static PreparedStatement statement = null;
     private static ResultSet resultSet = null;
 
-    public static Vector<Vector<String>> selectcustom(String custom) {
+    public static Vector<Vector<String>> SelectCustom(String custom) {
         Vector<Vector<String>> datas = new Vector<>();
-        String sql = "select * from goods where custom=?";
+        String sql = "select id, name, number, consignee, phone, address, paymenttime, deliverytime, notes, way from goods where custom=?";
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
@@ -24,8 +24,8 @@ public class SelectTable {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Vector<String> data = new Vector<>();
-                for (int j = 0; j < 15; j++) {
-                    data.add(resultSet.getString(j + 1));
+                for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
+                    data.add(resultSet.getString(i + 1));
                 }
                 datas.add(data);
             }
@@ -38,7 +38,7 @@ public class SelectTable {
     }
     public static Vector<Vector<Object>> selectstaff(String staff) {
         Vector<Vector<Object>> datas = new Vector<>();
-        String sql = "select id,deliverytime,putawayname,phone,address,notes,way," +
+        String sql = "select id,deliverytime,consignee,phone,address,notes,way," +
                 "receiptstatus,signingtime from goods where staff=?";
         try {
             connection = getConnection();

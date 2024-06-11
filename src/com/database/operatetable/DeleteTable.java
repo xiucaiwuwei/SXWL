@@ -9,30 +9,48 @@ import static com.database.LinkSQL.getConnection;
 public class DeleteTable {
     private static Connection connection = null;
     private static PreparedStatement statement = null;
-
-    private static boolean Delete(String sql) {
+    private static void Delete(String id, String sql) {
         try {
-            // 获取数据库连接。
             connection = getConnection();
-            // 创建预处理语句。
             statement = connection.prepareStatement(sql);
-            // 执行SQL删除操作并返回执行结果。
-            return statement.execute();
+            statement.setString(1, id);
+            statement.execute();
         } catch (Exception e) {
-            // 如果发生异常，则抛出运行时异常。
             throw new RuntimeException(e);
         } finally {
-            // 无论操作是否成功，都关闭数据库连接和预处理语句。
             closesql(connection, statement, null);
         }
     }
+    public static void DeleteCustom(String id){
+        String sql = "delete from custom where id=?";
+        Delete(id, sql);
+    }
+    public static void DeleteStaff(String id){
+        String sql = "delete from staff where id=?";
+        Delete(id, sql);
+    }
 
-    public static boolean deleteTable(String table, String id) {
-        String sql = "delete from " + table + " where id=" + id;
-        if (table.equals("temporary")) {
-            sql = "truncate temporary";
+    public static void DeleteGoods(String id){
+        String sql = "delete from goods where id=?";
+        Delete(id, sql);
+    }
+
+    public static void DeleteWages(String id){
+        String sql = "delete from wages where id=?";
+        Delete(id, sql);
+    }
+
+    public static void DeleteTemporary(){
+        String sql = "truncate temporary";
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.execute();
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            closesql(connection, statement, null);
         }
-        return Delete(sql);
     }
 }
 

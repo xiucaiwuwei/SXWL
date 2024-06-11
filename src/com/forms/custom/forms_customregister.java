@@ -45,7 +45,7 @@ public class forms_customregister extends JFrame {
         }else{
             if(wbk_password.getText().equals(wbk_passwords.getText())) {
                 if(wbk_pass.getText().equals(wbk_passed.getText())) {
-                    if(InspectionTable.InspectionAccount("custom",wbk_name.getText())) {
+                    if(InspectionTable.InspectionCustomID(wbk_name.getText())) {
                         JOptionPane.showMessageDialog(null,"该用户名已存在！");
                     }else {
                         JOptionPane.showMessageDialog(null,"注册成功！");

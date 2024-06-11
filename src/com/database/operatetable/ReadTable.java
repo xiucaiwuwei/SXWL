@@ -37,8 +37,61 @@ public class ReadTable {
         String sql = "select * from "+table;
         return Read(sql);
     }
-    public static Vector<Vector<Object>> QueryTable(String table,String id) {
-        String sql = "select * from " + table + " where id=" + id;
-        return Read(sql);
+
+    private static Vector<Object> Query(String sql,String id) {
+        Vector<Object>data = new Vector<>();
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1,id);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    data.add(resultSet.getObject(i));
+                }
+            }
+            return data;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            closesql(connection, statement, resultSet);
+        }
+    }
+    public static Vector<Object> QueryCustom(String id) {
+        String sql = "select * from custom where id=?";
+        return Query(sql,id);
+    }
+
+    public static Vector<Object> QueryStaff(String id) {
+        String sql = "select * from staff where id=?";
+        return Query(sql,id);
+    }
+
+    public static Vector<Object> QueryGoods(String id) {
+        String sql = "select * from goods where id=?";
+        return Query(sql,id);
+    }
+
+    public static Vector<Object> QueryWages(String id) {
+        String sql = "select * from wages where id=?";
+        return Query(sql,id);
+    }
+    public static Vector<String> ReadTemporary() {
+        String sql ="select * from temporary";
+        Vector<String> data = new Vector<>();
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            resultSet.next();
+            data.add(resultSet.getString(1));
+            data.add(resultSet.getString(2));
+            data.add(resultSet.getString(3));
+            return data;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            closesql(connection, statement, resultSet);
+        }
     }
 }

@@ -31,44 +31,44 @@ public class forms_wages extends JFrame {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         menuBar1 = new JMenuBar();
-        hSpacer1 = new JPanel(null);
-        bq_title = new JLabel();
-        hSpacer2 = new JPanel(null);
+        button1 = new JButton();
         al_return = new JButton();
         rq_wages = new JScrollPane();
         bg_wages = new JTable();
+        bq_title = new JLabel();
 
         //======== this ========
-        setPreferredSize(new Dimension(1000, 110));
+        setPreferredSize(new Dimension(1000, 200));
         setResizable(false);
         setName("wages");
         setTitle("\u53cc\u96c4\u7269\u6d41");
         var contentPane = getContentPane();
         contentPane.setLayout(null);
-
-        //======== menuBar1 ========
-        {
-            menuBar1.add(hSpacer1);
-
-            //---- bq_title ----
-            bq_title.setText("\u5de5      \u8d44      \u6761");
-            bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD, 20));
-            menuBar1.add(bq_title);
-            menuBar1.add(hSpacer2);
-
-            //---- al_return ----
-            al_return.setText("\u8fd4\u56de");
-            al_return.addActionListener(e -> button2(e));
-            menuBar1.add(al_return);
-        }
         setJMenuBar(menuBar1);
+
+        //---- button1 ----
+        button1.setText("\u7533\u62a5");
+        contentPane.add(button1);
+        button1.setBounds(new Rectangle(new Point(835, 10), button1.getPreferredSize()));
+
+        //---- al_return ----
+        al_return.setText("\u8fd4\u56de");
+        al_return.addActionListener(e -> button2(e));
+        contentPane.add(al_return);
+        al_return.setBounds(new Rectangle(new Point(915, 10), al_return.getPreferredSize()));
 
         //======== rq_wages ========
         {
             rq_wages.setViewportView(bg_wages);
         }
         contentPane.add(rq_wages);
-        rq_wages.setBounds(0, 0, 985, 55);
+        rq_wages.setBounds(15, 45, 950, 80);
+
+        //---- bq_title ----
+        bq_title.setText("\u5de5      \u8d44      \u6761");
+        bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD, 20));
+        contentPane.add(bq_title);
+        bq_title.setBounds(new Rectangle(new Point(395, 15), bq_title.getPreferredSize()));
 
         {
             // compute preferred size
@@ -88,7 +88,9 @@ public class forms_wages extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
         Vector<Vector<Object>> datas = new Vector<>();
-        datas=ReadTable.QueryTable("wages", String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        Vector<Object> data = new Vector<>();
+        data=ReadTable.QueryWages(ReadTable.ReadTemporary().get(0));
+        datas.add(data);
         Vector<String> title = new Vector<>();
         title.add("工号");
         title.add("姓名");
@@ -107,11 +109,10 @@ public class forms_wages extends JFrame {
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JMenuBar menuBar1;
-    private JPanel hSpacer1;
-    private JLabel bq_title;
-    private JPanel hSpacer2;
+    private JButton button1;
     private JButton al_return;
     private JScrollPane rq_wages;
     private JTable bg_wages;
+    private JLabel bq_title;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

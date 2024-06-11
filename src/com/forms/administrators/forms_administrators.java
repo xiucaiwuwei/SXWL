@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import static com.database.operatetable.DeleteTable.*;
+import static com.database.operatetable.IncreaseTable.*;
 
 
 /**
@@ -25,61 +26,16 @@ public class forms_administrators extends JFrame {
         initComponents();
     }
 
-    /**
-     * 根据条件选择要操作的表格。
-     *
-     * @return 表格名称，作为后续操作的数据源。
-     */
-    private boolean deletetable(String id){
-        if (n==1) {
-            return deleteTable("custom",id);
-        }else if (n==2){
-            return deleteTable("staff",id);
-        }else if (n==3){
-            return deleteTable("goods",id);
-        }else if (n==4){
-            return deleteTable("wages",id);
-        }else {
-            return false;
-        }
-    }
-
-    private void al_password(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        forms_modify modify = new forms_modify();
-        modify.setVisible(true);
-    }
-
-    private void al_staff(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        bq_title.setText("员    工    表");
-        datas = ReadTable.readTable("staff");
-        title = new Vector<>();
-        title.add("员工编号");
-        title.add("姓名");
-        title.add("性别");
-        title.add("年龄");
-        title.add("入职时间");
-        title.add("职位");
-        title.add("联系电话");
-        title.add("账号");
-        title.add("密码");
-        bg_table.setModel(new DefaultTableModel(datas, title));
-        JTableHeader header = bg_table.getTableHeader();
-        header.setReorderingAllowed(false);
-        n=2;
-    }
-
+    //显示客户表
     private void al_custom(ActionEvent e) {
-        // TODO add your code here
         System.out.println(e.getActionCommand());
         bq_title.setText("客    户    表");
         datas = ReadTable.readTable("custom");
+        datased=ReadTable.readTable("custom");
         title = new Vector<>();
         title.add("账户");
         title.add("密码");
+        title.add("姓名");
         title.add("电话");
         title.add("地址1");
         title.add("地址2");
@@ -88,12 +44,32 @@ public class forms_administrators extends JFrame {
         header.setReorderingAllowed(false);
         n=1;
     }
-
+    //显示员工表
+    private void al_staff(ActionEvent e) {
+        System.out.println(e.getActionCommand());
+        bq_title.setText("员    工    表");
+        datas = ReadTable.readTable("staff");
+        datased= ReadTable.readTable("staff");
+        title = new Vector<>();
+        title.add("员工编号");
+        title.add("姓名");
+        title.add("性别");
+        title.add("年龄");
+        title.add("入职时间");
+        title.add("职位");
+        title.add("联系电话");
+        title.add("密码");
+        bg_table.setModel(new DefaultTableModel(datas, title));
+        JTableHeader header = bg_table.getTableHeader();
+        header.setReorderingAllowed(false);
+        n=2;
+    }
+    //显示商品表
     private void al_goods(ActionEvent e) {
-        // TODO add your code here
         System.out.println(e.getActionCommand());
         bq_title.setText("货    物    表");
         datas = ReadTable.readTable("goods");
+        datased=ReadTable.readTable("goods");
         title = new Vector<>();
         title.add("订单编号");
         title.add("名称");
@@ -115,69 +91,11 @@ public class forms_administrators extends JFrame {
         header.setReorderingAllowed(false);
         n=3;
     }
-
-    private void al_delete(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        int[] selectedRows = bg_table.getSelectedRows();
-        if (selectedRows.length > 0) {
-            DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
-            for (int i = selectedRows.length - 1; i >= 0; i--) {
-                int rowIndex = selectedRows[i];
-                if(deletetable(model.getValueAt(rowIndex, 0).toString())){
-                    JOptionPane.showMessageDialog(null, "删除成功");
-                }else {
-                    JOptionPane.showMessageDialog(null, "删除失败");
-                }
-                model.removeRow(rowIndex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "请选择至少一行进行删除");
-        }
-    }
-
-    private void al_increase(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
-        if(title.isEmpty()){
-            JOptionPane.showMessageDialog(null, "请选择表格");
-        }else {
-            model.addRow(new Object[title.size()]);
-        }
-    }
-
-    private void al_exit(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        System.exit(0);
-    }
-
-    private void al_save(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        if(title.isEmpty()){
-            JOptionPane.showMessageDialog(null, "未选择表格");
-        }else {
-            DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
-            for (int i = 0; i < bg_table.getRowCount(); i++) {
-                if(bg_table.isCellSelected(i, 1)){
-                    Vector<String> data = new Vector<>();
-                    for (int j = 0; j < bg_table.getColumnCount(); j++) {
-                        data.add(model.getValueAt(i, j).toString());
-                    }
-                    data.add(datas.get(i).get(0).toString());
-                    UpdateTable.UpdateStaff(data);
-                }
-
-            }
-        }
-    }
-
+    //显示工资表
     private void al_wages(ActionEvent e) {
-        // TODO add your code here
         System.out.println(e.getActionCommand());
         datas = ReadTable.readTable("wages");
+        datased=ReadTable.readTable("wages");
         title = new Vector<>();
         title.add("员工编号");
         title.add("姓名");
@@ -192,6 +110,197 @@ public class forms_administrators extends JFrame {
         JTableHeader header = bg_table.getTableHeader();
         header.setReorderingAllowed(false);
         n=4;
+    }
+
+    private boolean notrepeat(String id) {
+        for (Vector<Object> objects : datased) {
+            if (objects.get(0).equals(id)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private void DeleteTable(String id){
+        if (n==1) {
+            DeleteCustom(id);
+        }else if (n==2){
+            DeleteStaff(id);
+        }else if (n==3){
+            DeleteGoods(id);
+        }else if (n==4){
+            DeleteWages(id);
+        }
+    }
+
+    private void al_password(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        forms_modify modify = new forms_modify();
+        modify.setVisible(true);
+    }
+
+
+    private void al_delete(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        int[] selectedRows = bg_table.getSelectedRows();
+        if (selectedRows.length > 0) {
+            DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+            for (int i = selectedRows.length - 1; i >= 0; i--) {
+                int rowIndex = selectedRows[i];
+                DeleteTable(model.getValueAt(rowIndex, 0).toString());
+                model.removeRow(rowIndex);
+            }
+        }
+    }
+
+    private void al_increase(ActionEvent e) {
+        System.out.println(e.getActionCommand());
+        DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+        if(!title.isEmpty()){
+            model.addRow(new Vector<>(title.size()));
+        }
+    }
+
+    private void al_exit(ActionEvent e) {
+        System.out.println(e.getActionCommand());
+        System.exit(0);
+    }
+
+    private void al_save(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+        System.out.println(model.getRowCount());
+        System.out.println(datased.size());
+        if (model.getRowCount() > datased.size()) {
+            for (int i = datased.size(); i < model.getRowCount(); i++) {
+                Vector<String> data = new Vector<>();
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    Object value = model.getValueAt(i, j);
+                    if (value == null) {
+                        data.add(null);
+                    } else {
+                        data.add(String.valueOf(value));
+                    }
+                }
+                System.out.println(i);
+                System.out.println(data);
+                if (n == 1) {
+                    if (notrepeat(data.get(0))) {
+                        IncreaseTable.IncreaseCustom(data);
+                        JOptionPane.showMessageDialog(null, "添加成功");
+                    }else {
+                        JOptionPane.showMessageDialog(null, "添加失败，该用户已存在");
+                    }
+                } else if (n == 2) {
+                    if (notrepeat(data.get(0))) {
+                        IncreaseTable.IncreaseStaff(data);
+                        JOptionPane.showMessageDialog(null, "添加成功");
+                    }else {
+                        JOptionPane.showMessageDialog(null, "添加失败，该用户已存在");
+                    }
+                } else if (n == 3) {
+                    if (notrepeat(data.get(0))) {
+                        IncreaseGoods(data);
+                        JOptionPane.showMessageDialog(null, "添加成功");
+                    }else {
+                        JOptionPane.showMessageDialog(null, "添加失败，该订单已存在");
+                    }
+                } else if (n == 4) {
+                    if (notrepeat(data.get(0))) {
+                        IncreaseTable.IncreaseWages(data);
+                        JOptionPane.showMessageDialog(null, "添加成功");
+                    }else {
+                        JOptionPane.showMessageDialog(null, "添加失败，该订单已存在");
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < datased.size(); i++) {
+            boolean flag = false;
+            Vector<Object> newdata = new Vector<>();
+            for (int j = 0; j < datased.get(i).size(); j++) {
+                Object value = model.getValueAt(i, j);
+                newdata.add(value);
+            }
+            for (int j = 0; j < newdata.size(); j++) {
+                if (newdata.get(j) != null && !newdata.get(j).equals(datased.get(i).get(j))) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag) {
+                Vector<String> data = new Vector<>();
+                for (Object newdatum : newdata) {
+                    if (newdatum == null) {
+                        data.add(null);
+                    } else {
+                        data.add(String.valueOf(newdatum));
+                    }
+                }
+                if (n == 1) {
+                    data.add(String.valueOf(datased.get(i).get(0)));
+                    UpdateTable.UpdateCustom(data);
+                    JOptionPane.showMessageDialog(null, "修改成功");
+                } else if (n == 2) {
+                    data.add(String.valueOf(datased.get(i).get(0)));
+                    UpdateTable.UpdateStaff(data);
+                    JOptionPane.showMessageDialog(null, "修改成功");
+                } else if (n == 3) {
+                    data.add(String.valueOf(datased.get(i).get(0)));
+                    UpdateTable.UpdateGoods(data);
+                    JOptionPane.showMessageDialog(null, "修改成功");
+                } else if (n == 4) {
+                    data.add(String.valueOf(datased.get(i).get(0)));
+                    UpdateTable.UpdateWages(data);
+                    JOptionPane.showMessageDialog(null, "修改成功");
+                }
+            }
+        }
+    }
+
+    private void al_search(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        Vector<Object> data = new Vector<>();
+        if (n == 1) {
+            if (InspectionTable.InspectionCustomID(wbk_id.getText())) {
+                DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+                model.setRowCount(0);
+                data = ReadTable.QueryCustom(wbk_id.getText());
+                model.addRow(data);
+            } else {
+                JOptionPane.showMessageDialog(null, "该用户不存在");
+            }
+        } else if (n == 2) {
+            if (InspectionTable.InspectionStaffID(wbk_id.getText())) {
+                DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+                model.setRowCount(0);
+                data = ReadTable.QueryStaff(wbk_id.getText());
+                model.addRow(data);
+            } else {
+                JOptionPane.showMessageDialog(null, "该用户不存在");
+            }
+        } else if (n == 3) {
+            if (InspectionTable.InspectionGoodsID(wbk_id.getText())) {
+                DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+                model.setRowCount(0);
+                data = ReadTable.QueryGoods(wbk_id.getText());
+                model.addRow(data);
+            } else {
+                JOptionPane.showMessageDialog(null, "该订单不存在");
+            }
+        } else if (n == 4) {
+            if (InspectionTable.InspectionWagesID(wbk_id.getText())) {
+                DefaultTableModel model = (DefaultTableModel) bg_table.getModel();
+                model.setRowCount(0);
+                data = ReadTable.QueryWages(wbk_id.getText());
+                model.addRow(data);
+            } else {
+                JOptionPane.showMessageDialog(null, "该订单不存在");
+            }
+        }
     }
 
     private void initComponents() {
@@ -268,6 +377,7 @@ public class forms_administrators extends JFrame {
 
             //---- al_search ----
             al_search.setText("\u641c\u7d22");
+            al_search.addActionListener(e -> al_search(e));
             actionbar.add(al_search);
         }
         setJMenuBar(actionbar);
@@ -296,7 +406,7 @@ public class forms_administrators extends JFrame {
         contentPane.add(al_increase);
         al_increase.setBounds(new Rectangle(new Point(650, 10), al_increase.getPreferredSize()));
 
-        //---- bq_title ----
+        //---- bq_titie ----
         bq_title.setText("\u8bf7\u5148\u9009\u62e9\u8868");
         bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD, 24));
         contentPane.add(bq_title);
@@ -354,4 +464,5 @@ public class forms_administrators extends JFrame {
     private int n=0;
     private Vector<String> title;
     private Vector<Vector<Object>> datas;
+    private Vector<Vector<Object>> datased;
 }

@@ -109,6 +109,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "al_search"
 					"text": "搜索"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_search", true ) )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {

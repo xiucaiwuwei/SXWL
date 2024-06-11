@@ -6,6 +6,7 @@ package com.forms.custom;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Date;
 import java.util.Vector;
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class forms_customwork extends JFrame {
     public forms_customwork() {
         initComponents();
     }
+    private boolean m;
     //读取信息
     private void assignment() {
         wbk_id.setText(String.valueOf(datas.get(n).get(0)));
@@ -72,33 +74,61 @@ public class forms_customwork extends JFrame {
             assignment();
         }
     }
+
     //保存按钮事件
     private void al_save(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        Vector<String> data = new Vector<>(datas.get(n));
-        data.set(0, wbk_id.getText());
-        data.set(1, wbk_name.getText());
-        data.set(2, wbk_number.getText());
-        data.set(3, wbk_name2.getText());
-        data.set(4, wbk_phone.getText());
-        data.set(5, wbk_paymenttime.getText());
-        data.set(6, wbk_deliverytime.getText());
-        data.set(7, wbk_address.getText());
-        data.set(8, wbk_notes.getText());
-        if (dx_payasyougo.isSelected()) {
-            data.set(9, String.valueOf(0));
-        } else {
-            data.set(9, String.valueOf(1));
+        if(m){
+            Vector<String> data = new Vector<>(datas.get(n));
+            data.add(datas.get(n).get(0));
+            data.set(1, wbk_name.getText());
+            data.set(2, wbk_number.getText());
+            data.set(3, wbk_name2.getText());
+            data.set(4, wbk_phone.getText());
+            data.set(5, wbk_address.getText());
+            data.set(6, wbk_paymenttime.getText());
+            data.set(7, wbk_deliverytime.getText());
+            data.set(8, wbk_notes.getText());
+            if (dx_payasyougo.isSelected()) {
+                data.set(9, String.valueOf(0));
+            } else {
+                data.set(9, String.valueOf(1));
+            }
+            UpdateTable.UpdateGoodsCustom(data);
+            data.setSize(10);
+            datas.set(n, data);
+
+        }else {
+            if(wbk_id.getText().isEmpty()||wbk_name.getText().isEmpty()||wbk_number.getText().isEmpty()||wbk_name2.getText().isEmpty()||wbk_phone.getText().isEmpty()||wbk_address.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "请填写完整信息！", "警告", JOptionPane.PLAIN_MESSAGE, null);
+            }else {
+                Vector<String> dataed = new Vector<>();
+                dataed.add(wbk_id.getText());
+                dataed.add(wbk_name.getText());
+                dataed.add(wbk_number.getText());
+                dataed.add(wbk_name2.getText());
+                dataed.add(wbk_phone.getText());
+                dataed.add(wbk_address.getText());
+                dataed.add(wbk_paymenttime.getText());
+                dataed.add(wbk_deliverytime.getText());
+                dataed.add(wbk_notes.getText());
+                if (dx_payasyougo.isSelected()) {
+                    dataed.add(String.valueOf(0));
+                } else {
+                    dataed.add(String.valueOf(1));
+                }
+                dataed.add(ReadTable.ReadTemporary().get(0));
+                dataed.add("1001");
+                IncreaseTable.IncreaseGoodsCustom(dataed);
+            }
         }
-        datas.set(n, data);
-        UpdateTable.UpdateGoods(data);
     }
     //删除此订单按钮事件
     private void al_delete(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        DeleteTable.deleteTable("custom",wbk_id.getText());
+        DeleteTable.DeleteCustom(wbk_id.getText());
         datas.remove(n);
         JOptionPane.showMessageDialog(null, "删除成功！", "提示", JOptionPane.PLAIN_MESSAGE, null);
     }
@@ -106,11 +136,10 @@ public class forms_customwork extends JFrame {
     private void al_modifymy(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        this.setVisible(false);
         forms_custom custom = new forms_custom();
         custom.setVisible(true);
     }
-
+    //搜索按钮事件
     private void al_search(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
@@ -141,12 +170,56 @@ public class forms_customwork extends JFrame {
             JOptionPane.showMessageDialog(null, "没有此订单！", "警告", JOptionPane.PLAIN_MESSAGE, null);
         }
     }
-
+    //订单记录按钮事件
     private void al_record(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        datas = SelectTable.selectcustom(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        al_head.setEnabled(true);
+        al_next.setEnabled(true);
+        al_previous.setEnabled(true);
+        al_address2.setEnabled(true);
+        datas = SelectTable.SelectCustom(ReadTable.ReadTemporary().get(0));
         assignment();
+        m=true;
+    }
+    //添加订单按钮事件
+    private void al_increase(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        al_address2.setEnabled(true);
+        Date date = new Date();
+        wbk_id.setText(Integer.parseInt(String.valueOf(ReadTable.readTable("goods").get(ReadTable.readTable("goods").size()-1).get(0)))+1+"");
+        wbk_name.setText("");
+        wbk_number.setText("");
+        wbk_name2.setText(String.valueOf(ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).get(2)));
+        wbk_phone.setText(String.valueOf(ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).get(3)));
+        wbk_address.setText(String.valueOf(ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).get(4)));
+        wbk_paymenttime.setText(String.format("%tF", date));
+        wbk_deliverytime.setText(String.format("%tF", date));
+        wbk_notes.setText("无");
+        group.clearSelection();
+        group.setSelected(dx_payasyougo.getModel(), true);
+        group.setSelected(dx_collectpayment.getModel(), false);
+        m=false;
+    }
+    //首件按钮事件
+    private void al_head(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        n = 0;
+        assignment();
+    }
+    private boolean flag = true;
+    private void al_address2(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        if (flag){
+            wbk_address.setText(String.valueOf(ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).get(5)));
+            flag = false;
+        }else {
+            wbk_address.setText(String.valueOf(ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).get(4)));
+            flag = true;
+        }
     }
 
     private void initComponents() {
@@ -156,7 +229,7 @@ public class forms_customwork extends JFrame {
         al_modifymy = new JButton();
         al_record = new JButton();
         al_delete = new JButton();
-        button1 = new JButton();
+        al_increase = new JButton();
         hSpacer1 = new JPanel(null);
         bq_id2 = new JLabel();
         wbk_search = new JTextField();
@@ -192,7 +265,8 @@ public class forms_customwork extends JFrame {
         dx_payasyougo = new JRadioButton();
         dx_collectpayment = new JRadioButton();
         wbk_address = new JTextField();
-        button2 = new JButton();
+        al_address2 = new JButton();
+        al_head = new JButton();
 
         //======== this ========
         setTitle("\u53cc\u96c4\u7269\u6d41");
@@ -229,10 +303,11 @@ public class forms_customwork extends JFrame {
             al_delete.addActionListener(e -> al_delete(e));
             menuBar1.add(al_delete);
 
-            //---- button1 ----
-            button1.setText("\u6dfb\u52a0\u6b64\u8ba2\u5355");
-            button1.setPreferredSize(new Dimension(110, 25));
-            menuBar1.add(button1);
+            //---- al_increase ----
+            al_increase.setText("\u6dfb\u52a0\u8ba2\u5355");
+            al_increase.setPreferredSize(new Dimension(110, 25));
+            al_increase.addActionListener(e -> al_increase(e));
+            menuBar1.add(al_increase);
 
             //---- hSpacer1 ----
             hSpacer1.setMinimumSize(null);
@@ -282,6 +357,7 @@ public class forms_customwork extends JFrame {
         al_previous.setMaximumSize(null);
         al_previous.setMinimumSize(null);
         al_previous.setPreferredSize(new Dimension(75, 25));
+        al_previous.setEnabled(false);
         al_previous.addActionListener(e -> al_previous(e));
         contentPane.add(al_previous);
         al_previous.setBounds(new Rectangle(new Point(45, 410), al_previous.getPreferredSize()));
@@ -291,6 +367,7 @@ public class forms_customwork extends JFrame {
         al_next.setMaximumSize(null);
         al_next.setMinimumSize(null);
         al_next.setPreferredSize(new Dimension(75, 25));
+        al_next.setEnabled(false);
         al_next.addActionListener(e -> al_next(e));
         contentPane.add(al_next);
         al_next.setBounds(new Rectangle(new Point(235, 410), al_next.getPreferredSize()));
@@ -351,6 +428,7 @@ public class forms_customwork extends JFrame {
 
             //---- wbk_id ----
             wbk_id.setPreferredSize(new Dimension(80, 30));
+            wbk_id.setEnabled(false);
             rq_mainbody.add(wbk_id);
             wbk_id.setBounds(86, 25, 400, wbk_id.getPreferredSize().height);
 
@@ -462,7 +540,14 @@ public class forms_customwork extends JFrame {
             //---- wbk_address ----
             wbk_address.setPreferredSize(new Dimension(80, 30));
             rq_mainbody.add(wbk_address);
-            wbk_address.setBounds(85, 185, 400, 30);
+            wbk_address.setBounds(85, 185, 305, 30);
+
+            //---- al_address2 ----
+            al_address2.setText("\u5207\u6362\u5730\u5740");
+            al_address2.setEnabled(false);
+            al_address2.addActionListener(e -> al_address2(e));
+            rq_mainbody.add(al_address2);
+            al_address2.setBounds(new Rectangle(new Point(400, 190), al_address2.getPreferredSize()));
 
             {
                 // compute preferred size
@@ -482,11 +567,13 @@ public class forms_customwork extends JFrame {
         contentPane.add(rq_mainbody);
         rq_mainbody.setBounds(40, 45, 700, 345);
 
-        //---- button2 ----
-        button2.setText("\u9996\u4ef6");
-        button2.setPreferredSize(new Dimension(75, 25));
-        contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(140, 410), button2.getPreferredSize()));
+        //---- al_head ----
+        al_head.setText("\u9996\u4ef6");
+        al_head.setPreferredSize(new Dimension(75, 25));
+        al_head.setEnabled(false);
+        al_head.addActionListener(e -> al_head(e));
+        contentPane.add(al_head);
+        al_head.setBounds(new Rectangle(new Point(140, 410), al_head.getPreferredSize()));
 
         {
             // compute preferred size
@@ -515,7 +602,7 @@ public class forms_customwork extends JFrame {
     private JButton al_modifymy;
     private JButton al_record;
     private JButton al_delete;
-    private JButton button1;
+    private JButton al_increase;
     private JPanel hSpacer1;
     private JLabel bq_id2;
     private JTextField wbk_search;
@@ -551,12 +638,13 @@ public class forms_customwork extends JFrame {
     private JRadioButton dx_payasyougo;
     private JRadioButton dx_collectpayment;
     private JTextField wbk_address;
-    private JButton button2;
+    private JButton al_address2;
+    private JButton al_head;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     //获得账户名
     private String account;
     private final ButtonGroup group = new ButtonGroup();
-    private Vector<Vector<String>> datas = new Vector<Vector<String>>();
+    private Vector<Vector<String>> datas = new Vector<>();
     //列的数量
     private int n = 0;
 }

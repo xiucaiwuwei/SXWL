@@ -263,7 +263,7 @@ public class forms_staff extends JFrame {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
         wbk_id.setText(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
-        String sql = "select * from staff where account=?";
+        String sql = "select * from staff where id=?";
         Connection connection = LinkSQL.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;

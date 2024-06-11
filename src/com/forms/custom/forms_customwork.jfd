@@ -27,6 +27,7 @@ new FormModel {
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"preferredSize": new java.awt.Dimension( 75, 25 )
+				"enabled": false
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_previous", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 45
@@ -38,6 +39,7 @@ new FormModel {
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"preferredSize": new java.awt.Dimension( 75, 25 )
+				"enabled": false
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_next", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 235
@@ -92,6 +94,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_id"
 					"preferredSize": &Dimension1 new java.awt.Dimension( 80, 30 )
+					"enabled": false
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 86
 					"y": 25
@@ -255,10 +258,19 @@ new FormModel {
 					name: "wbk_address"
 					"preferredSize": #Dimension1
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"width": 400
+					"width": 305
 					"height": 30
 					"x": 85
 					"y": 185
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "al_address2"
+					"text": "切换地址"
+					"enabled": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_address2", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 400
+					"y": 190
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 40
@@ -267,9 +279,11 @@ new FormModel {
 				"height": 345
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button2"
+				name: "al_head"
 				"text": "首件"
 				"preferredSize": new java.awt.Dimension( 75, 25 )
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_head", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 140
 				"y": 410
@@ -299,9 +313,10 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_delete", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button1"
-					"text": "添加此订单"
+					name: "al_increase"
+					"text": "添加订单"
 					"preferredSize": new java.awt.Dimension( 110, 25 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_increase", true ) )
 				} )
 				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
 					name: "hSpacer1"

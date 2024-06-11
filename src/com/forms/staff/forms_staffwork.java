@@ -52,7 +52,7 @@ public class forms_staffwork extends JFrame {
             DefaultTableModel model = (DefaultTableModel) bg_goods.getModel();
             for (int i = selectedRows.length - 1; i >= 0; i--) {
                 int rowIndex = selectedRows[i];
-                DeleteTable.deleteTable("goods",model.getValueAt(rowIndex, 0).toString());
+                DeleteTable.DeleteGoods(model.getValueAt(rowIndex, 0).toString());
                 model.removeRow(rowIndex);
             }
         } else {
@@ -65,7 +65,13 @@ public class forms_staffwork extends JFrame {
         System.out.println(e.getActionCommand());
         DefaultTableModel model = (DefaultTableModel) bg_goods.getModel();
         for (int i = 0; i < bg_goods.getRowCount(); i++) {
-            if (bg_goods.isCellSelected(i, 1)) {
+            boolean flag=false;
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                if(bg_goods.isCellSelected(i, j)){
+                    flag = true;break;
+                }
+            }
+            if (flag) {
                 Vector<String> data = new Vector<>();
                 for (int j = 0; j < bg_goods.getColumnCount(); j++){
                     data.add(String.valueOf(model.getValueAt(i, j)));
@@ -122,7 +128,7 @@ public class forms_staffwork extends JFrame {
         al_exit = new JButton();
         rq_goods = new JScrollPane();
         bg_goods = new JTable();
-
+        typesof = new JComboBox();
         bq_sort = new JLabel();
         al_save = new JButton();
         rq_sort = new JPanel();
@@ -130,7 +136,6 @@ public class forms_staffwork extends JFrame {
         dx_fall = new JRadioButton();
         al_delete = new JButton();
         button1 = new JButton();
-        button2 = new JButton();
 
         //======== this ========
         setResizable(false);
@@ -241,18 +246,13 @@ public class forms_staffwork extends JFrame {
         al_delete.setText("\u5220\u9664");
         al_delete.addActionListener(e -> al_delete(e));
         contentPane.add(al_delete);
-        al_delete.setBounds(new Rectangle(new Point(530, 515), al_delete.getPreferredSize()));
+        al_delete.setBounds(new Rectangle(new Point(615, 515), al_delete.getPreferredSize()));
 
         //---- button1 ----
         button1.setText("\u5237\u65b0");
         button1.addActionListener(e -> button1(e));
         contentPane.add(button1);
         button1.setBounds(new Rectangle(new Point(785, 515), button1.getPreferredSize()));
-
-        //---- button2 ----
-        button2.setText("\u6dfb\u52a0");
-        contentPane.add(button2);
-        button2.setBounds(new Rectangle(new Point(615, 515), button2.getPreferredSize()));
 
         {
             // compute preferred size
@@ -298,7 +298,6 @@ public class forms_staffwork extends JFrame {
     private JRadioButton dx_fall;
     private JButton al_delete;
     private JButton button1;
-    private JButton button2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     private final ButtonGroup sort = new ButtonGroup();
     private Vector<Vector<Object>> datas;

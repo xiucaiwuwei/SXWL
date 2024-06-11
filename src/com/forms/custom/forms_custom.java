@@ -16,36 +16,27 @@ public class forms_custom extends JFrame {
     public forms_custom() {
         initComponents();
     }
-    //退出按钮事件
-    private void al_exit(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        System.exit(0);
-    }
 
     private void al_return(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         this.setVisible(false);
-        forms_customwork custom = new forms_customwork();
-        custom.setVisible(true);
     }
 
     private void al_save(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        if(wbk_account.getText().isEmpty() || wbk_password.getText().isEmpty() || wbk_phone.getText().isEmpty()
-                || wbk_address1.getText().isEmpty())
-        {
-            JOptionPane.showMessageDialog(null, "请填写完整信息", "提示", JOptionPane.WARNING_MESSAGE);
+        if(wbk_account.getText().isEmpty()||wbk_name.getText().isEmpty() || wbk_password.getText().isEmpty() || wbk_phone.getText().isEmpty() || wbk_address1.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "请填写完整信息");
         }
         else
         {
             data.set(0,wbk_account.getText());
             data.set(1,wbk_password.getText());
-            data.set(2,wbk_phone.getText());
-            data.set(3,wbk_address1.getText());
-            data.set(4,wbk_address2.getText());
+            data.set(2,wbk_name.getText());
+            data.set(3,wbk_phone.getText());
+            data.set(4,wbk_address1.getText());
+            data.set(5,wbk_address2.getText());
             UpdateTable.UpdateCustom(data);
             UpdateTable.ModifyTemp(wbk_account.getText(),wbk_password.getText());
         }
@@ -57,7 +48,6 @@ public class forms_custom extends JFrame {
         hSpacer1 = new JPanel(null);
         al_save = new JButton();
         al_return = new JButton();
-        al_exit = new JButton();
         bq_title = new JLabel();
         bq_account = new JLabel();
         wbk_account = new JTextField();
@@ -71,9 +61,11 @@ public class forms_custom extends JFrame {
         wbk_address2 = new JTextField();
         rq_profilepicture = new JPanel();
         bq_profilepicture = new JLabel();
+        wbk_name = new JTextField();
+        bq_name = new JLabel();
 
         //======== this ========
-        setPreferredSize(new Dimension(430, 400));
+        setPreferredSize(new Dimension(430, 450));
         setResizable(false);
         setTitle("\u4fee\u6539\u4e2a\u4eba\u4fe1\u606f");
         var contentPane = getContentPane();
@@ -98,14 +90,6 @@ public class forms_custom extends JFrame {
             al_return.setPreferredSize(new Dimension(80, 30));
             al_return.addActionListener(e -> al_return(e));
             menuBar1.add(al_return);
-
-            //---- al_exit ----
-            al_exit.setText("\u9000\u51fa");
-            al_exit.setMinimumSize(null);
-            al_exit.setPreferredSize(new Dimension(80, 30));
-            al_exit.setMaximumSize(null);
-            al_exit.addActionListener(e -> al_exit(e));
-            menuBar1.add(al_exit);
         }
         setJMenuBar(menuBar1);
 
@@ -131,53 +115,53 @@ public class forms_custom extends JFrame {
         bq_password.setHorizontalTextPosition(SwingConstants.RIGHT);
         bq_password.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(bq_password);
-        bq_password.setBounds(50, 125, 40, 20);
+        bq_password.setBounds(50, 119, 40, 20);
 
         //---- wbk_password ----
         wbk_password.setMaximumSize(null);
         wbk_password.setMinimumSize(null);
         wbk_password.setPreferredSize(new Dimension(120, 30));
         contentPane.add(wbk_password);
-        wbk_password.setBounds(100, 120, 120, 30);
+        wbk_password.setBounds(100, 114, 120, 30);
 
         //---- bq_phone ----
         bq_phone.setText("\u7535\u8bdd");
         bq_phone.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(bq_phone);
-        bq_phone.setBounds(50, 175, 40, 18);
+        bq_phone.setBounds(50, 215, 40, 18);
 
         //---- wbk_phone ----
         wbk_phone.setPreferredSize(new Dimension(120, 30));
         wbk_phone.setMinimumSize(null);
         wbk_phone.setMaximumSize(null);
         contentPane.add(wbk_phone);
-        wbk_phone.setBounds(100, 170, 120, 30);
+        wbk_phone.setBounds(100, 212, 120, 30);
 
         //---- bq_address1 ----
         bq_address1.setText("\u6536\u8d27\u5730\u57401");
         bq_address1.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(bq_address1);
-        bq_address1.setBounds(20, 230, 70, 20);
+        bq_address1.setBounds(20, 262, 70, 20);
 
         //---- wbk_address1 ----
         wbk_address1.setMaximumSize(null);
         wbk_address1.setMinimumSize(null);
         wbk_address1.setPreferredSize(new Dimension(260, 30));
         contentPane.add(wbk_address1);
-        wbk_address1.setBounds(100, 225, 260, 30);
+        wbk_address1.setBounds(100, 261, 260, 30);
 
         //---- bq_address2 ----
         bq_address2.setText("\u6536\u8d27\u5730\u57402");
         bq_address2.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(bq_address2);
-        bq_address2.setBounds(20, 281, 70, 18);
+        bq_address2.setBounds(20, 311, 70, 18);
 
         //---- wbk_address2 ----
         wbk_address2.setPreferredSize(new Dimension(260, 30));
         wbk_address2.setMinimumSize(null);
         wbk_address2.setMaximumSize(null);
         contentPane.add(wbk_address2);
-        wbk_address2.setBounds(100, 275, 260, 30);
+        wbk_address2.setBounds(100, 310, 260, 30);
 
         //======== rq_profilepicture ========
         {
@@ -210,6 +194,19 @@ public class forms_custom extends JFrame {
         contentPane.add(bq_profilepicture);
         bq_profilepicture.setBounds(new Rectangle(new Point(280, 195), bq_profilepicture.getPreferredSize()));
 
+        //---- wbk_name ----
+        wbk_name.setPreferredSize(new Dimension(120, 30));
+        wbk_name.setMinimumSize(null);
+        wbk_name.setMaximumSize(null);
+        contentPane.add(wbk_name);
+        wbk_name.setBounds(100, 163, 120, 30);
+
+        //---- bq_name ----
+        bq_name.setText("\u59d3\u540d");
+        bq_name.setHorizontalAlignment(SwingConstants.RIGHT);
+        contentPane.add(bq_name);
+        bq_name.setBounds(50, 168, 40, 18);
+
         {
             // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -227,15 +224,16 @@ public class forms_custom extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        for (int i = 0; i < ReadTable.QueryTable("custom", String.valueOf(ReadTable.readTable("temporary").get(0).get(0))).size(); i++) {
-            data.add(String.valueOf(ReadTable.QueryTable("custom", String.valueOf(ReadTable.readTable("temporary").get(0).get(0))).get(i)));
+        for (int i = 0; i < ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).size(); i++) {
+            data.add(String.valueOf(ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).get(i)));
         }
-        data.add(String.valueOf(ReadTable.readTable("temporary").get(0).get(1)));
+        data.add(String.valueOf(ReadTable.ReadTemporary().get(0)));
         wbk_account.setText(data.get(0));
         wbk_password.setText(data.get(1));
-        wbk_phone.setText(data.get(2));
-        wbk_address1.setText(data.get(3));
-        wbk_address2.setText(data.get(4));
+        wbk_name.setText(data.get(2));
+        wbk_phone.setText(data.get(3));
+        wbk_address1.setText(data.get(4));
+        wbk_address2.setText(data.get(5));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
@@ -243,7 +241,6 @@ public class forms_custom extends JFrame {
     private JPanel hSpacer1;
     private JButton al_save;
     private JButton al_return;
-    private JButton al_exit;
     private JLabel bq_title;
     private JLabel bq_account;
     private JTextField wbk_account;
@@ -257,6 +254,8 @@ public class forms_custom extends JFrame {
     private JTextField wbk_address2;
     private JPanel rq_profilepicture;
     private JLabel bq_profilepicture;
+    private JTextField wbk_name;
+    private JLabel bq_name;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
-    private Vector<String> data;
+    private Vector<String> data = new Vector<>();
 }

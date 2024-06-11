@@ -20,18 +20,16 @@ public class forms_modify extends JFrame {
     }
 
     private void al_cancellation(ActionEvent e) {
-        // TODO add your code here
         System.out.println(e.getActionCommand());
         this.setVisible(false);
     }
 
     private void al_determine(ActionEvent e) {
-        // TODO add your code here
         System.out.println(e.getActionCommand());
         //获得登录权限
-        String table = String.valueOf(ReadTable.readTable("temporary").get(0).get(2));
+        String table = ReadTable.ReadTemporary().get(2);
         //旧密码
-        String passworded = String.valueOf(String.valueOf(ReadTable.readTable("temporary").get(0).get(1)));
+        String passworded = ReadTable.ReadTemporary().get(1);
         //新密码
         String password = String.valueOf(wbk_password.getPassword());
         //确认密码
@@ -51,11 +49,11 @@ public class forms_modify extends JFrame {
             } else {
                 if (passwords.equals(password)) {
                     if (table.equals("2")){
-                        UpdateTable.ModifyPassword("administrators", password);
+                        UpdateTable.ModifyAdministrators(password);
                     }else if (table.equals("1")){
-                        UpdateTable.ModifyPassword("staff", password);
+                        UpdateTable.ModifyStaff(password);
                     }else {
-                        UpdateTable.ModifyPassword("custom", password);
+                        UpdateTable.ModifyCustom(password);
                     }
                     this.setVisible(false);
                 } else {
@@ -169,7 +167,7 @@ public class forms_modify extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        wbk_account.setText(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
+        wbk_account.setText(ReadTable.ReadTemporary().get(0));
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
