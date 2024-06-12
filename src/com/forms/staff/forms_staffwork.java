@@ -103,6 +103,12 @@ public class forms_staffwork extends JFrame {
         bg_goods.setModel(new DefaultTableModel(datas, title));
     }
 
+    private void al_search(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+
+    }
+
     private void initComponents() {
         datas = SelectTable.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
         title = new Vector<>();
@@ -115,7 +121,6 @@ public class forms_staffwork extends JFrame {
         title.add("付款方式");
         title.add("签收情况");
         title.add("签收时间");
-        typesof = new JComboBox<>(title);
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         menuBar1 = new JMenuBar();
         menu1 = new JMenu();
@@ -128,14 +133,14 @@ public class forms_staffwork extends JFrame {
         al_exit = new JButton();
         rq_goods = new JScrollPane();
         bg_goods = new JTable();
-        typesof = new JComboBox();
-        bq_sort = new JLabel();
         al_save = new JButton();
         rq_sort = new JPanel();
-        dx_rise = new JRadioButton();
-        dx_fall = new JRadioButton();
         al_delete = new JButton();
-        button1 = new JButton();
+        al_refresh = new JButton();
+        al_delete2 = new JButton();
+        al_increase = new JButton();
+        al_search2 = new JButton();
+        al_return = new JButton();
 
         //======== this ========
         setResizable(false);
@@ -168,7 +173,7 @@ public class forms_staffwork extends JFrame {
             menuBar1.add(hSpacer1);
 
             //---- bq_id2 ----
-            bq_id2.setText("\u8ba2\u5355\u7f16\u53f7");
+            bq_id2.setText("\u6536\u8d27\u5730\u5740");
             bq_id2.setPreferredSize(new Dimension(60, 17));
             bq_id2.setHorizontalAlignment(SwingConstants.CENTER);
             menuBar1.add(bq_id2);
@@ -179,6 +184,7 @@ public class forms_staffwork extends JFrame {
 
             //---- al_search ----
             al_search.setText("\u67e5\u8be2");
+            al_search.addActionListener(e -> al_search(e));
             menuBar1.add(al_search);
         }
         setJMenuBar(menuBar1);
@@ -196,13 +202,6 @@ public class forms_staffwork extends JFrame {
         }
         contentPane.add(rq_goods);
         rq_goods.setBounds(45, 10, 900, 475);
-        contentPane.add(typesof);
-        typesof.setBounds(new Rectangle(new Point(85, 515), typesof.getPreferredSize()));
-
-        //---- bq_sort ----
-        bq_sort.setText("\u6392\u5e8f");
-        contentPane.add(bq_sort);
-        bq_sort.setBounds(new Rectangle(new Point(50, 519), bq_sort.getPreferredSize()));
 
         //---- al_save ----
         al_save.setText("\u4fdd\u5b58");
@@ -213,16 +212,6 @@ public class forms_staffwork extends JFrame {
         //======== rq_sort ========
         {
             rq_sort.setLayout(null);
-
-            //---- dx_rise ----
-            dx_rise.setText("\u5347\u5e8f");
-            rq_sort.add(dx_rise);
-            dx_rise.setBounds(new Rectangle(new Point(5, 0), dx_rise.getPreferredSize()));
-
-            //---- dx_fall ----
-            dx_fall.setText("\u964d\u5e8f");
-            rq_sort.add(dx_fall);
-            dx_fall.setBounds(new Rectangle(new Point(60, 0), dx_fall.getPreferredSize()));
 
             {
                 // compute preferred size
@@ -248,11 +237,31 @@ public class forms_staffwork extends JFrame {
         contentPane.add(al_delete);
         al_delete.setBounds(new Rectangle(new Point(615, 515), al_delete.getPreferredSize()));
 
-        //---- button1 ----
-        button1.setText("\u5237\u65b0");
-        button1.addActionListener(e -> button1(e));
-        contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(785, 515), button1.getPreferredSize()));
+        //---- al_refresh ----
+        al_refresh.setText("\u5237\u65b0");
+        al_refresh.addActionListener(e -> button1(e));
+        contentPane.add(al_refresh);
+        al_refresh.setBounds(new Rectangle(new Point(785, 515), al_refresh.getPreferredSize()));
+
+        //---- al_delete2 ----
+        al_delete2.setText("\u5220\u9664\u5168\u90e8\u5df2\u7b7e\u6536");
+        contentPane.add(al_delete2);
+        al_delete2.setBounds(new Rectangle(new Point(465, 515), al_delete2.getPreferredSize()));
+
+        //---- al_increase ----
+        al_increase.setText("\u6dfb\u52a0\u672c\u4eba\u63a5\u7ba1");
+        contentPane.add(al_increase);
+        al_increase.setBounds(new Rectangle(new Point(320, 515), al_increase.getPreferredSize()));
+
+        //---- al_search2 ----
+        al_search2.setText("\u67e5\u8be2\u672c\u4eba\u7ba1\u8f96\u8bb0\u5f55");
+        contentPane.add(al_search2);
+        al_search2.setBounds(new Rectangle(new Point(45, 515), al_search2.getPreferredSize()));
+
+        //---- al_return ----
+        al_return.setText("\u8fd4\u56de");
+        contentPane.add(al_return);
+        al_return.setBounds(new Rectangle(new Point(215, 515), al_return.getPreferredSize()));
 
         {
             // compute preferred size
@@ -271,9 +280,6 @@ public class forms_staffwork extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
-        bg_goods.setModel(new DefaultTableModel(datas, title));
-        sort.add(dx_rise);
-        sort.add(dx_fall);
         JTableHeader header = bg_goods.getTableHeader();
         header.setReorderingAllowed(false);
     }
@@ -290,14 +296,14 @@ public class forms_staffwork extends JFrame {
     private JButton al_exit;
     private JScrollPane rq_goods;
     private JTable bg_goods;
-    private JComboBox typesof;
-    private JLabel bq_sort;
     private JButton al_save;
     private JPanel rq_sort;
-    private JRadioButton dx_rise;
-    private JRadioButton dx_fall;
     private JButton al_delete;
-    private JButton button1;
+    private JButton al_refresh;
+    private JButton al_delete2;
+    private JButton al_increase;
+    private JButton al_search2;
+    private JButton al_return;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     private final ButtonGroup sort = new ButtonGroup();
     private Vector<Vector<Object>> datas;

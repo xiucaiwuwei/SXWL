@@ -28,19 +28,6 @@ new FormModel {
 				"width": 900
 				"height": 475
 			} )
-			add( new FormComponent( "javax.swing.JComboBox" ) {
-				name: "typesof"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 85
-				"y": 515
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "bq_sort"
-				"text": "排序"
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 50
-				"y": 519
-			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_save"
 				"text": "保存"
@@ -51,20 +38,6 @@ new FormModel {
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 				name: "rq_sort"
-				add( new FormComponent( "javax.swing.JRadioButton" ) {
-					name: "dx_rise"
-					"text": "升序"
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 5
-					"y": 0
-				} )
-				add( new FormComponent( "javax.swing.JRadioButton" ) {
-					name: "dx_fall"
-					"text": "降序"
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 60
-					"y": 0
-				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 185
 				"y": 515
@@ -79,11 +52,39 @@ new FormModel {
 				"y": 515
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "al_refresh"
 				"text": "刷新"
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 785
+				"y": 515
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "al_delete2"
+				"text": "删除全部已签收"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 465
+				"y": 515
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "al_increase"
+				"text": "添加本人接管"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 320
+				"y": 515
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "al_search2"
+				"text": "查询本人管辖记录"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 45
+				"y": 515
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "al_return"
+				"text": "返回"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 215
 				"y": 515
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
@@ -108,7 +109,7 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_id2"
-					"text": "订单编号"
+					"text": "收货地址"
 					"preferredSize": new java.awt.Dimension( 60, 17 )
 					"horizontalAlignment": 0
 				} )
@@ -119,6 +120,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "al_search"
 					"text": "查询"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_search", true ) )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {

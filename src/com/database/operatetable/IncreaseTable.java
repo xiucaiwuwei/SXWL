@@ -28,7 +28,7 @@ public class IncreaseTable {
     }
 
     public static void IncreaseCustom(Vector<String> data) {
-        String sql = "insert into custom(id, password, phone, address1, address2) values(?,?,?,?,?)";
+        String sql = "insert into custom(id, password, name,phone, address1, address2) values(?,?,?,?,?)";
         Increase(sql, data);
     }
 

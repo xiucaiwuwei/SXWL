@@ -98,5 +98,27 @@ public class SelectTable {
         }
     }
 
+    public static Vector<Vector<String>> selectgoodsstaff(String address) {
+        Vector<Vector<String>> datas = new Vector<>();
+        String sql = "select id,name,number,consignee,phone,address,paymenttime,deliverytime,notes,way from goods where address=?";
+        try {
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, address);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Vector<String> data = new Vector<>();
+                for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
+                    data.add(resultSet.getString(i + 1));
+                }
+                datas.add(data);
+            }
+            return datas;
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }finally {
+            closesql(connection,statement,resultSet);
+        }
+    }
 }
 
