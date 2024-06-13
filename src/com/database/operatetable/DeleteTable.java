@@ -9,6 +9,7 @@ import static com.database.LinkSQL.getConnection;
 public class DeleteTable {
     private static Connection connection = null;
     private static PreparedStatement statement = null;
+
     private static void Delete(String id, String sql) {
         try {
             connection = getConnection();
@@ -21,36 +22,48 @@ public class DeleteTable {
             closesql(connection, statement, null);
         }
     }
-    public static void DeleteCustom(String id){
+
+    public static void DeleteCustom(String id) {
         String sql = "delete from custom where id=?";
         Delete(id, sql);
     }
-    public static void DeleteStaff(String id){
+
+    public static void DeleteStaff(String id) {
         String sql = "delete from staff where id=?";
         Delete(id, sql);
     }
 
-    public static void DeleteGoods(String id){
+    public static void DeleteGoods(String id) {
         String sql = "delete from goods where id=?";
         Delete(id, sql);
     }
 
-    public static void DeleteWages(String id){
+    public static void DeleteWages(String id) {
         String sql = "delete from wages where id=?";
         Delete(id, sql);
     }
 
-    public static void DeleteTemporary(){
-        String sql = "truncate temporary";
+    private static boolean UnconditionalDelete(String sql) {
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.execute();
-        }catch (Exception e) {
+            int i = statement.executeUpdate();
+            return i > 0;
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             closesql(connection, statement, null);
         }
+    }
+
+    public static boolean DeleteSigned() {
+        String sql = "delete from goods where receiptstatus=1";
+        return UnconditionalDelete(sql);
+    }
+
+    public static void DeleteTemporary() {
+        String sql = "truncate temporary";
+        UnconditionalDelete(sql);
     }
 }
 

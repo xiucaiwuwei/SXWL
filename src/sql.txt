@@ -1,0 +1,95 @@
+-- auto-generated definition
+create schema sxdate collate utf8mb4_0900_ai_ci;
+
+-- auto-generated definition
+create table administrators
+(
+    id       varchar(24) not null comment '账户'
+        primary key,
+    password varchar(24) not null comment '密码'
+)
+    comment '管理员表';
+
+-- auto-generated definition
+create table custom
+(
+    id       varchar(24)                  not null comment '账户'
+        primary key,
+    password varchar(24)                  null comment '密码',
+    name     varchar(24)                  null comment '收货人姓名',
+    phone    char(11)                     null comment '电话',
+    address1 varchar(100) charset utf8mb3 null comment '收货地址1',
+    address2 varchar(100) charset utf8mb3 null comment '收货地址2'
+)
+    comment '客户表';
+
+-- auto-generated definition
+create table goods
+(
+    id            bigint auto_increment comment '订单编号'
+        primary key,
+    name          varchar(24)                  null comment '名称',
+    number        int                          null comment '数量',
+    consignee     varchar(24)                  null comment '收货人',
+    phone         char(11)                     null comment '电话',
+    address       varchar(100)                 null comment '收货地址',
+    paymenttime   date                         null comment '付款时间',
+    deliverytime  date                         null comment '发货时间',
+    notes         varchar(100) charset utf8mb3 null comment '备注',
+    way           tinyint(1) default 0         null comment '付款方式',
+    photo         blob                         null comment '商品图片',
+    custom        varchar(24)                  null comment '客户名',
+    staff         varchar(24)                  null comment '配送员编号',
+    receiptstatus tinyint(1) default 0         null comment '签收情况',
+    signingtime   date                         null comment '签收时间',
+    constraint custom
+        foreign key (custom) references custom (id)
+            on update cascade on delete cascade,
+    constraint goods_staff_id_fk
+        foreign key (staff) references staff (id)
+            on update cascade on delete cascade
+)
+    comment '货物表';
+
+-- auto-generated definition
+create table staff
+(
+    id       varchar(24)       not null comment '员工编号'
+        primary key,
+    name     varchar(24)       null comment '姓名',
+    gender   char default '男' null comment '性别',
+    age      int               null comment '年龄',
+    date     date              null comment '入职日期',
+    position varchar(24)       null comment '职位',
+    phone    char(11)          null comment '电话',
+    password varchar(24)       not null comment '密码'
+)
+    comment '员工表';
+
+-- auto-generated definition
+create table temporary
+(
+    id          varchar(24) not null comment '账户'
+        primary key,
+    password    varchar(24) null comment '密码',
+    selecttable tinyint(1)  null comment '所选表'
+);
+
+-- auto-generated definition
+create table wages
+(
+    id               varchar(24)                  not null comment '员工编号'
+        primary key,
+    name             varchar(24)                  null comment '姓名',
+    basicsalary      double                       null comment '基本工资',
+    beonthejob       int                          null comment '在职天数',
+    salariespayable  double                       null comment '应发工资',
+    monthlybonus     int                          null comment '月奖金',
+    deductiblesalary double                       null comment '应扣工资',
+    netsalary        double                       null comment '实发工资',
+    notes            varchar(100) charset utf8mb3 null comment '备注',
+    constraint staff
+        foreign key (id) references staff (id)
+            on update cascade on delete cascade
+)
+    comment '工资表';

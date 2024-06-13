@@ -95,6 +95,7 @@ public class forms_staff extends JFrame {
         setPreferredSize(new Dimension(380, 400));
         setResizable(false);
         setTitle("\u4e2a\u4eba\u754c\u9762");
+        setIconImage(new ImageIcon(getClass().getResource("/com/picture/log.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(null);
 
@@ -107,18 +108,24 @@ public class forms_staff extends JFrame {
             al_modify.setPreferredSize(new Dimension(100, 25));
             al_modify.setMinimumSize(null);
             al_modify.setMaximumSize(null);
+            al_modify.setBackground(Color.white);
+            al_modify.setForeground(Color.blue);
             al_modify.addActionListener(e -> al_modify(e));
             menuBar1.add(al_modify);
 
             //---- al_save ----
             al_save.setText("\u4fdd\u5b58");
             al_save.setPreferredSize(new Dimension(60, 25));
+            al_save.setBackground(Color.white);
+            al_save.setForeground(Color.blue);
             al_save.addActionListener(e -> al_save(e));
             menuBar1.add(al_save);
 
             //---- al_return ----
             al_return.setText("\u8fd4\u56de");
             al_return.setPreferredSize(new Dimension(60, 25));
+            al_return.setBackground(Color.white);
+            al_return.setForeground(Color.blue);
             al_return.addActionListener(e -> al_return(e));
             menuBar1.add(al_return);
         }
@@ -197,6 +204,7 @@ public class forms_staff extends JFrame {
         //---- al_query ----
         al_query.setText("\u67e5\u8be2\u5de5\u8d44");
         al_query.setPreferredSize(new Dimension(120, 25));
+        al_query.setForeground(Color.blue);
         al_query.addActionListener(e -> al_query(e));
         contentPane.add(al_query);
         al_query.setBounds(new Rectangle(new Point(205, 245), al_query.getPreferredSize()));
@@ -204,6 +212,7 @@ public class forms_staff extends JFrame {
         //---- al_print ----
         al_print.setText("\u6253\u5370\u5de5\u8d44\u6761");
         al_print.setPreferredSize(new Dimension(120, 25));
+        al_print.setForeground(Color.blue);
         contentPane.add(al_print);
         al_print.setBounds(new Rectangle(new Point(205, 280), al_print.getPreferredSize()));
 
@@ -222,8 +231,8 @@ public class forms_staff extends JFrame {
             rq_photo.setLayout(null);
 
             //---- label10 ----
-            label10.setText("\u7167\u7247");
             label10.setHorizontalAlignment(SwingConstants.CENTER);
+            label10.setIcon(new ImageIcon(getClass().getResource("/com/picture/\u5458\u5de5.jpg")));
             rq_photo.add(label10);
             label10.setBounds(0, 0, 120, 150);
 

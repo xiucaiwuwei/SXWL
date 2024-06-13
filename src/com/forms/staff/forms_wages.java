@@ -28,10 +28,14 @@ public class forms_wages extends JFrame {
         setVisible(false);
     }
 
+    private void al_declare(ActionEvent e) {
+        // TODO add your code here
+        JOptionPane.showMessageDialog(null,"已申报");
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        menuBar1 = new JMenuBar();
-        button1 = new JButton();
+        al_declare = new JButton();
         al_return = new JButton();
         rq_wages = new JScrollPane();
         bg_wages = new JTable();
@@ -42,17 +46,22 @@ public class forms_wages extends JFrame {
         setResizable(false);
         setName("wages");
         setTitle("\u53cc\u96c4\u7269\u6d41");
+        setIconImage(new ImageIcon(getClass().getResource("/com/picture/log.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(null);
-        setJMenuBar(menuBar1);
 
-        //---- button1 ----
-        button1.setText("\u7533\u62a5");
-        contentPane.add(button1);
-        button1.setBounds(new Rectangle(new Point(835, 10), button1.getPreferredSize()));
+        //---- al_declare ----
+        al_declare.setText("\u7533\u62a5");
+        al_declare.setForeground(Color.blue);
+        al_declare.setBackground(Color.white);
+        al_declare.addActionListener(e -> al_declare(e));
+        contentPane.add(al_declare);
+        al_declare.setBounds(new Rectangle(new Point(835, 10), al_declare.getPreferredSize()));
 
         //---- al_return ----
         al_return.setText("\u8fd4\u56de");
+        al_return.setForeground(Color.blue);
+        al_return.setBackground(Color.white);
         al_return.addActionListener(e -> button2(e));
         contentPane.add(al_return);
         al_return.setBounds(new Rectangle(new Point(915, 10), al_return.getPreferredSize()));
@@ -108,8 +117,7 @@ public class forms_wages extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    private JMenuBar menuBar1;
-    private JButton button1;
+    private JButton al_declare;
     private JButton al_return;
     private JScrollPane rq_wages;
     private JTable bg_wages;

@@ -4,6 +4,7 @@
 
 package com.forms.share;
 
+import javax.swing.border.*;
 import com.database.operatetable.ReadTable;
 import com.database.operatetable.UpdateTable;
 
@@ -66,7 +67,6 @@ public class forms_modify extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
-        bq_title = new JLabel();
         bq_account = new JLabel();
         bq_password = new JLabel();
         wbk_account = new JFormattedTextField();
@@ -75,80 +75,95 @@ public class forms_modify extends JFrame {
         wbk_passwords = new JPasswordField();
         al_cancellation = new JButton();
         al_determine = new JButton();
+        bq_title = new JLabel();
 
         //======== this ========
-        setTitle("\u4fe1\u606f");
+        setTitle("\u5bc6\u7801");
         setResizable(false);
         setName("mod");
         setMaximumSize(null);
         setMinimumSize(null);
-        setPreferredSize(new Dimension(400, 300));
+        setPreferredSize(new Dimension(300, 300));
+        setIconImage(new ImageIcon(getClass().getResource("/com/picture/log.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(null);
 
-        //---- bq_title ----
-        bq_title.setText("\u4fee\u6539\u4e2a\u4eba\u4fe1\u606f");
-        bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD, 24));
-        contentPane.add(bq_title);
-        bq_title.setBounds(new Rectangle(new Point(135, 20), bq_title.getPreferredSize()));
-
         //---- bq_account ----
-        bq_account.setText("\u8d26\u6237\uff1a");
+        bq_account.setText("\u8d26\u6237");
         bq_account.setMinimumSize(null);
         bq_account.setMaximumSize(null);
         bq_account.setPreferredSize(new Dimension(40, 30));
+        bq_account.setHorizontalAlignment(SwingConstants.RIGHT);
+        bq_account.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 14));
         contentPane.add(bq_account);
-        bq_account.setBounds(100, 75, 40, 20);
+        bq_account.setBounds(20, 55, 60, 20);
 
         //---- bq_password ----
-        bq_password.setText("\u65b0\u7684\u5bc6\u7801\uff1a");
+        bq_password.setText("\u65b0\u7684\u5bc6\u7801");
         bq_password.setMaximumSize(null);
         bq_password.setMinimumSize(null);
         bq_password.setPreferredSize(new Dimension(40, 30));
+        bq_password.setHorizontalAlignment(SwingConstants.RIGHT);
+        bq_password.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 14));
         contentPane.add(bq_password);
-        bq_password.setBounds(75, 125, 65, 20);
+        bq_password.setBounds(20, 105, 60, 20);
 
         //---- wbk_account ----
         wbk_account.setMinimumSize(null);
         wbk_account.setPreferredSize(new Dimension(150, 30));
         wbk_account.setMaximumSize(null);
         wbk_account.setEnabled(false);
+        wbk_account.setBorder(LineBorder.createBlackLineBorder());
         contentPane.add(wbk_account);
-        wbk_account.setBounds(135, 70, 150, 30);
+        wbk_account.setBounds(90, 50, 150, 30);
 
         //---- wbk_password ----
         wbk_password.setPreferredSize(new Dimension(150, 30));
+        wbk_password.setBorder(LineBorder.createBlackLineBorder());
         contentPane.add(wbk_password);
-        wbk_password.setBounds(135, 120, 150, 30);
+        wbk_password.setBounds(90, 100, 150, 30);
 
         //---- bq_passwords ----
-        bq_passwords.setText("\u786e\u8ba4\u5bc6\u7801\uff1a");
+        bq_passwords.setText("\u786e\u8ba4\u5bc6\u7801");
         bq_passwords.setMaximumSize(null);
         bq_passwords.setMinimumSize(null);
         bq_passwords.setPreferredSize(new Dimension(40, 30));
+        bq_passwords.setHorizontalAlignment(SwingConstants.RIGHT);
+        bq_passwords.setFont(new Font("\u5fae\u8f6f\u96c5\u9ed1", Font.PLAIN, 14));
         contentPane.add(bq_passwords);
-        bq_passwords.setBounds(75, 170, 65, 20);
+        bq_passwords.setBounds(20, 150, 60, 20);
 
         //---- wbk_passwords ----
         wbk_passwords.setPreferredSize(new Dimension(150, 30));
+        wbk_passwords.setBorder(LineBorder.createBlackLineBorder());
         contentPane.add(wbk_passwords);
-        wbk_passwords.setBounds(135, 165, 150, 30);
+        wbk_passwords.setBounds(90, 145, 150, 30);
 
         //---- al_cancellation ----
         al_cancellation.setText("\u53d6\u6d88");
         al_cancellation.setMaximumSize(null);
         al_cancellation.setMinimumSize(null);
         al_cancellation.setPreferredSize(new Dimension(60, 25));
+        al_cancellation.setForeground(Color.blue);
+        al_cancellation.setBackground(Color.white);
         al_cancellation.addActionListener(e -> al_cancellation(e));
         contentPane.add(al_cancellation);
-        al_cancellation.setBounds(new Rectangle(new Point(250, 230), al_cancellation.getPreferredSize()));
+        al_cancellation.setBounds(155, 195, 80, 40);
 
         //---- al_determine ----
         al_determine.setText("\u786e\u5b9a");
         al_determine.setPreferredSize(new Dimension(60, 25));
+        al_determine.setForeground(Color.blue);
+        al_determine.setBackground(Color.white);
         al_determine.addActionListener(e -> al_determine(e));
         contentPane.add(al_determine);
-        al_determine.setBounds(new Rectangle(new Point(315, 230), al_determine.getPreferredSize()));
+        al_determine.setBounds(50, 195, 80, 40);
+
+        //---- bq_title ----
+        bq_title.setText("\u4fee\u6539\u5bc6\u7801");
+        bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD, 24));
+        contentPane.add(bq_title);
+        bq_title.setBounds(new Rectangle(new Point(95, 10), bq_title.getPreferredSize()));
 
         {
             // compute preferred size
@@ -171,7 +186,6 @@ public class forms_modify extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
-    private JLabel bq_title;
     private JLabel bq_account;
     private JLabel bq_password;
     private JFormattedTextField wbk_account;
@@ -180,5 +194,6 @@ public class forms_modify extends JFrame {
     private JPasswordField wbk_passwords;
     private JButton al_cancellation;
     private JButton al_determine;
+    private JLabel bq_title;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

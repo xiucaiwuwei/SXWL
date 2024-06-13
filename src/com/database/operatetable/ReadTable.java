@@ -5,7 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
-import static com.database.LinkSQL.*;
+import static com.database.LinkSQL.closesql;
+import static com.database.LinkSQL.getConnection;
 
 public class ReadTable {
     private static Connection connection = null;
@@ -26,24 +27,24 @@ public class ReadTable {
                 datas.add(data);
             }
             return datas;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             closesql(connection, statement, resultSet);
         }
     }
 
     public static Vector<Vector<Object>> readTable(String table) {
-        String sql = "select * from "+table;
+        String sql = "select * from " + table;
         return Read(sql);
     }
 
-    private static Vector<Object> Query(String sql,String id) {
-        Vector<Object>data = new Vector<>();
+    private static Vector<Object> Query(String sql, String id) {
+        Vector<Object> data = new Vector<>();
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1,id);
+            statement.setString(1, id);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
@@ -51,33 +52,35 @@ public class ReadTable {
                 }
             }
             return data;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             closesql(connection, statement, resultSet);
         }
     }
+
     public static Vector<Object> QueryCustom(String id) {
         String sql = "select * from custom where id=?";
-        return Query(sql,id);
+        return Query(sql, id);
     }
 
     public static Vector<Object> QueryStaff(String id) {
         String sql = "select * from staff where id=?";
-        return Query(sql,id);
+        return Query(sql, id);
     }
 
     public static Vector<Object> QueryGoods(String id) {
         String sql = "select * from goods where id=?";
-        return Query(sql,id);
+        return Query(sql, id);
     }
 
     public static Vector<Object> QueryWages(String id) {
         String sql = "select * from wages where id=?";
-        return Query(sql,id);
+        return Query(sql, id);
     }
+
     public static Vector<String> ReadTemporary() {
-        String sql ="select * from temporary";
+        String sql = "select * from temporary";
         Vector<String> data = new Vector<>();
         try {
             connection = getConnection();
@@ -88,9 +91,9 @@ public class ReadTable {
             data.add(resultSet.getString(2));
             data.add(resultSet.getString(3));
             return data;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             closesql(connection, statement, resultSet);
         }
     }

@@ -11,6 +11,7 @@ new FormModel {
 			"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 			"preferredSize": new java.awt.Dimension( 400, 300 )
 			"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/com/picture/log.png" )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_title"
 				"text": "双雄物流管理系统"
@@ -74,6 +75,8 @@ new FormModel {
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"preferredSize": new java.awt.Dimension( 75, 30 )
+				"background": sfield java.awt.Color white
+				"foreground": sfield java.awt.Color blue
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_publish", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 205
@@ -85,13 +88,15 @@ new FormModel {
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"preferredSize": new java.awt.Dimension( 75, 30 )
+				"background": sfield java.awt.Color white
+				"foreground": sfield java.awt.Color blue
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_register", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 105
 				"y": 195
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 35, 10 )
+			"location": new java.awt.Point( 155, 130 )
 			"size": new java.awt.Dimension( 400, 300 )
 		} )
 	}

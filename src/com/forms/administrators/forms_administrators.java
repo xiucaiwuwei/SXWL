@@ -4,6 +4,7 @@
 
 package com.forms.administrators;
 
+import javax.swing.border.*;
 import com.database.operatetable.*;
 import com.forms.share.forms_modify;
 
@@ -29,7 +30,7 @@ public class forms_administrators extends JFrame {
     //显示客户表
     private void al_custom(ActionEvent e) {
         System.out.println(e.getActionCommand());
-        bq_title.setText("客    户    表");
+        bq_titie.setText("客    户    表");
         datas = ReadTable.readTable("custom");
         datased=ReadTable.readTable("custom");
         title = new Vector<>();
@@ -47,7 +48,7 @@ public class forms_administrators extends JFrame {
     //显示员工表
     private void al_staff(ActionEvent e) {
         System.out.println(e.getActionCommand());
-        bq_title.setText("员    工    表");
+        bq_titie.setText("员    工    表");
         datas = ReadTable.readTable("staff");
         datased= ReadTable.readTable("staff");
         title = new Vector<>();
@@ -67,7 +68,7 @@ public class forms_administrators extends JFrame {
     //显示商品表
     private void al_goods(ActionEvent e) {
         System.out.println(e.getActionCommand());
-        bq_title.setText("货    物    表");
+        bq_titie.setText("货    物    表");
         datas = ReadTable.readTable("goods");
         datased=ReadTable.readTable("goods");
         title = new Vector<>();
@@ -319,7 +320,7 @@ public class forms_administrators extends JFrame {
         al_delete = new JButton();
         al_save = new JButton();
         al_increase = new JButton();
-        bq_title = new JLabel();
+        bq_titie = new JLabel();
         rq_table = new JScrollPane();
         bg_table = new JTable();
 
@@ -330,6 +331,7 @@ public class forms_administrators extends JFrame {
         setMinimumSize(null);
         setMaximumSize(null);
         setResizable(false);
+        setIconImage(new ImageIcon(getClass().getResource("/com/picture/log.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(null);
 
@@ -338,26 +340,41 @@ public class forms_administrators extends JFrame {
 
             //---- al_password ----
             al_password.setText("\u4fee\u6539\u5bc6\u7801");
+            al_password.setBackground(Color.white);
+            al_password.setForeground(Color.blue);
+            al_password.setPreferredSize(new Dimension(100, 30));
             al_password.addActionListener(e -> al_password(e));
             actionbar.add(al_password);
 
             //---- al_staff ----
             al_staff.setText("\u5458\u5de5\u8868");
+            al_staff.setBackground(Color.white);
+            al_staff.setForeground(Color.blue);
+            al_staff.setPreferredSize(new Dimension(80, 30));
             al_staff.addActionListener(e -> al_staff(e));
             actionbar.add(al_staff);
 
             //---- al_custom ----
             al_custom.setText("\u5ba2\u6237\u8868");
+            al_custom.setBackground(Color.white);
+            al_custom.setForeground(Color.blue);
+            al_custom.setPreferredSize(new Dimension(80, 30));
             al_custom.addActionListener(e -> al_custom(e));
             actionbar.add(al_custom);
 
             //---- al_goods ----
             al_goods.setText("\u8d27\u7269\u8868");
+            al_goods.setBackground(Color.white);
+            al_goods.setForeground(Color.blue);
+            al_goods.setPreferredSize(new Dimension(80, 30));
             al_goods.addActionListener(e -> al_goods(e));
             actionbar.add(al_goods);
 
             //---- al_wages ----
             al_wages.setText("\u5de5\u8d44\u8868");
+            al_wages.setBackground(Color.white);
+            al_wages.setForeground(Color.blue);
+            al_wages.setPreferredSize(new Dimension(80, 30));
             al_wages.addActionListener(e -> al_wages(e));
             actionbar.add(al_wages);
 
@@ -377,6 +394,9 @@ public class forms_administrators extends JFrame {
 
             //---- al_search ----
             al_search.setText("\u641c\u7d22");
+            al_search.setForeground(Color.blue);
+            al_search.setPreferredSize(new Dimension(80, 30));
+            al_search.setBackground(Color.white);
             al_search.addActionListener(e -> al_search(e));
             actionbar.add(al_search);
         }
@@ -384,33 +404,49 @@ public class forms_administrators extends JFrame {
 
         //---- al_exit ----
         al_exit.setText("\u9000\u51fa");
+        al_exit.setBackground(Color.white);
+        al_exit.setForeground(Color.blue);
+        al_exit.setBorder(LineBorder.createBlackLineBorder());
+        al_exit.setPreferredSize(new Dimension(80, 25));
         al_exit.addActionListener(e -> al_exit(e));
         contentPane.add(al_exit);
-        al_exit.setBounds(new Rectangle(new Point(890, 10), al_exit.getPreferredSize()));
+        al_exit.setBounds(new Rectangle(new Point(875, 10), al_exit.getPreferredSize()));
 
         //---- al_delete ----
         al_delete.setText("\u5220\u9664");
+        al_delete.setBackground(Color.white);
+        al_delete.setForeground(Color.blue);
+        al_delete.setBorder(LineBorder.createBlackLineBorder());
+        al_delete.setPreferredSize(new Dimension(80, 25));
         al_delete.addActionListener(e -> al_delete(e));
         contentPane.add(al_delete);
-        al_delete.setBounds(new Rectangle(new Point(810, 10), al_delete.getPreferredSize()));
+        al_delete.setBounds(new Rectangle(new Point(785, 10), al_delete.getPreferredSize()));
 
         //---- al_save ----
         al_save.setText("\u4fdd\u5b58");
+        al_save.setBackground(Color.white);
+        al_save.setForeground(Color.blue);
+        al_save.setBorder(LineBorder.createBlackLineBorder());
+        al_save.setPreferredSize(new Dimension(80, 25));
         al_save.addActionListener(e -> al_save(e));
         contentPane.add(al_save);
-        al_save.setBounds(new Rectangle(new Point(730, 10), al_save.getPreferredSize()));
+        al_save.setBounds(new Rectangle(new Point(695, 10), al_save.getPreferredSize()));
 
         //---- al_increase ----
         al_increase.setText("\u6dfb\u52a0");
+        al_increase.setBackground(Color.white);
+        al_increase.setForeground(Color.blue);
+        al_increase.setBorder(LineBorder.createBlackLineBorder());
+        al_increase.setPreferredSize(new Dimension(80, 25));
         al_increase.addActionListener(e -> al_increase(e));
         contentPane.add(al_increase);
-        al_increase.setBounds(new Rectangle(new Point(650, 10), al_increase.getPreferredSize()));
+        al_increase.setBounds(new Rectangle(new Point(605, 10), al_increase.getPreferredSize()));
 
         //---- bq_titie ----
-        bq_title.setText("\u8bf7\u5148\u9009\u62e9\u8868");
-        bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD, 24));
-        contentPane.add(bq_title);
-        bq_title.setBounds(20, 5, 620, 40);
+        bq_titie.setText("\u8bf7\u5148\u9009\u62e9\u8868");
+        bq_titie.setFont(new Font("\u6977\u4f53", Font.BOLD, 24));
+        contentPane.add(bq_titie);
+        bq_titie.setBounds(20, 5, 520, 40);
 
         //======== rq_table ========
         {
@@ -457,7 +493,7 @@ public class forms_administrators extends JFrame {
     private JButton al_delete;
     private JButton al_save;
     private JButton al_increase;
-    private JLabel bq_title;
+    private JLabel bq_titie;
     private JScrollPane rq_table;
     private JTable bg_table;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on

@@ -7,7 +7,6 @@ import java.util.Vector;
 
 import static com.database.LinkSQL.closesql;
 import static com.database.LinkSQL.getConnection;
-import static com.database.operatetable.ReadTable.readTable;
 
 public class SelectTable {
     private static Connection connection = null;
@@ -36,10 +35,10 @@ public class SelectTable {
             closesql(connection, statement, resultSet);
         }
     }
+
     public static Vector<Vector<Object>> selectstaff(String staff) {
         Vector<Vector<Object>> datas = new Vector<>();
-        String sql = "select id,deliverytime,consignee,phone,address,notes,way," +
-                "receiptstatus,signingtime from goods where staff=?";
+        String sql = "select id, consignee, phone, address, notes, way,receiptstatus,signingtime from goods where staff=?";
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
@@ -47,22 +46,8 @@ public class SelectTable {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Vector<Object> data = new Vector<>();
-                for (int i = 0; i < 9; i++) {
-                    data.add(resultSet.getString(i + 1));
-                    if (i == 6) {
-                        if (resultSet.getString(i + 1).equals("0")) {
-                            data.set(i, "");
-                        } else {
-                            data.set(i, "货到付款");
-                        }
-                    }
-                    if (i == 7) {
-                        if (resultSet.getString(i + 1).equals("0")) {
-                            data.set(i, "未签收");
-                        } else {
-                            data.set(i, "已签收");
-                        }
-                    }
+                for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
+                    data.add(resultSet.getObject(i + 1));
                 }
                 datas.add(data);
             }
@@ -74,50 +59,58 @@ public class SelectTable {
         }
     }
 
-    public static Vector<Object> selectid(String id){
+    public static Vector<Object> selectid(String id) {
         Vector<Object> data = new Vector<>();
-        String sql ="select * from goods where custom=? and id=?";
+        String sql = "select * from goods where custom=? and id=?";
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, String.valueOf(readTable("temporary").get(0).get(0)));
-            statement.setString(2,id);
+            statement.setString(1, ReadTable.ReadTemporary().get(0));
+            statement.setString(2, id);
             resultSet = statement.executeQuery();
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 for (int i = 0; i < 11; i++) {
-                    data.add(resultSet.getString(i+1));
+                    data.add(resultSet.getString(i + 1));
                 }
                 return data;
-            }else {
+            } else {
                 return null;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
-            closesql(connection,statement,resultSet);
+        } finally {
+            closesql(connection, statement, resultSet);
         }
     }
 
-    public static Vector<Vector<String>> selectgoodsstaff(String address) {
-        Vector<Vector<String>> datas = new Vector<>();
-        String sql = "select id,name,number,consignee,phone,address,paymenttime,deliverytime,notes,way from goods where address=?";
+    public static Vector<Vector<Object>> selectgoodsstaff(String address) {
+        String sql = "select id, consignee, phone, address, notes, way,receiptstatus,signingtime from goods where goods.staff = 1001 and address like '%" + address + "%'";
+        return SelectNot(sql);
+    }
+
+    public static Vector<Vector<Object>> SelectUndistributed() {
+        String sql = "select id, consignee, phone, address, notes, way,receiptstatus,signingtime from goods where goods.staff = 1001";
+        return SelectNot(sql);
+    }
+
+    private static Vector<Vector<Object>> SelectNot(String sql) {
+        Vector<Vector<Object>> datas = new Vector<>();
         try {
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, address);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Vector<String> data = new Vector<>();
+                Vector<Object> data = new Vector<>();
                 for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
                     data.add(resultSet.getString(i + 1));
                 }
                 datas.add(data);
             }
             return datas;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
-            closesql(connection,statement,resultSet);
+        } finally {
+            closesql(connection, statement, resultSet);
         }
     }
 }

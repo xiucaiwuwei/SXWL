@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.*;
+import javax.swing.border.*;
 
 import com.database.operatetable.*;
 
@@ -174,6 +175,7 @@ public class forms_customwork extends JFrame {
     private void al_record(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        al_ok.setEnabled(true);
         al_head.setEnabled(true);
         al_next.setEnabled(true);
         al_previous.setEnabled(true);
@@ -186,6 +188,7 @@ public class forms_customwork extends JFrame {
     private void al_increase(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        al_ok.setEnabled(false);
         al_address2.setEnabled(true);
         Date date = new Date();
         wbk_id.setText(Integer.parseInt(String.valueOf(ReadTable.readTable("goods").get(ReadTable.readTable("goods").size()-1).get(0)))+1+"");
@@ -222,6 +225,12 @@ public class forms_customwork extends JFrame {
         }
     }
 
+    private void al_ok(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        UpdateTable.UpdateSign(wbk_id.getText(),"1");
+    }
+
     private void initComponents() {
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
@@ -233,7 +242,6 @@ public class forms_customwork extends JFrame {
         hSpacer1 = new JPanel(null);
         bq_id2 = new JLabel();
         wbk_search = new JTextField();
-        hSpacer2 = new JPanel(null);
         al_search = new JButton();
         bq_title = new JLabel();
         al_previous = new JButton();
@@ -241,7 +249,6 @@ public class forms_customwork extends JFrame {
         al_exit = new JButton();
         al_save = new JButton();
         rq_mainbody = new JPanel();
-        rq_photo = new JPanel();
         bq_id = new JLabel();
         wbk_id = new JTextField();
         bq_name = new JLabel();
@@ -266,15 +273,18 @@ public class forms_customwork extends JFrame {
         dx_collectpayment = new JRadioButton();
         wbk_address = new JTextField();
         al_address2 = new JButton();
+        label1 = new JLabel();
+        al_ok = new JButton();
         al_head = new JButton();
 
         //======== this ========
         setTitle("\u53cc\u96c4\u7269\u6d41");
-        setPreferredSize(new Dimension(800, 520));
+        setPreferredSize(new Dimension(1000, 600));
         setResizable(false);
-        setBackground(Color.white);
+        setBackground(Color.lightGray);
         setMinimumSize(null);
         setMaximumSize(null);
+        setIconImage(new ImageIcon(getClass().getResource("/com/picture/log.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(null);
 
@@ -286,12 +296,18 @@ public class forms_customwork extends JFrame {
             al_modifymy.setMaximumSize(null);
             al_modifymy.setMinimumSize(null);
             al_modifymy.setPreferredSize(new Dimension(110, 25));
+            al_modifymy.setForeground(Color.blue);
+            al_modifymy.setBackground(Color.white);
             al_modifymy.addActionListener(e -> al_modifymy(e));
             menuBar1.add(al_modifymy);
 
             //---- al_record ----
             al_record.setText("\u8ba2\u5355\u8bb0\u5f55");
             al_record.setPreferredSize(new Dimension(100, 25));
+            al_record.setMinimumSize(null);
+            al_record.setMaximumSize(null);
+            al_record.setForeground(Color.blue);
+            al_record.setBackground(Color.white);
             al_record.addActionListener(e -> al_record(e));
             menuBar1.add(al_record);
 
@@ -300,12 +316,18 @@ public class forms_customwork extends JFrame {
             al_delete.setMaximumSize(null);
             al_delete.setMinimumSize(null);
             al_delete.setPreferredSize(new Dimension(110, 25));
+            al_delete.setForeground(Color.blue);
+            al_delete.setBackground(Color.white);
             al_delete.addActionListener(e -> al_delete(e));
             menuBar1.add(al_delete);
 
             //---- al_increase ----
             al_increase.setText("\u6dfb\u52a0\u8ba2\u5355");
             al_increase.setPreferredSize(new Dimension(110, 25));
+            al_increase.setMinimumSize(null);
+            al_increase.setMaximumSize(null);
+            al_increase.setForeground(Color.blue);
+            al_increase.setBackground(Color.white);
             al_increase.addActionListener(e -> al_increase(e));
             menuBar1.add(al_increase);
 
@@ -329,17 +351,13 @@ public class forms_customwork extends JFrame {
             wbk_search.setMaximumSize(null);
             menuBar1.add(wbk_search);
 
-            //---- hSpacer2 ----
-            hSpacer2.setMinimumSize(null);
-            hSpacer2.setMaximumSize(null);
-            hSpacer2.setPreferredSize(new Dimension(10, 25));
-            menuBar1.add(hSpacer2);
-
             //---- al_search ----
             al_search.setText("\u641c\u7d22");
             al_search.setMinimumSize(null);
             al_search.setMaximumSize(null);
             al_search.setPreferredSize(new Dimension(60, 25));
+            al_search.setForeground(Color.blue);
+            al_search.setBackground(Color.white);
             al_search.addActionListener(e -> al_search(e));
             menuBar1.add(al_search);
         }
@@ -350,75 +368,63 @@ public class forms_customwork extends JFrame {
         bq_title.setFont(new Font("\u6977\u4f53", Font.BOLD | Font.ITALIC, 20));
         bq_title.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(bq_title);
-        bq_title.setBounds(40, 10, 700, bq_title.getPreferredSize().height);
+        bq_title.setBounds(45, 10, 885, bq_title.getPreferredSize().height);
 
         //---- al_previous ----
         al_previous.setText("\u4e0a\u4e00\u4ef6");
         al_previous.setMaximumSize(null);
         al_previous.setMinimumSize(null);
-        al_previous.setPreferredSize(new Dimension(75, 25));
+        al_previous.setPreferredSize(new Dimension(80, 30));
         al_previous.setEnabled(false);
+        al_previous.setBorder(new LineBorder(Color.black, 1, true));
+        al_previous.setForeground(Color.blue);
+        al_previous.setBackground(Color.white);
         al_previous.addActionListener(e -> al_previous(e));
         contentPane.add(al_previous);
-        al_previous.setBounds(new Rectangle(new Point(45, 410), al_previous.getPreferredSize()));
+        al_previous.setBounds(55, 470, al_previous.getPreferredSize().width, 30);
 
         //---- al_next ----
         al_next.setText("\u4e0b\u4e00\u4ef6");
         al_next.setMaximumSize(null);
         al_next.setMinimumSize(null);
-        al_next.setPreferredSize(new Dimension(75, 25));
+        al_next.setPreferredSize(new Dimension(80, 30));
         al_next.setEnabled(false);
+        al_next.setBorder(new LineBorder(Color.black, 1, true));
+        al_next.setForeground(Color.blue);
+        al_next.setBackground(Color.white);
         al_next.addActionListener(e -> al_next(e));
         contentPane.add(al_next);
-        al_next.setBounds(new Rectangle(new Point(235, 410), al_next.getPreferredSize()));
+        al_next.setBounds(259, 470, al_next.getPreferredSize().width, 30);
 
         //---- al_exit ----
         al_exit.setText("\u9000\u51fa");
         al_exit.setMaximumSize(null);
         al_exit.setMinimumSize(null);
-        al_exit.setPreferredSize(new Dimension(75, 25));
+        al_exit.setPreferredSize(new Dimension(80, 30));
+        al_exit.setBorder(new LineBorder(Color.black, 1, true));
+        al_exit.setForeground(Color.blue);
+        al_exit.setBackground(Color.white);
         al_exit.addActionListener(e -> al_exit(e));
         contentPane.add(al_exit);
-        al_exit.setBounds(new Rectangle(new Point(665, 410), al_exit.getPreferredSize()));
+        al_exit.setBounds(840, 470, al_exit.getPreferredSize().width, 30);
 
         //---- al_save ----
         al_save.setText("\u4fdd\u5b58");
         al_save.setMaximumSize(null);
         al_save.setMinimumSize(null);
-        al_save.setPreferredSize(new Dimension(75, 25));
+        al_save.setPreferredSize(new Dimension(80, 30));
+        al_save.setBorder(new LineBorder(Color.black, 1, true));
+        al_save.setForeground(Color.blue);
+        al_save.setBackground(Color.white);
         al_save.addActionListener(e -> al_save(e));
         contentPane.add(al_save);
-        al_save.setBounds(580, 410, 75, 25);
+        al_save.setBounds(740, 470, 75, 30);
 
         //======== rq_mainbody ========
         {
             rq_mainbody.setPreferredSize(new Dimension(300, 300));
             rq_mainbody.setBackground(new Color(0xcccccc));
             rq_mainbody.setLayout(null);
-
-            //======== rq_photo ========
-            {
-                rq_photo.setPreferredSize(new Dimension(60, 80));
-                rq_photo.setBackground(Color.white);
-                rq_photo.setLayout(null);
-
-                {
-                    // compute preferred size
-                    Dimension preferredSize = new Dimension();
-                    for(int i = 0; i < rq_photo.getComponentCount(); i++) {
-                        Rectangle bounds = rq_photo.getComponent(i).getBounds();
-                        preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                        preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                    }
-                    Insets insets = rq_photo.getInsets();
-                    preferredSize.width += insets.right;
-                    preferredSize.height += insets.bottom;
-                    rq_photo.setMinimumSize(preferredSize);
-                    rq_photo.setPreferredSize(preferredSize);
-                }
-            }
-            rq_mainbody.add(rq_photo);
-            rq_photo.setBounds(515, 25, 150, 200);
 
             //---- bq_id ----
             bq_id.setText("\u8ba2\u5355\u7f16\u53f7");
@@ -430,80 +436,80 @@ public class forms_customwork extends JFrame {
             wbk_id.setPreferredSize(new Dimension(80, 30));
             wbk_id.setEnabled(false);
             rq_mainbody.add(wbk_id);
-            wbk_id.setBounds(86, 25, 400, wbk_id.getPreferredSize().height);
+            wbk_id.setBounds(86, 25, 520, 30);
 
             //---- bq_name ----
             bq_name.setText("\u540d\u79f0");
             bq_name.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_name);
-            bq_name.setBounds(new Rectangle(new Point(50, 74), bq_name.getPreferredSize()));
+            bq_name.setBounds(new Rectangle(new Point(50, 83), bq_name.getPreferredSize()));
             rq_mainbody.add(wbk_name);
-            wbk_name.setBounds(85, 70, 150, wbk_name.getPreferredSize().height);
+            wbk_name.setBounds(86, 76, 199, 30);
 
             //---- bq_number ----
             bq_number.setText("\u6570\u91cf");
             rq_mainbody.add(bq_number);
-            bq_number.setBounds(305, 75, bq_number.getPreferredSize().width, 15);
+            bq_number.setBounds(390, 85, bq_number.getPreferredSize().width, 15);
 
             //---- wbk_number ----
             wbk_number.setMinimumSize(new Dimension(150, 25));
             rq_mainbody.add(wbk_number);
-            wbk_number.setBounds(340, 70, 146, wbk_number.getPreferredSize().height);
+            wbk_number.setBounds(426, 76, 180, 30);
 
             //---- bq_name2 ----
             bq_name2.setText("\u6536\u8d27\u4eba\u59d3\u540d");
             bq_name2.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_name2);
-            bq_name2.setBounds(0, 115, 74, 17);
+            bq_name2.setBounds(0, 134, 74, 17);
             rq_mainbody.add(wbk_name2);
-            wbk_name2.setBounds(85, 110, 150, 25);
+            wbk_name2.setBounds(86, 127, 199, 30);
 
             //---- bq_phone ----
             bq_phone.setText("\u8054\u7cfb\u7535\u8bdd");
             bq_phone.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_phone);
-            bq_phone.setBounds(new Rectangle(new Point(280, 115), bq_phone.getPreferredSize()));
+            bq_phone.setBounds(new Rectangle(new Point(365, 135), bq_phone.getPreferredSize()));
             rq_mainbody.add(wbk_phone);
-            wbk_phone.setBounds(340, 110, 145, wbk_phone.getPreferredSize().height);
+            wbk_phone.setBounds(426, 127, 180, 30);
 
             //---- bq_paymenttime ----
             bq_paymenttime.setText("\u4ed8\u6b3e\u65f6\u95f4");
             bq_paymenttime.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_paymenttime);
-            bq_paymenttime.setBounds(new Rectangle(new Point(25, 150), bq_paymenttime.getPreferredSize()));
+            bq_paymenttime.setBounds(new Rectangle(new Point(25, 185), bq_paymenttime.getPreferredSize()));
             rq_mainbody.add(wbk_paymenttime);
-            wbk_paymenttime.setBounds(86, 146, 150, wbk_paymenttime.getPreferredSize().height);
+            wbk_paymenttime.setBounds(86, 178, 199, 30);
 
             //---- bq_deliverytime ----
             bq_deliverytime.setText("\u53d1\u8d27\u65f6\u95f4");
             rq_mainbody.add(bq_deliverytime);
-            bq_deliverytime.setBounds(new Rectangle(new Point(280, 150), bq_deliverytime.getPreferredSize()));
+            bq_deliverytime.setBounds(new Rectangle(new Point(365, 185), bq_deliverytime.getPreferredSize()));
             rq_mainbody.add(wbk_deliverytime);
-            wbk_deliverytime.setBounds(340, 146, 146, wbk_deliverytime.getPreferredSize().height);
+            wbk_deliverytime.setBounds(426, 178, 180, 30);
 
             //---- bq_address ----
             bq_address.setText("\u6536\u8d27\u5730\u5740");
             bq_address.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_address);
-            bq_address.setBounds(18, 190, 55, bq_address.getPreferredSize().height);
+            bq_address.setBounds(18, 236, 55, bq_address.getPreferredSize().height);
 
             //---- bq_notes ----
             bq_notes.setText("\u5907\u6ce8");
             bq_notes.setHorizontalAlignment(SwingConstants.RIGHT);
             rq_mainbody.add(bq_notes);
-            bq_notes.setBounds(new Rectangle(new Point(49, 230), bq_notes.getPreferredSize()));
+            bq_notes.setBounds(new Rectangle(new Point(50, 280), bq_notes.getPreferredSize()));
 
             //======== rq_notes ========
             {
                 rq_notes.setViewportView(wbk_notes);
             }
             rq_mainbody.add(rq_notes);
-            rq_notes.setBounds(86, 225, 400, 100);
+            rq_notes.setBounds(86, 280, 520, 100);
 
             //---- bq_photo ----
             bq_photo.setText("\u5546\u54c1\u56fe\u7247");
             rq_mainbody.add(bq_photo);
-            bq_photo.setBounds(565, 230, bq_photo.getPreferredSize().width, 20);
+            bq_photo.setBounds(723, 250, bq_photo.getPreferredSize().width, 20);
 
             //======== rq_paymentmethod ========
             {
@@ -535,19 +541,37 @@ public class forms_customwork extends JFrame {
                 }
             }
             rq_mainbody.add(rq_paymentmethod);
-            rq_paymentmethod.setBounds(530, 280, 120, rq_paymentmethod.getPreferredSize().height);
+            rq_paymentmethod.setBounds(687, 295, 120, 20);
 
             //---- wbk_address ----
             wbk_address.setPreferredSize(new Dimension(80, 30));
             rq_mainbody.add(wbk_address);
-            wbk_address.setBounds(85, 185, 305, 30);
+            wbk_address.setBounds(86, 229, 414, 30);
 
             //---- al_address2 ----
             al_address2.setText("\u5207\u6362\u5730\u5740");
             al_address2.setEnabled(false);
+            al_address2.setBackground(Color.white);
+            al_address2.setForeground(Color.blue);
             al_address2.addActionListener(e -> al_address2(e));
             rq_mainbody.add(al_address2);
-            al_address2.setBounds(new Rectangle(new Point(400, 190), al_address2.getPreferredSize()));
+            al_address2.setBounds(506, 229, 100, 30);
+
+            //---- label1 ----
+            label1.setIcon(new ImageIcon(getClass().getResource("/com/picture/\u5546\u54c1.jpg")));
+            label1.setHorizontalAlignment(SwingConstants.CENTER);
+            label1.setForeground(Color.white);
+            rq_mainbody.add(label1);
+            label1.setBounds(640, 25, 215, 215);
+
+            //---- al_ok ----
+            al_ok.setText("\u786e\u8ba4\u5df2\u7b7e\u6536");
+            al_ok.setEnabled(false);
+            al_ok.setBackground(Color.white);
+            al_ok.setForeground(Color.blue);
+            al_ok.addActionListener(e -> al_ok(e));
+            rq_mainbody.add(al_ok);
+            al_ok.setBounds(685, 335, 125, al_ok.getPreferredSize().height);
 
             {
                 // compute preferred size
@@ -565,15 +589,20 @@ public class forms_customwork extends JFrame {
             }
         }
         contentPane.add(rq_mainbody);
-        rq_mainbody.setBounds(40, 45, 700, 345);
+        rq_mainbody.setBounds(35, 50, 900, 400);
 
         //---- al_head ----
         al_head.setText("\u9996\u4ef6");
-        al_head.setPreferredSize(new Dimension(75, 25));
+        al_head.setPreferredSize(new Dimension(80, 30));
         al_head.setEnabled(false);
+        al_head.setMinimumSize(null);
+        al_head.setMaximumSize(null);
+        al_head.setBorder(new LineBorder(Color.black, 1, true));
+        al_head.setForeground(Color.blue);
+        al_head.setBackground(Color.white);
         al_head.addActionListener(e -> al_head(e));
         contentPane.add(al_head);
-        al_head.setBounds(new Rectangle(new Point(140, 410), al_head.getPreferredSize()));
+        al_head.setBounds(157, 470, al_head.getPreferredSize().width, 30);
 
         {
             // compute preferred size
@@ -606,7 +635,6 @@ public class forms_customwork extends JFrame {
     private JPanel hSpacer1;
     private JLabel bq_id2;
     private JTextField wbk_search;
-    private JPanel hSpacer2;
     private JButton al_search;
     private JLabel bq_title;
     private JButton al_previous;
@@ -614,7 +642,6 @@ public class forms_customwork extends JFrame {
     private JButton al_exit;
     private JButton al_save;
     private JPanel rq_mainbody;
-    private JPanel rq_photo;
     private JLabel bq_id;
     private JTextField wbk_id;
     private JLabel bq_name;
@@ -639,6 +666,8 @@ public class forms_customwork extends JFrame {
     private JRadioButton dx_collectpayment;
     private JTextField wbk_address;
     private JButton al_address2;
+    private JLabel label1;
+    private JButton al_ok;
     private JButton al_head;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     //获得账户名

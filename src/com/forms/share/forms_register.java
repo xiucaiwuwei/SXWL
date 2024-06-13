@@ -40,7 +40,7 @@ public class forms_register extends JFrame {
         }else {
             boolean flag = true;
             if(select==0){
-                if(InspectionTable.InspectionAccount("custom",account,password)){
+                if(InspectionTable.InspectionCustomPassword(account,password)){
                     forms_customwork custom = new forms_customwork();
                     custom.setVisible(true);
                 }else {
@@ -48,7 +48,7 @@ public class forms_register extends JFrame {
                     flag=false;
                 }
             }else if(select==1){
-                if(InspectionTable.InspectionAccount("staff",account,password)){
+                if(InspectionTable.InspectionStaffPassword(account,password)){
                     forms_staffwork staffwork = new forms_staffwork();
                     staffwork.setVisible(true);
                 }else {
@@ -56,7 +56,7 @@ public class forms_register extends JFrame {
                     flag=false;
                 }
             }else {
-                if (InspectionTable.InspectionAccount("administrators", account, password)) {
+                if (InspectionTable.InspectionAdministratorsPassword(account, password)) {
                     forms_administrators administrators = new forms_administrators();
                     administrators.setVisible(true);
                 } else {
@@ -107,6 +107,7 @@ public class forms_register extends JFrame {
         setMinimumSize(null);
         setPreferredSize(new Dimension(400, 300));
         setMaximumSize(null);
+        setIconImage(new ImageIcon(getClass().getResource("/com/picture/log.png")).getImage());
         var contentPane = getContentPane();
         contentPane.setLayout(null);
 
@@ -158,6 +159,8 @@ public class forms_register extends JFrame {
         al_publish.setMaximumSize(null);
         al_publish.setMinimumSize(null);
         al_publish.setPreferredSize(new Dimension(75, 30));
+        al_publish.setBackground(Color.white);
+        al_publish.setForeground(Color.blue);
         al_publish.addActionListener(e -> al_publish(e));
         contentPane.add(al_publish);
         al_publish.setBounds(new Rectangle(new Point(205, 195), al_publish.getPreferredSize()));
@@ -167,6 +170,8 @@ public class forms_register extends JFrame {
         al_register.setMaximumSize(null);
         al_register.setMinimumSize(null);
         al_register.setPreferredSize(new Dimension(75, 30));
+        al_register.setBackground(Color.white);
+        al_register.setForeground(Color.blue);
         al_register.addActionListener(e -> al_register(e));
         contentPane.add(al_register);
         al_register.setBounds(new Rectangle(new Point(105, 195), al_register.getPreferredSize()));

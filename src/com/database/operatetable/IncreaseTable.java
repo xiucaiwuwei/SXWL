@@ -20,7 +20,6 @@ public class IncreaseTable {
             }
             statement.execute();
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException();
         } finally {
             closesql(connection, statement, null);
@@ -28,7 +27,7 @@ public class IncreaseTable {
     }
 
     public static void IncreaseCustom(Vector<String> data) {
-        String sql = "insert into custom(id, password, name,phone, address1, address2) values(?,?,?,?,?)";
+        String sql = "insert into custom(id, password, name,phone, address1, address2) values(?,?,?,?,?,?)";
         Increase(sql, data);
     }
 

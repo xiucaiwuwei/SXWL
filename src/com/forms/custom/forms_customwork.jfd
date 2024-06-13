@@ -6,83 +6,89 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 			name: "this"
 			"title": "双雄物流"
-			"preferredSize": new java.awt.Dimension( 800, 520 )
+			"preferredSize": new java.awt.Dimension( 1000, 600 )
 			"resizable": false
-			"background": new java.awt.Color( 255, 255, 255, 255 )
+			"background": sfield java.awt.Color lightGray
 			"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 			"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/com/picture/log.png" )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_title"
 				"text": "订        单        详        情"
 				"font": new java.awt.Font( "楷体", 3, 20 )
 				"horizontalAlignment": 0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 40
+				"x": 45
 				"y": 10
-				"width": 700
+				"width": 885
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_previous"
 				"text": "上一件"
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
-				"preferredSize": new java.awt.Dimension( 75, 25 )
+				"preferredSize": new java.awt.Dimension( 80, 30 )
 				"enabled": false
+				"border": &LineBorder0 new javax.swing.border.LineBorder( sfield java.awt.Color black, 1, true )
+				"foreground": sfield java.awt.Color blue
+				"background": &Color0 new java.awt.Color( 255, 255, 255, 255 )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_previous", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 45
-				"y": 410
+				"x": 55
+				"y": 470
+				"height": 30
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_next"
 				"text": "下一件"
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
-				"preferredSize": new java.awt.Dimension( 75, 25 )
+				"preferredSize": new java.awt.Dimension( 80, 30 )
 				"enabled": false
+				"border": #LineBorder0
+				"foreground": sfield java.awt.Color blue
+				"background": #Color0
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_next", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 235
-				"y": 410
+				"x": 259
+				"y": 470
+				"height": 30
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_exit"
 				"text": "退出"
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
-				"preferredSize": &Dimension0 new java.awt.Dimension( 75, 25 )
+				"preferredSize": new java.awt.Dimension( 80, 30 )
+				"border": #LineBorder0
+				"foreground": sfield java.awt.Color blue
+				"background": #Color0
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_exit", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 665
-				"y": 410
+				"x": 840
+				"y": 470
+				"height": 30
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_save"
 				"text": "保存"
 				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
-				"preferredSize": #Dimension0
+				"preferredSize": new java.awt.Dimension( 80, 30 )
+				"border": #LineBorder0
+				"foreground": sfield java.awt.Color blue
+				"background": #Color0
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_save", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 75
-				"height": 25
-				"x": 580
-				"y": 410
+				"height": 30
+				"x": 740
+				"y": 470
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 				name: "rq_mainbody"
 				"preferredSize": new java.awt.Dimension( 300, 300 )
 				"background": new java.awt.Color( 204, 204, 204, 255 )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
-					name: "rq_photo"
-					"preferredSize": new java.awt.Dimension( 60, 80 )
-					"background": sfield java.awt.Color white
-				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 515
-					"y": 25
-					"width": 150
-					"height": 200
-				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_id"
 					"text": "订单编号"
@@ -93,12 +99,13 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_id"
-					"preferredSize": &Dimension1 new java.awt.Dimension( 80, 30 )
+					"preferredSize": &Dimension0 new java.awt.Dimension( 80, 30 )
 					"enabled": false
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 86
 					"y": 25
-					"width": 400
+					"width": 520
+					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_name"
@@ -106,30 +113,32 @@ new FormModel {
 					"horizontalAlignment": 4
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 50
-					"y": 74
+					"y": 83
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_name"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 85
-					"y": 70
-					"width": 150
+					"x": 86
+					"y": 76
+					"width": 199
+					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_number"
 					"text": "数量"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 305
-					"y": 75
+					"x": 390
+					"y": 85
 					"height": 15
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_number"
 					"minimumSize": new java.awt.Dimension( 150, 25 )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 340
-					"y": 70
-					"width": 146
+					"x": 426
+					"y": 76
+					"width": 180
+					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_name2"
@@ -139,30 +148,31 @@ new FormModel {
 					"width": 74
 					"height": 17
 					"x": 0
-					"y": 115
+					"y": 134
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_name2"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"width": 150
-					"height": 25
-					"x": 85
-					"y": 110
+					"width": 199
+					"height": 30
+					"x": 86
+					"y": 127
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_phone"
 					"text": "联系电话"
 					"horizontalAlignment": 4
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 280
-					"y": 115
+					"x": 365
+					"y": 135
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_phone"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 340
-					"y": 110
-					"width": 145
+					"x": 426
+					"y": 127
+					"width": 180
+					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_paymenttime"
@@ -170,28 +180,30 @@ new FormModel {
 					"horizontalAlignment": 4
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 25
-					"y": 150
+					"y": 185
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_paymenttime"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 86
-					"y": 146
-					"width": 150
+					"y": 178
+					"width": 199
+					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_deliverytime"
 					"text": "发货时间"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 280
-					"y": 150
+					"x": 365
+					"y": 185
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_deliverytime"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 340
-					"y": 146
-					"width": 146
+					"x": 426
+					"y": 178
+					"width": 180
+					"height": 30
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_address"
@@ -199,7 +211,7 @@ new FormModel {
 					"horizontalAlignment": 4
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 18
-					"y": 190
+					"y": 236
 					"width": 55
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
@@ -207,8 +219,8 @@ new FormModel {
 					"text": "备注"
 					"horizontalAlignment": 4
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 49
-					"y": 230
+					"x": 50
+					"y": 280
 				} )
 				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 					name: "rq_notes"
@@ -217,16 +229,16 @@ new FormModel {
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 					"x": 86
-					"y": 225
-					"width": 400
+					"y": 280
+					"width": 520
 					"height": 100
 				} )
 				add( new FormComponent( "javax.swing.JLabel" ) {
 					name: "bq_photo"
 					"text": "商品图片"
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 565
-					"y": 230
+					"x": 723
+					"y": 250
 					"height": 20
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
@@ -250,43 +262,77 @@ new FormModel {
 						"height": 20
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 530
-					"y": 280
+					"x": 687
+					"y": 295
 					"width": 120
+					"height": 20
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "wbk_address"
-					"preferredSize": #Dimension1
+					"preferredSize": #Dimension0
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"width": 305
+					"width": 414
 					"height": 30
-					"x": 85
-					"y": 185
+					"x": 86
+					"y": 229
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "al_address2"
 					"text": "切换地址"
 					"enabled": false
+					"background": &Color1 new java.awt.Color( 255, 255, 255, 255 )
+					"foreground": sfield java.awt.Color blue
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_address2", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-					"x": 400
-					"y": 190
+					"x": 506
+					"y": 229
+					"height": 30
+					"width": 100
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/com/picture/商品.jpg" )
+					"horizontalAlignment": 0
+					"foreground": new java.awt.Color( 255, 255, 255, 255 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 640
+					"y": 25
+					"width": 215
+					"height": 215
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "al_ok"
+					"text": "确认已签收"
+					"enabled": false
+					"background": #Color1
+					"foreground": sfield java.awt.Color blue
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_ok", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 685
+					"y": 335
+					"width": 125
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 40
-				"y": 45
-				"width": 700
-				"height": 345
+				"x": 35
+				"y": 50
+				"width": 900
+				"height": 400
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_head"
 				"text": "首件"
-				"preferredSize": new java.awt.Dimension( 75, 25 )
+				"preferredSize": new java.awt.Dimension( 80, 30 )
 				"enabled": false
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"border": #LineBorder0
+				"foreground": sfield java.awt.Color blue
+				"background": #Color0
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_head", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 140
-				"y": 410
+				"x": 157
+				"y": 470
+				"height": 30
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
@@ -296,12 +342,18 @@ new FormModel {
 					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"preferredSize": new java.awt.Dimension( 110, 25 )
+					"foreground": sfield java.awt.Color blue
+					"background": &Color2 new java.awt.Color( 255, 255, 255, 255 )
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_modifymy", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "al_record"
 					"text": "订单记录"
 					"preferredSize": new java.awt.Dimension( 100, 25 )
+					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"foreground": sfield java.awt.Color blue
+					"background": #Color2
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_record", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
@@ -310,12 +362,18 @@ new FormModel {
 					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"preferredSize": new java.awt.Dimension( 110, 25 )
+					"foreground": sfield java.awt.Color blue
+					"background": #Color2
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_delete", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "al_increase"
 					"text": "添加订单"
 					"preferredSize": new java.awt.Dimension( 110, 25 )
+					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+					"foreground": sfield java.awt.Color blue
+					"background": #Color2
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_increase", true ) )
 				} )
 				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
@@ -338,24 +396,20 @@ new FormModel {
 					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 				} )
-				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
-					name: "hSpacer2"
-					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
-					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
-					"preferredSize": new java.awt.Dimension( 10, 25 )
-				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "al_search"
 					"text": "搜索"
 					"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
 					"preferredSize": new java.awt.Dimension( 60, 25 )
+					"foreground": sfield java.awt.Color blue
+					"background": #Color2
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_search", true ) )
 				} )
 			}
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 55, 45 )
-			"size": new java.awt.Dimension( 800, 520 )
+			"location": new java.awt.Point( 115, 55 )
+			"size": new java.awt.Dimension( 1000, 600 )
 		} )
 	}
 }

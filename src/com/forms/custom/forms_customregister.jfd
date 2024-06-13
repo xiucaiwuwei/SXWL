@@ -5,203 +5,275 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 			name: "this"
-			"preferredSize": new java.awt.Dimension( 400, 360 )
-			"title": "双雄物流"
+			"preferredSize": new java.awt.Dimension( 480, 500 )
+			"title": "注册"
 			"resizable": false
 			"name": "customregister"
+			"iconImage": new com.jformdesigner.model.SwingIcon( 0, "/com/picture/log.png" )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_name"
 				"text": "用户名"
 				"horizontalAlignment": 4
+				"font": &Font0 new java.awt.Font( "微软雅黑", 0, 14 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 20
-				"y": 60
-				"width": 59
+				"x": 10
+				"y": 40
+				"width": 80
 				"height": 17
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_name"
-				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"preferredSize": new java.awt.Dimension( 80, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": &Font1 new java.awt.Font( "微软雅黑", 0, 14 )
+				"border": &LineBorder0 new javax.swing.border.LineBorder( sfield java.awt.Color black, 1, true )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 95
-				"y": 55
+				"x": 100
+				"y": 35
 				"width": 140
-				"height": 25
+				"height": 30
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_password"
 				"text": "密码"
 				"horizontalAlignment": 4
+				"font": #Font0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 59
+				"width": 80
 				"height": 17
-				"x": 20
-				"y": 90
+				"x": 10
+				"y": 80
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_password"
 				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 140
-				"height": 25
-				"x": 95
-				"y": 85
+				"height": 30
+				"x": 100
+				"y": 75
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_passwords"
 				"text": "确认密码"
 				"horizontalAlignment": 4
+				"font": #Font0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 59
+				"width": 80
 				"height": 17
-				"x": 20
+				"x": 10
 				"y": 120
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_passwords"
 				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 140
-				"height": 25
-				"x": 95
+				"height": 30
+				"x": 100
 				"y": 115
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_pass"
 				"text": "验证码"
 				"horizontalAlignment": 4
+				"font": #Font0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 59
+				"width": 80
 				"height": 17
-				"x": 20
-				"y": 150
+				"x": 10
+				"y": 160
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_pass"
 				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 70
-				"height": 25
-				"x": 95
-				"y": 145
+				"height": 30
+				"x": 100
+				"y": 155
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_passed"
 				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
+				"horizontalAlignment": 0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 165
-				"y": 145
-				"width": 70
-				"height": 25
+				"x": 175
+				"y": 155
+				"width": 65
+				"height": 30
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_phone"
 				"text": "电话"
 				"horizontalAlignment": 4
+				"font": #Font0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 59
+				"width": 80
 				"height": 17
-				"x": 20
-				"y": 180
+				"x": 170
+				"y": 200
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_phone"
-				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"preferredSize": &Dimension0 new java.awt.Dimension( 66, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 140
-				"height": 25
-				"x": 95
-				"y": 175
+				"height": 30
+				"x": 260
+				"y": 195
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_address1"
 				"text": "收货地址1"
 				"horizontalAlignment": 4
+				"font": #Font0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 59
+				"width": 80
 				"height": 17
-				"x": 20
-				"y": 210
+				"x": 10
+				"y": 240
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_address1"
 				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 260
-				"height": 25
-				"x": 95
-				"y": 205
+				"width": 300
+				"height": 30
+				"x": 100
+				"y": 235
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_address2"
 				"text": "收货地址2"
 				"horizontalAlignment": 4
+				"font": #Font0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 59
+				"width": 80
 				"height": 17
-				"x": 20
-				"y": 240
+				"x": 10
+				"y": 280
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_address2"
 				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"width": 260
-				"height": 25
-				"x": 95
-				"y": 235
-			} )
-			add( new FormComponent( "javax.swing.JTextField" ) {
-				name: "textField8"
-				"preferredSize": new java.awt.Dimension( 60, 60 )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 255
-				"y": 55
-				"width": 100
-				"height": 100
+				"width": 300
+				"height": 30
+				"x": 100
+				"y": 275
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "label8"
 				"text": "头像"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 290
+				"x": 315
 				"y": 165
-			} )
-			add( new FormComponent( "javax.swing.JLabel" ) {
-				name: "bq_title"
-				"text": "注  册  个  人  信  息"
-				"font": new java.awt.Font( "楷体", 1, 20 )
-			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 85
-				"y": 15
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_cancellation"
 				"text": "取消"
+				"font": &Font2 new java.awt.Font( "楷体", 0, 24 )
+				"foreground": sfield java.awt.Color blue
+				"background": &Color0 new java.awt.Color( 255, 255, 255, 255 )
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_cancellation", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 35
-				"y": 280
+				"x": 250
+				"y": 340
+				"height": 50
+				"width": 150
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_publish"
 				"text": "登录"
+				"font": #Font2
+				"foreground": sfield java.awt.Color blue
+				"background": #Color0
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_publish", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 160
-				"y": 280
+				"x": 55
+				"y": 340
+				"width": 150
+				"height": 50
 			} )
-			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "al_exit"
-				"text": "退出"
-				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_exit", true ) )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "wbk_name2"
+				"preferredSize": #Dimension0
+				"maximumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"minimumSize": sfield com.jformdesigner.model.FormObject NULL_VALUE
+				"font": #Font1
+				"border": #LineBorder0
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-				"x": 280
-				"y": 280
+				"width": 100
+				"height": 30
+				"x": 100
+				"y": 195
 			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "bq_name2"
+				"text": "收货人姓名"
+				"horizontalAlignment": 4
+				"font": #Font0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 80
+				"height": 17
+				"x": 10
+				"y": 200
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"icon": new com.jformdesigner.model.SwingIcon( 0, "/com/picture/头像.jpg" )
+				"border": #LineBorder0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 270
+				"y": 35
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
+					name: "hSpacer1"
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bq_title"
+					"text": "注  册  个  人  信  息"
+					"font": new java.awt.Font( "楷体", 1, 20 )
+				} )
+				add( new FormComponent( "com.jformdesigner.designer.wrapper.HSpacer" ) {
+					name: "hSpacer2"
+				} )
+			}
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 60, 30 )
-			"size": new java.awt.Dimension( 400, 360 )
+			"location": new java.awt.Point( 200, 55 )
+			"size": new java.awt.Dimension( 470, 500 )
 		} )
 	}
 }
