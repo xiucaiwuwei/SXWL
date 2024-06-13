@@ -44,7 +44,30 @@ public class forms_staffwork extends JFrame {
         modify.setVisible(true);
     }
 
-    private void al_delete(ActionEvent e) {
+    private void al_search(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        datas = SelectTable.selectgoodsstaff(wbk_search.getText());
+        bg_goods.setModel(new DefaultTableModel(datas, title));
+    }
+
+    private void al_search2(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        al_increase.setEnabled(false);
+        datas = SelectTable.selectstaff(ReadTable.ReadTemporary().get(0));
+        bg_goods.setModel(new DefaultTableModel(datas, title));
+    }
+
+    private void al_return(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        al_increase.setEnabled(true);
+        datas = SelectTable.SelectUndistributed();
+        bg_goods.setModel(new DefaultTableModel(datas, title));
+    }
+
+    private void al_increase(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
         int[] selectedRows = bg_goods.getSelectedRows();
@@ -52,75 +75,25 @@ public class forms_staffwork extends JFrame {
             DefaultTableModel model = (DefaultTableModel) bg_goods.getModel();
             for (int i = selectedRows.length - 1; i >= 0; i--) {
                 int rowIndex = selectedRows[i];
-                DeleteTable.DeleteGoods(model.getValueAt(rowIndex, 0).toString());
+                UpdateTable.UpdateAllocation(model.getValueAt(rowIndex, 0).toString(), ReadTable.ReadTemporary().get(0));
                 model.removeRow(rowIndex);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "请选择至少一行进行删除");
         }
     }
 
-    private void al_save(ActionEvent e) {
+    private void al_delete2(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
-        DefaultTableModel model = (DefaultTableModel) bg_goods.getModel();
-        for (int i = 0; i < bg_goods.getRowCount(); i++) {
-            boolean flag=false;
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                if(bg_goods.isCellSelected(i, j)){
-                    flag = true;break;
-                }
-            }
-            if (flag) {
-                Vector<String> data = new Vector<>();
-                for (int j = 0; j < bg_goods.getColumnCount(); j++){
-                    data.add(String.valueOf(model.getValueAt(i, j)));
-                    if (j==6){
-                        if(model.getValueAt(i, j).toString().equals("货到付款")){
-                            data.set(j, String.valueOf(1));
-                        }else{
-                            data.set(j, String.valueOf(0));
-                        }
-                    }
-                    if(j==7){
-                        if(model.getValueAt(i, j).toString().equals("已签收")){
-                            data.set(j, String.valueOf(1));
-                        }else{
-                            data.set(j, String.valueOf(0));
-                        }
-                    }
-                }
-                data.add(String.valueOf(datas.get(i).get(0)));
-                UpdateTable.UpdateGoodsStaff(data);
-            }
+        if (DeleteTable.DeleteSigned()){
+            JOptionPane.showMessageDialog(null, "删除成功");
+            datas = SelectTable.SelectUndistributed();
+            bg_goods.setModel(new DefaultTableModel(datas, title));
+        }else {
+            JOptionPane.showMessageDialog(null, "无需删除记录");
         }
-    }
-
-    private void button1(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-        datas = SelectTable.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
-        bg_goods.setModel(new DefaultTableModel(datas, title));
-    }
-
-    private void al_search(ActionEvent e) {
-        // TODO add your code here
-        System.out.println(e.getActionCommand());
-
     }
 
     private void initComponents() {
-        datas = SelectTable.selectstaff(String.valueOf(ReadTable.readTable("temporary").get(0).get(0)));
-        title = new Vector<>();
-        title.add("订单编号");
-        title.add("发货时间");
-        title.add("签收人姓名");
-        title.add("联系电话");
-        title.add("收货地址");
-        title.add("订单备注");
-        title.add("付款方式");
-        title.add("签收情况");
-        title.add("签收时间");
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         menuBar1 = new JMenuBar();
         menu1 = new JMenu();
@@ -133,10 +106,7 @@ public class forms_staffwork extends JFrame {
         al_exit = new JButton();
         rq_goods = new JScrollPane();
         bg_goods = new JTable();
-        al_save = new JButton();
         rq_sort = new JPanel();
-        al_delete = new JButton();
-        al_refresh = new JButton();
         al_delete2 = new JButton();
         al_increase = new JButton();
         al_search2 = new JButton();
@@ -203,12 +173,6 @@ public class forms_staffwork extends JFrame {
         contentPane.add(rq_goods);
         rq_goods.setBounds(45, 10, 900, 475);
 
-        //---- al_save ----
-        al_save.setText("\u4fdd\u5b58");
-        al_save.addActionListener(e -> al_save(e));
-        contentPane.add(al_save);
-        al_save.setBounds(new Rectangle(new Point(700, 515), al_save.getPreferredSize()));
-
         //======== rq_sort ========
         {
             rq_sort.setLayout(null);
@@ -231,37 +195,29 @@ public class forms_staffwork extends JFrame {
         contentPane.add(rq_sort);
         rq_sort.setBounds(185, 515, 115, rq_sort.getPreferredSize().height);
 
-        //---- al_delete ----
-        al_delete.setText("\u5220\u9664");
-        al_delete.addActionListener(e -> al_delete(e));
-        contentPane.add(al_delete);
-        al_delete.setBounds(new Rectangle(new Point(615, 515), al_delete.getPreferredSize()));
-
-        //---- al_refresh ----
-        al_refresh.setText("\u5237\u65b0");
-        al_refresh.addActionListener(e -> button1(e));
-        contentPane.add(al_refresh);
-        al_refresh.setBounds(new Rectangle(new Point(785, 515), al_refresh.getPreferredSize()));
-
         //---- al_delete2 ----
         al_delete2.setText("\u5220\u9664\u5168\u90e8\u5df2\u7b7e\u6536");
+        al_delete2.addActionListener(e -> al_delete2(e));
         contentPane.add(al_delete2);
-        al_delete2.setBounds(new Rectangle(new Point(465, 515), al_delete2.getPreferredSize()));
+        al_delete2.setBounds(new Rectangle(new Point(740, 515), al_delete2.getPreferredSize()));
 
         //---- al_increase ----
-        al_increase.setText("\u6dfb\u52a0\u672c\u4eba\u63a5\u7ba1");
+        al_increase.setText("\u6dfb\u52a0\u5230\u672c\u4eba\u63a5\u7ba1");
+        al_increase.addActionListener(e -> al_increase(e));
         contentPane.add(al_increase);
-        al_increase.setBounds(new Rectangle(new Point(320, 515), al_increase.getPreferredSize()));
+        al_increase.setBounds(new Rectangle(new Point(610, 515), al_increase.getPreferredSize()));
 
         //---- al_search2 ----
         al_search2.setText("\u67e5\u8be2\u672c\u4eba\u7ba1\u8f96\u8bb0\u5f55");
+        al_search2.addActionListener(e -> al_search2(e));
         contentPane.add(al_search2);
         al_search2.setBounds(new Rectangle(new Point(45, 515), al_search2.getPreferredSize()));
 
         //---- al_return ----
         al_return.setText("\u8fd4\u56de");
+        al_return.addActionListener(e -> al_return(e));
         contentPane.add(al_return);
-        al_return.setBounds(new Rectangle(new Point(215, 515), al_return.getPreferredSize()));
+        al_return.setBounds(new Rectangle(new Point(185, 515), al_return.getPreferredSize()));
 
         {
             // compute preferred size
@@ -280,6 +236,17 @@ public class forms_staffwork extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents  @formatter:on
+        title = new Vector<>();
+        title.add("订单编号");
+        title.add("签收人姓名");
+        title.add("联系电话");
+        title.add("收货地址");
+        title.add("订单备注");
+        title.add("付款方式");
+        title.add("签收情况");
+        title.add("签收时间");
+        datas = SelectTable.SelectUndistributed();
+        bg_goods.setModel(new DefaultTableModel(datas, title));
         JTableHeader header = bg_goods.getTableHeader();
         header.setReorderingAllowed(false);
     }
@@ -296,10 +263,7 @@ public class forms_staffwork extends JFrame {
     private JButton al_exit;
     private JScrollPane rq_goods;
     private JTable bg_goods;
-    private JButton al_save;
     private JPanel rq_sort;
-    private JButton al_delete;
-    private JButton al_refresh;
     private JButton al_delete2;
     private JButton al_increase;
     private JButton al_search2;

@@ -52,6 +52,7 @@ public class forms_customregister extends JFrame {
                         Vector<String> data = new Vector<>();
                         data.add(wbk_name.getText());
                         data.add(wbk_password.getText());
+                        data.add(wbk_name2.getText());
                         data.add(wbk_phone.getText());
                         data.add(wbk_address1.getText());
                         data.add(wbk_address2.getText());
@@ -92,9 +93,11 @@ public class forms_customregister extends JFrame {
         al_cancellation = new JButton();
         al_publish = new JButton();
         al_exit = new JButton();
+        wbk_name2 = new JTextField();
+        bq_name2 = new JLabel();
 
         //======== this ========
-        setPreferredSize(new Dimension(400, 360));
+        setPreferredSize(new Dimension(400, 400));
         setTitle("\u53cc\u96c4\u7269\u6d41");
         setResizable(false);
         setName("customregister");
@@ -154,44 +157,44 @@ public class forms_customregister extends JFrame {
         bq_phone.setText("\u7535\u8bdd");
         bq_phone.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(bq_phone);
-        bq_phone.setBounds(20, 180, 59, 17);
+        bq_phone.setBounds(20, 210, 59, 17);
 
         //---- wbk_phone ----
         wbk_phone.setPreferredSize(new Dimension(66, 30));
         contentPane.add(wbk_phone);
-        wbk_phone.setBounds(95, 175, 140, 25);
+        wbk_phone.setBounds(95, 205, 140, 25);
 
         //---- bq_address1 ----
         bq_address1.setText("\u6536\u8d27\u5730\u57401");
         bq_address1.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(bq_address1);
-        bq_address1.setBounds(20, 210, 59, 17);
+        bq_address1.setBounds(20, 240, 59, 17);
 
         //---- wbk_address1 ----
         wbk_address1.setPreferredSize(new Dimension(66, 30));
         contentPane.add(wbk_address1);
-        wbk_address1.setBounds(95, 205, 260, 25);
+        wbk_address1.setBounds(95, 235, 260, 25);
 
         //---- bq_address2 ----
         bq_address2.setText("\u6536\u8d27\u5730\u57402");
         bq_address2.setHorizontalAlignment(SwingConstants.RIGHT);
         contentPane.add(bq_address2);
-        bq_address2.setBounds(20, 240, 59, 17);
+        bq_address2.setBounds(20, 270, 59, 17);
 
         //---- wbk_address2 ----
         wbk_address2.setPreferredSize(new Dimension(66, 30));
         contentPane.add(wbk_address2);
-        wbk_address2.setBounds(95, 235, 260, 25);
+        wbk_address2.setBounds(95, 265, 260, 25);
 
         //---- textField8 ----
         textField8.setPreferredSize(new Dimension(60, 60));
         contentPane.add(textField8);
-        textField8.setBounds(255, 55, 100, 100);
+        textField8.setBounds(255, 70, 100, 100);
 
         //---- label8 ----
         label8.setText("\u5934\u50cf");
         contentPane.add(label8);
-        label8.setBounds(new Rectangle(new Point(290, 165), label8.getPreferredSize()));
+        label8.setBounds(new Rectangle(new Point(290, 180), label8.getPreferredSize()));
 
         //---- bq_title ----
         bq_title.setText("\u6ce8  \u518c  \u4e2a  \u4eba  \u4fe1  \u606f");
@@ -203,19 +206,30 @@ public class forms_customregister extends JFrame {
         al_cancellation.setText("\u53d6\u6d88");
         al_cancellation.addActionListener(e -> al_cancellation(e));
         contentPane.add(al_cancellation);
-        al_cancellation.setBounds(new Rectangle(new Point(35, 280), al_cancellation.getPreferredSize()));
+        al_cancellation.setBounds(new Rectangle(new Point(35, 310), al_cancellation.getPreferredSize()));
 
         //---- al_publish ----
         al_publish.setText("\u767b\u5f55");
         al_publish.addActionListener(e -> al_publish(e));
         contentPane.add(al_publish);
-        al_publish.setBounds(new Rectangle(new Point(160, 280), al_publish.getPreferredSize()));
+        al_publish.setBounds(new Rectangle(new Point(160, 310), al_publish.getPreferredSize()));
 
         //---- al_exit ----
         al_exit.setText("\u9000\u51fa");
         al_exit.addActionListener(e -> al_exit(e));
         contentPane.add(al_exit);
-        al_exit.setBounds(new Rectangle(new Point(280, 280), al_exit.getPreferredSize()));
+        al_exit.setBounds(new Rectangle(new Point(280, 310), al_exit.getPreferredSize()));
+
+        //---- wbk_name2 ----
+        wbk_name2.setPreferredSize(new Dimension(66, 30));
+        contentPane.add(wbk_name2);
+        wbk_name2.setBounds(95, 175, 140, 25);
+
+        //---- bq_name2 ----
+        bq_name2.setText("\u6536\u8d27\u4eba\u59d3\u540d");
+        bq_name2.setHorizontalAlignment(SwingConstants.RIGHT);
+        contentPane.add(bq_name2);
+        bq_name2.setBounds(10, 180, 69, 17);
 
         {
             // compute preferred size
@@ -261,5 +275,7 @@ public class forms_customregister extends JFrame {
     private JButton al_cancellation;
     private JButton al_publish;
     private JButton al_exit;
+    private JTextField wbk_name2;
+    private JLabel bq_name2;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
 }

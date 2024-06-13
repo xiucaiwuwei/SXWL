@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 			name: "this"
-			"preferredSize": new java.awt.Dimension( 400, 360 )
+			"preferredSize": new java.awt.Dimension( 400, 400 )
 			"title": "双雄物流"
 			"resizable": false
 			"name": "customregister"
@@ -102,16 +102,16 @@ new FormModel {
 				"width": 59
 				"height": 17
 				"x": 20
-				"y": 180
+				"y": 210
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_phone"
-				"preferredSize": new java.awt.Dimension( 66, 30 )
+				"preferredSize": &Dimension0 new java.awt.Dimension( 66, 30 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"width": 140
 				"height": 25
 				"x": 95
-				"y": 175
+				"y": 205
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_address1"
@@ -121,7 +121,7 @@ new FormModel {
 				"width": 59
 				"height": 17
 				"x": 20
-				"y": 210
+				"y": 240
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_address1"
@@ -130,7 +130,7 @@ new FormModel {
 				"width": 260
 				"height": 25
 				"x": 95
-				"y": 205
+				"y": 235
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_address2"
@@ -140,7 +140,7 @@ new FormModel {
 				"width": 59
 				"height": 17
 				"x": 20
-				"y": 240
+				"y": 270
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "wbk_address2"
@@ -149,14 +149,14 @@ new FormModel {
 				"width": 260
 				"height": 25
 				"x": 95
-				"y": 235
+				"y": 265
 			} )
 			add( new FormComponent( "javax.swing.JTextField" ) {
 				name: "textField8"
 				"preferredSize": new java.awt.Dimension( 60, 60 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 255
-				"y": 55
+				"y": 70
 				"width": 100
 				"height": 100
 			} )
@@ -165,7 +165,7 @@ new FormModel {
 				"text": "头像"
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 290
-				"y": 165
+				"y": 180
 			} )
 			add( new FormComponent( "javax.swing.JLabel" ) {
 				name: "bq_title"
@@ -181,7 +181,7 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_cancellation", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 35
-				"y": 280
+				"y": 310
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_publish"
@@ -189,7 +189,7 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_publish", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 160
-				"y": 280
+				"y": 310
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "al_exit"
@@ -197,11 +197,30 @@ new FormModel {
 				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_exit", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 280
-				"y": 280
+				"y": 310
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "wbk_name2"
+				"preferredSize": #Dimension0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 140
+				"height": 25
+				"x": 95
+				"y": 175
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "bq_name2"
+				"text": "收货人姓名"
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 69
+				"height": 17
+				"x": 10
+				"y": 180
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 60, 30 )
-			"size": new java.awt.Dimension( 400, 360 )
+			"size": new java.awt.Dimension( 400, 400 )
 		} )
 	}
 }

@@ -10,8 +10,9 @@ new FormModel {
 			"name": "wages"
 			"title": "双雄物流"
 			add( new FormComponent( "javax.swing.JButton" ) {
-				name: "button1"
+				name: "al_declare"
 				"text": "申报"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "al_declare", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 835
 				"y": 10

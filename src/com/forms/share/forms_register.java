@@ -40,7 +40,7 @@ public class forms_register extends JFrame {
         }else {
             boolean flag = true;
             if(select==0){
-                if(InspectionTable.InspectionAccount("custom",account,password)){
+                if(InspectionTable.InspectionCustomPassword(account,password)){
                     forms_customwork custom = new forms_customwork();
                     custom.setVisible(true);
                 }else {
@@ -48,7 +48,7 @@ public class forms_register extends JFrame {
                     flag=false;
                 }
             }else if(select==1){
-                if(InspectionTable.InspectionAccount("staff",account,password)){
+                if(InspectionTable.InspectionStaffPassword(account,password)){
                     forms_staffwork staffwork = new forms_staffwork();
                     staffwork.setVisible(true);
                 }else {
@@ -56,7 +56,7 @@ public class forms_register extends JFrame {
                     flag=false;
                 }
             }else {
-                if (InspectionTable.InspectionAccount("administrators", account, password)) {
+                if (InspectionTable.InspectionAdministratorsPassword(account, password)) {
                     forms_administrators administrators = new forms_administrators();
                     administrators.setVisible(true);
                 } else {

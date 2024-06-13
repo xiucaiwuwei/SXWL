@@ -174,6 +174,7 @@ public class forms_customwork extends JFrame {
     private void al_record(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        al_ok.setEnabled(true);
         al_head.setEnabled(true);
         al_next.setEnabled(true);
         al_previous.setEnabled(true);
@@ -186,6 +187,7 @@ public class forms_customwork extends JFrame {
     private void al_increase(ActionEvent e) {
         // TODO add your code here
         System.out.println(e.getActionCommand());
+        al_ok.setEnabled(false);
         al_address2.setEnabled(true);
         Date date = new Date();
         wbk_id.setText(Integer.parseInt(String.valueOf(ReadTable.readTable("goods").get(ReadTable.readTable("goods").size()-1).get(0)))+1+"");
@@ -220,6 +222,12 @@ public class forms_customwork extends JFrame {
             wbk_address.setText(String.valueOf(ReadTable.QueryCustom(ReadTable.ReadTemporary().get(0)).get(4)));
             flag = true;
         }
+    }
+
+    private void al_ok(ActionEvent e) {
+        // TODO add your code here
+        System.out.println(e.getActionCommand());
+        UpdateTable.UpdateSign(wbk_id.getText(),"1");
     }
 
     private void initComponents() {
@@ -267,6 +275,7 @@ public class forms_customwork extends JFrame {
         wbk_address = new JTextField();
         al_address2 = new JButton();
         al_head = new JButton();
+        al_ok = new JButton();
 
         //======== this ========
         setTitle("\u53cc\u96c4\u7269\u6d41");
@@ -575,6 +584,13 @@ public class forms_customwork extends JFrame {
         contentPane.add(al_head);
         al_head.setBounds(new Rectangle(new Point(140, 410), al_head.getPreferredSize()));
 
+        //---- al_ok ----
+        al_ok.setText("\u786e\u8ba4\u5df2\u7b7e\u6536");
+        al_ok.setEnabled(false);
+        al_ok.addActionListener(e -> al_ok(e));
+        contentPane.add(al_ok);
+        al_ok.setBounds(435, 410, 135, al_ok.getPreferredSize().height);
+
         {
             // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -640,6 +656,7 @@ public class forms_customwork extends JFrame {
     private JTextField wbk_address;
     private JButton al_address2;
     private JButton al_head;
+    private JButton al_ok;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     //获得账户名
     private String account;
