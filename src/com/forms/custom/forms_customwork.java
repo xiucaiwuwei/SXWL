@@ -276,6 +276,7 @@ public class forms_customwork extends JFrame {
         label1 = new JLabel();
         al_ok = new JButton();
         al_head = new JButton();
+        al_ok = new JButton();
 
         //======== this ========
         setTitle("\u53cc\u96c4\u7269\u6d41");
@@ -604,6 +605,13 @@ public class forms_customwork extends JFrame {
         contentPane.add(al_head);
         al_head.setBounds(157, 470, al_head.getPreferredSize().width, 30);
 
+        //---- al_ok ----
+        al_ok.setText("\u786e\u8ba4\u5df2\u7b7e\u6536");
+        al_ok.setEnabled(false);
+        al_ok.addActionListener(e -> al_ok(e));
+        contentPane.add(al_ok);
+        al_ok.setBounds(435, 410, 135, al_ok.getPreferredSize().height);
+
         {
             // compute preferred size
             Dimension preferredSize = new Dimension();
@@ -669,6 +677,7 @@ public class forms_customwork extends JFrame {
     private JLabel label1;
     private JButton al_ok;
     private JButton al_head;
+    private JButton al_ok;
     // JFormDesigner - End of variables declaration  //GEN-END:variables  @formatter:on
     //获得账户名
     private String account;
